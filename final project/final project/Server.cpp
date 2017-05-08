@@ -91,23 +91,36 @@ void Server::clientHandler(SOCKET clientSocket)
 
 void Server::Register(SOCKET clientSocket)
 {
-	string s = "Enter Username (up to 20 characters): ";
-	send(clientSocket, s.c_str(), s.size(), 0);  // last parameter: flag. for us will be 0.
+	bool nameFlag = 1;
+	while (nameFlag)
+	{
+		string s = "Enter Username (up to 20 characters): ";
+		send(clientSocket, s.c_str(), s.size(), 0);  // last parameter: flag. for us will be 0.
 
-	char m[21];
-	recv(clientSocket, m, 4, 0);
-	m[20] = 0;
+		char m[21];
+		recv(clientSocket, m, 4, 0);
+		m[20] = 0;
+		for (map<string, string>::iterator i = _userDataBase.begin(); i != _userDataBase.end(); i++)
+		{
+			if (i->first == m)
+			{
+				nameFlag = 1;
+				break;
+			}
+		}
+	}
 	cout << "Client name is: " << m << endl;
+
 
 	string s = "Enter Password (up to 20 characters): ";
 	send(clientSocket, s.c_str(), s.size(), 0);  // last parameter: flag. for us will be 0.
 
-	char m[21];
-	recv(clientSocket, m, 4, 0);
-	m[20] = 0;
-	cout << "Client pass is: " << m << endl;
+	char p[21];
+	recv(clientSocket, p, 4, 0);
+	p[20] = 0;
+	cout << "Client pass is: " << p << endl;
 
-	s = "Bye";
+	_userDataBase.insert(pair<string, string>(m, p));
 	send(clientSocket, s.c_str(), s.size(), 0);
 
 }
