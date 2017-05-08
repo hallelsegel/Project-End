@@ -91,31 +91,31 @@ void Server::clientHandler(SOCKET clientSocket)
 
 void Server::Register(SOCKET clientSocket)
 {
+	char m[21], p[21];
 	bool nameFlag = 1;
-	while (nameFlag)
+	do
 	{
 		string s = "Enter Username (up to 20 characters): ";
 		send(clientSocket, s.c_str(), s.size(), 0);  // last parameter: flag. for us will be 0.
 
-		char m[21];
 		recv(clientSocket, m, 4, 0);
 		m[20] = 0;
+		nameFlag = 0;
 		for (map<string, string>::iterator i = _userDataBase.begin(); i != _userDataBase.end(); i++)
 		{
 			if (i->first == m)
 			{
 				nameFlag = 1;
+				cout << "Username already taken, please try again. " << endl;
 				break;
 			}
 		}
-	}
-	cout << "Client name is: " << m << endl;
+	} while (nameFlag);
 
+	cout << "Client name is: " << m << endl;
 
 	string s = "Enter Password (up to 20 characters): ";
 	send(clientSocket, s.c_str(), s.size(), 0);  // last parameter: flag. for us will be 0.
-
-	char p[21];
 	recv(clientSocket, p, 4, 0);
 	p[20] = 0;
 	cout << "Client pass is: " << p << endl;
