@@ -18,6 +18,6 @@ private:
 	void Register(SOCKET clientSocket);
 	void signIn(SOCKET clientSocket);
 	SOCKET _serverSocket;
-	map<string, string> userDataBase;
+	map<string, string> _userDataBase;
 };
 
