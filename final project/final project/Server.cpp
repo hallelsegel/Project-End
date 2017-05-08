@@ -114,6 +114,6 @@ void Server::Register(SOCKET clientSocket)
 
 void Server::signIn(SOCKET clientSocket)
 {
-
+	cout << "hallel is stupid" << endl;
 }
 
