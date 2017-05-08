@@ -77,16 +77,6 @@ void Server::clientHandler(SOCKET clientSocket)
 {
 	try
 	{
-		string s = "Welcome! What is your name (4 bytes)? ";
-		send(clientSocket, s.c_str(), s.size(), 0);  // last parameter: flag. for us will be 0.
-
-		char m[5];
-		recv(clientSocket, m, 4, 0);
-		m[4] = 0;
-		cout << "Client name is: " << m << endl;
-
-		s = "Bye";
-		send(clientSocket, s.c_str(), s.size(), 0);
 		
 		// Closing the socket (in the level of the TCP protocol)
 		closesocket(clientSocket); 
@@ -96,6 +86,34 @@ void Server::clientHandler(SOCKET clientSocket)
 		closesocket(clientSocket);
 	}
 
+
+}
+
+void Server::Register(SOCKET clientSocket)
+{
+	string s = "Enter Username (up to 20 characters): ";
+	send(clientSocket, s.c_str(), s.size(), 0);  // last parameter: flag. for us will be 0.
+
+	char m[21];
+	recv(clientSocket, m, 4, 0);
+	m[20] = 0;
+	cout << "Client name is: " << m << endl;
+
+	string s = "Enter Password (up to 20 characters): ";
+	send(clientSocket, s.c_str(), s.size(), 0);  // last parameter: flag. for us will be 0.
+
+	char m[21];
+	recv(clientSocket, m, 4, 0);
+	m[20] = 0;
+	cout << "Client pass is: " << m << endl;
+
+	s = "Bye";
+	send(clientSocket, s.c_str(), s.size(), 0);
+
+}
+
+void Server::signIn(SOCKET clientSocket)
+{
 
 }
 
