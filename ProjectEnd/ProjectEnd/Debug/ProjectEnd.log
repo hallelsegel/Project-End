@@ -1,0 +1,53 @@
+﻿Build started 08-May-17 17:35:08.
+     1>Project "C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\ProjectEnd\ProjectEnd\ProjectEnd.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
+         Source.cpp
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(8): error C2065: 'socklen_t' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(8): error C2146: syntax error : missing ';' before identifier 'clilen'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(8): error C2065: 'clilen' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(11): error C2065: 'isConnect' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(15): error C2679: binary '>>' : no operator found which takes a right-hand operand of type 'std::string' (or there is no acceptable conversion)
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(485): could be 'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(std::basic_streambuf<char,std::char_traits<char>> *)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(466): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(void *&)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(448): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(long double &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(430): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(double &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(411): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(float &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(392): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(unsigned __int64 &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(373): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(__int64 &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(353): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(unsigned long &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(335): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(long &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(317): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(unsigned int &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(291): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(int &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(272): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(unsigned short &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(237): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(short &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(218): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(std::_Bool &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(211): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(std::ios_base &(__cdecl *)(std::ios_base &))'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(204): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(std::basic_ios<char,std::char_traits<char>> &(__cdecl *)(std::basic_ios<char,std::char_traits<char>> &))'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(198): or       'std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(std::basic_istream<char,std::char_traits<char>> &(__cdecl *)(std::basic_istream<char,std::char_traits<char>> &))'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(1103): or       'std::basic_istream<char,std::char_traits<char>> &std::operator >><char,std::char_traits<char>,std::string>(std::basic_istream<char,std::char_traits<char>> &&,_Ty &)'
+                 with
+                 [
+                     _Ty=std::string
+                 ]
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(1093): or       'std::basic_istream<char,std::char_traits<char>> &std::operator >><std::char_traits<char>>(std::basic_istream<char,std::char_traits<char>> &,unsigned char &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(1086): or       'std::basic_istream<char,std::char_traits<char>> &std::operator >><std::char_traits<char>>(std::basic_istream<char,std::char_traits<char>> &,unsigned char *)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(1079): or       'std::basic_istream<char,std::char_traits<char>> &std::operator >><std::char_traits<char>>(std::basic_istream<char,std::char_traits<char>> &,signed char &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\istream(1072): or       'std::basic_istream<char,std::char_traits<char>> &std::operator >><std::char_traits<char>>(std::basic_istream<char,std::char_traits<char>> &,signed char *)'
+                 while trying to match the argument list '(std::istream, std::string)'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(20): error C3861: 'Sleep': identifier not found
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(21): error C2065: 'isConnect' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(21): error C2065: 'p' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(21): error C2228: left of '.connect' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(25): error C2065: 'p' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(25): error C2228: left of '.close' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(30): error C2065: 'p' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\projectend\projectend\source.cpp(30): error C2228: left of '.close' must have class/struct/union
+                 type is 'unknown-type'
+     1>Done Building Project "C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\ProjectEnd\ProjectEnd\ProjectEnd.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.33
