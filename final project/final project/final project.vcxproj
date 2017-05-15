@@ -67,21 +67,31 @@
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Helper.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="RecievedMeassage.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="user.cpp" />
+=======
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TriviaServer.cpp" />
+>>>>>>> 38f99faccaeff09ddb5ec9991cad29b3ead51737
     <ClCompile Include="WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Helper.h" />
+<<<<<<< HEAD
     <ClInclude Include="RecievedMeassage.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="user.h" />
+=======
+    <ClInclude Include="Question.h" />
+    <ClInclude Include="TriviaServer.h" />
+>>>>>>> 38f99faccaeff09ddb5ec9991cad29b3ead51737
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
