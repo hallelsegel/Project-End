@@ -66,14 +66,15 @@
   <ItemGroup>
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="Helper.cpp" />
-    <ClCompile Include="Server.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TriviaServer.cpp" />
     <ClCompile Include="WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Helper.h" />
-    <ClInclude Include="Server.h" />
+    <ClInclude Include="Question.h" />
+    <ClInclude Include="TriviaServer.h" />
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
