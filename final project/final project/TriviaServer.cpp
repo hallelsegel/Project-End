@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <thread>
-
+#include "Helper.h"
 using namespace std;
 
 TriviaServer::TriviaServer()
@@ -74,15 +74,16 @@ void TriviaServer::accept()
 	cout << "Client accepted. Server and client can speak" << endl;
 
 	// the function that handle the conversation with the client
-	thread(clientHandler, client_socket);
+	thread t(clientHandler, client_socket);
+	t.detach();
 }
 
 
 void TriviaServer::clientHandler(SOCKET clientSocket)
 {
+
 	try
-	{
-		
+	{		
 		// Closing the socket (in the level of the TCP protocol)
 		closesocket(clientSocket); 
 	}
