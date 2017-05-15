@@ -93,40 +93,71 @@ void Server::Register(SOCKET clientSocket)
 {
 	char m[21], p[21];
 	bool nameFlag = 1;
+	map<string, string>::iterator it;
 	do
 	{
 		string s = "Enter Username (up to 20 characters): ";
-		send(clientSocket, s.c_str(), s.size(), 0);  // last parameter: flag. for us will be 0.
-
+		send(clientSocket, s.c_str(), s.size(), 0);
 		recv(clientSocket, m, 4, 0);
 		m[20] = 0;
-		nameFlag = 0;
-		for (map<string, string>::iterator i = _userDataBase.begin(); i != _userDataBase.end(); i++)
-		{
-			if (i->first == m)
-			{
-				nameFlag = 1;
-				cout << "Username already taken, please try again. " << endl;
-				break;
-			}
+		it = _userDataBase.find(m);
+		if (it != _userDataBase.end()) cout << "Username found. " << endl;
+		else {
+			s = "Username not found, please try again\n";
+			send(clientSocket, s.c_str(), s.size(), 0);
 		}
-	} while (nameFlag);
-
+	} while (it == _userDataBase.end());
 	cout << "Client name is: " << m << endl;
 
 	string s = "Enter Password (up to 20 characters): ";
-	send(clientSocket, s.c_str(), s.size(), 0);  // last parameter: flag. for us will be 0.
+	send(clientSocket, s.c_str(), s.size(), 0); 
 	recv(clientSocket, p, 4, 0);
 	p[20] = 0;
 	cout << "Client pass is: " << p << endl;
 
 	_userDataBase.insert(pair<string, string>(m, p));
+	s = "Login succesful \n";
 	send(clientSocket, s.c_str(), s.size(), 0);
-
 }
 
 void Server::signIn(SOCKET clientSocket)
 {
-	cout << "hallel is smart (NOT!)" << endl;
+	char m[21], p[21];
+	map<string, string>::iterator it;
+	bool nameFlag = 1;
+	string s;
+	do
+	{// get username
+		s = "Enter Username (up to 20 characters): ";
+		send(clientSocket, s.c_str(), s.size(), 0);
+		recv(clientSocket, m, 4, 0);
+		m[20] = 0;
+		it = _userDataBase.find(m);
+		if (it != _userDataBase.end()) cout << "Username found. " << endl;
+		else {
+			s = "Username not found, please try again\n";
+			send(clientSocket, s.c_str(), s.size(), 0);
+			continue;
+		}
+	// get username
+
+		s = "Enter Password (up to 20 characters): ";
+		send(clientSocket, s.c_str(), s.size(), 0);
+		recv(clientSocket, p, 4, 0);
+		it = _userDataBase.find(s);
+		if (it != _userDataBase.end()) cout << "Password found. " << endl;
+		else {
+			s = "Username not found, please try again\n";
+			send(clientSocket, s.c_str(), s.size(), 0);
+			continue;
+		}
+		p[20] = 0;
+		cout << "Client pass is: " << p << endl;
+
+
+	} while (it == _userDataBase.end());
+	_userDataBase.insert(pair<string, string>(m, p));
+	s = "Login succesful \n";
+	send(clientSocket, s.c_str(), s.size(), 0);
 }
 

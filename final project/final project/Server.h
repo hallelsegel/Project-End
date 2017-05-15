@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include <map>
 
+using namespace std;
+
 class Server
 {
 public:
