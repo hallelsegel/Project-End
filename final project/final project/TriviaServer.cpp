@@ -17,7 +17,7 @@ TriviaServer::TriviaServer()
 
 	if (_serverSocket == INVALID_SOCKET)
 		throw std::exception(__FUNCTION__ " - socket");
-}
+} //fsghg
 
 TriviaServer::~TriviaServer()
 {
