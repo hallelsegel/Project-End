@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A8453C7E-99D0-4949-830E-5B9D73203088}</ProjectGuid>
+    <ProjectGuid>{965DA94B-83D8-4128-BE7F-0ABB6C44664F}</ProjectGuid>
     <RootNamespace>finalproject</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -64,35 +64,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DataBase.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Helper.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="RecievedMeassage.cpp" />
-    <ClCompile Include="Room.cpp" />
-    <ClCompile Include="Server.cpp" />
-    <ClCompile Include="Source.cpp" />
-    <ClCompile Include="user.cpp" />
-=======
-    <ClCompile Include="Source.cpp" />
-    <ClCompile Include="TriviaServer.cpp" />
->>>>>>> 38f99faccaeff09ddb5ec9991cad29b3ead51737
-    <ClCompile Include="WSAInitializer.cpp" />
+    <ClInclude Include="final project\DataBase.h" />
+    <ClInclude Include="final project\Game.h" />
+    <ClInclude Include="final project\Helper.h" />
+    <ClInclude Include="final project\Question.h" />
+    <ClInclude Include="final project\Room.h" />
+    <ClInclude Include="final project\TriviaServer.h" />
+    <ClInclude Include="final project\user.h" />
+    <ClInclude Include="final project\WSAInitializer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DataBase.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Helper.h" />
-<<<<<<< HEAD
-    <ClInclude Include="RecievedMeassage.h" />
-    <ClInclude Include="Room.h" />
-    <ClInclude Include="Server.h" />
-    <ClInclude Include="user.h" />
-=======
-    <ClInclude Include="Question.h" />
-    <ClInclude Include="TriviaServer.h" />
->>>>>>> 38f99faccaeff09ddb5ec9991cad29b3ead51737
-    <ClInclude Include="WSAInitializer.h" />
+    <ClCompile Include="final project\DataBase.cpp" />
+    <ClCompile Include="final project\Game.cpp" />
+    <ClCompile Include="final project\Helper.cpp" />
+    <ClCompile Include="final project\RecievedMeassage.cpp" />
+    <ClCompile Include="final project\Room.cpp" />
+    <ClCompile Include="final project\Source.cpp" />
+    <ClCompile Include="final project\TriviaServer.cpp" />
+    <ClCompile Include="final project\user.cpp" />
+    <ClCompile Include="final project\WSAInitializer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
