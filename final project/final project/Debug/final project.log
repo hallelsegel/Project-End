@@ -1,82 +1,90 @@
-﻿Build started 17-May-17 21:57:58.
+﻿Build started 19-May-17 11:50:48.
      1>Project "C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\final project\final project.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "final project\DataBase.cpp" "final project\Game.cpp" "final project\Helper.cpp" "final project\RecievedMeassage.cpp" "final project\Room.cpp" "final project\Source.cpp" "final project\TriviaServer.cpp" "final project\user.cpp" "final project\WSAInitializer.cpp"
-         WSAInitializer.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DataBase.cpp Question.cpp Source.cpp TriviaServer.cpp stdafx.cpp user.cpp
          user.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(16): error C2061: syntax error : identifier 'Room'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(24): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(24): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(24): warning C4183: 'getRoom': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(25): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(25): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(25): warning C4183: 'getGame': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(28): error C2061: syntax error : identifier 'Game'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(33): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(34): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.h(34): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\user.cpp(3): fatal error C1083: Cannot open include file: 'Server.h': No such file or directory
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(16): error C2061: syntax error : identifier 'Room'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(24): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(24): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(24): warning C4183: 'getRoom': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(25): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(25): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(25): warning C4183: 'getGame': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(28): error C2061: syntax error : identifier 'Game'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(33): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(34): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(34): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(3): fatal error C1083: Cannot open include file: 'Server.h': No such file or directory
+         stdafx.cpp
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\stdafx.h(8): fatal error C1083: Cannot open include file: 'targetver.h': No such file or directory
          TriviaServer.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(22): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(22): warning C4183: 'getRoomById': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(23): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(23): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(23): warning C4183: 'getUserByName': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(24): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(24): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(24): warning C4183: 'getUserBySocket': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(27): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(28): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(29): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(29): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(29): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(29): warning C4183: 'handleSignin': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(30): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(31): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(32): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(33): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(34): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(35): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(36): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(37): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(38): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(39): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(40): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(41): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(42): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(43): error C2061: syntax error : identifier 'RecievedMessage'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(48): error C2065: 'Room' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(48): error C2059: syntax error : '>'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(48): error C2976: 'std::map' : too few template arguments
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(22): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(22): warning C4183: 'getRoomById': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(23): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(23): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(23): warning C4183: 'getUserByName': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(24): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(24): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(24): warning C4183: 'getUserBySocket': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(27): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(28): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(29): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(29): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(29): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(29): warning C4183: 'handleSignin': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(30): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(32): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(33): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(34): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(35): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(36): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(37): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(39): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(40): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(41): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(42): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(43): error C2061: syntax error : identifier 'RecievedMessage'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(48): error C2065: 'Room' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(48): error C2059: syntax error : '>'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(48): error C2976: 'std::map' : too few template arguments
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\map(69) : see declaration of 'std::map'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(49): error C2065: 'User' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(49): error C2059: syntax error : '>'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(49): error C2976: 'std::map' : too few template arguments
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(49): error C2065: 'User' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(49): error C2059: syntax error : '>'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(49): error C2976: 'std::map' : too few template arguments
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\map(69) : see declaration of 'std::map'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(50): error C2065: 'RecievedMessage' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(50): error C2059: syntax error : '>'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.h(50): error C2976: 'std::queue' : too few template arguments
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(50): error C2065: 'RecievedMessage' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(50): error C2059: syntax error : '>'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(50): error C2976: 'std::queue' : too few template arguments
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\queue(19) : see declaration of 'std::queue'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.cpp(9): error C2653: 'TriviaServer' : is not a class or namespace name
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.cpp(10): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.cpp(16): error C2065: '_serverSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.cpp(18): error C2065: '_serverSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.cpp(20): warning C4508: 'TriviaServer' : function should return a value; 'void' return type assumed
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.cpp(22): error C2653: 'TriviaServer' : is not a class or namespace name
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\triviaserver.cpp(22): fatal error C1903: unable to recover from previous error(s); stopping compilation
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(9): error C2653: 'TriviaServer' : is not a class or namespace name
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(10): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(16): error C2065: '_serverSocket' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(18): error C2065: '_serverSocket' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(20): warning C4508: 'TriviaServer' : function should return a value; 'void' return type assumed
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(22): error C2653: 'TriviaServer' : is not a class or namespace name
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(22): fatal error C1903: unable to recover from previous error(s); stopping compilation
          Source.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\source.cpp(4): fatal error C1083: Cannot open include file: 'Server.h': No such file or directory
-         Room.cpp
-         RecievedMeassage.cpp
-         Helper.cpp
-         Game.cpp
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(4): fatal error C1083: Cannot open include file: 'Server.h': No such file or directory
          DataBase.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\final project\database.cpp(1): fatal error C1083: Cannot open include file: 'stdafx.h': No such file or directory
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\stdafx.h(8): fatal error C1083: Cannot open include file: 'targetver.h': No such file or directory
+         Generating Code...
+         Compiling...
+         Question.cpp
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\question.h(6): error C2143: syntax error : missing ';' before '<'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\question.h(6): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\question.h(7): error C2653: 'questions' : is not a class or namespace name
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\question.h(7): error C2146: syntax error : missing ';' before identifier 'users_iter'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\question.h(7): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\question.h(8): error C2653: 'questions' : is not a class or namespace name
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\question.h(8): error C2146: syntax error : missing ';' before identifier 'users_const_iter'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\question.h(8): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
          Generating Code...
      1>Done Building Project "C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\final project\final project.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:05.23
+Time Elapsed 00:00:02.76
