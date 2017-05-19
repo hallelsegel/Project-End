@@ -60,6 +60,11 @@ bool User::leaveGame()
 	return true;
 }
 
+void User::clearRoom()
+{
+	this->_currRoom = NULL;
+}
+
 // GETS
 string User::getUsername()
 {

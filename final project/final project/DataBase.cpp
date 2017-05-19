@@ -1,16 +1,313 @@
 ﻿#include "stdafx.h"
 #include "sqlite3.h"
-#include "CDatabaseAccess.h"
-
+#include "DataBase.h"
+#include <time.h>
 #define RETURN_IF_INVALID				if (_sqldb == nullptr) return;
 #define RETURN_RES_IF_INVALID(res)		if (_sqldb == nullptr) return res;
 
+
+DataBase::DataBase()
+{
+	//c'tor
+}
+
+DataBase::~DataBase()
+{
+	//d'tor
+}
+
+bool DataBase::isUserExists(string username)
+{/* Checks if a user with this name exists in the database. */
+	RETURN_RES_IF_INVALID(false);
+
+	string sqlStatement;
+	char *errMessage = nullptr;
+	int res;
+
+	sqlStatement = "SELECT * FROM T_USERS WHERE USERNAME='" + username + "';";
+
+	resetLastId();
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	if (res != SQLITE_OK)
+		return false;
+
+	return _lastId != -1;
+}
+
+bool DataBase::addNewUser(string username, string password, string email)
+{/* adds a new row to the T_USERS table with these values. */
+	RETURN_IF_INVALID;
+
+	string sqlStatement;
+	char *errMessage = nullptr;
+	int res;
+
+	char buff[10];
+
+	sqlStatement = "INSERT INTO T_USERS (USERNAME, PASSWORD, EMAIL) "	\
+		"VALUES ('" + username + "', '" + password + "', " + email + "); "	\
+		"SELECT * FROM T_USERS WHERE USERNAME='" + username + "';";
+
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	if (res != SQLITE_OK)
+		return false;
+
+	if (_lastId == -1)
+		return false;
+	return true;
+}
+
+bool DataBase::isUserAndPassMatch(string username, string password)
+{/* Checks if a user with this username AND password exists in the database. */
+	RETURN_RES_IF_INVALID(false);
+
+	string sqlStatement;
+	char *errMessage = nullptr;
+	int res;
+
+	sqlStatement = "SELECT * FROM T_USERS WHERE USERNAME='" + username + "' AND WHERE PASSWORD='" + password + "';";
+
+	resetLastId();
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	if (res != SQLITE_OK)
+		return false;
+
+	return _lastId != -1;
+}
+
+vector<Question*> DataBase::initQuestion(int questionNo)
+{/* initiates a vector with a [questionNo] number of questions drawn randomly from the database. */
+	vector<Question*> questionsV;
+	string sqlStatement;
+	char *errMessage = nullptr;
+
+	sqlStatement = "SELECT * FROM T_QUESTIONS ORDER BY RANDOM() LIMIT " + string(_itoa(questionNo, buff, 10)) + ";";
+	resetLastId();
+	sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackQuestions, questionsV, &errMessage);
+	
+	return;
+}
+
+int DataBase::insertNewGame()
+{
+	RETURN_IF_INVALID;
+
+	string sqlStatement;
+	char *errMessage = nullptr;
+	int res;
+
+	char buff[10];
+
+	sqlStatement = "INSERT INTO T_GAMES (STATUS, START_TIME, END_TIME) "	\
+		"VALUES ('0', '" +  + "', " + email + "); "	\
+		"SELECT * FROM T_USERS WHERE USERNAME='" + username + "';";
+
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	if (res != SQLITE_OK)
+		return false;
+
+	if (_lastId == -1)
+		return false;
+	return true;
+}
+
+bool DataBase::updateGameStatus(int gameId)
+{
+
+}
+
+bool DataBase::addAnswerToPlayer(int gameId, string username, int questionId, string answer, bool isCorrect, int answerTime)
+{
+
+}
+
+bool DataBase::initDatabase()
+{ /* Initiates the database in case it didn't exist beforehand, meaning creating all of the tables. */
+	char *sqlStatement;
+	char *errMessage = nullptr;
+	int res;
+
+	// create users table
+	sqlStatement = "CREATE TABLE T_USERS("				\
+		"USERNAME  TEXT PRIMARY KEY					,"	\
+		"PASSWORD  TEXT	NOT NULL					,"	\
+		"EMAIL     TEXT	NOT NULL)					;";
+
+	res = sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
+	if (res != SQLITE_OK)
+		return false;
+
+	// create games table
+	sqlStatement = "CREATE TABLE T_GAMES("							\
+		"GAME_ID	     INTEGER   PRIMARY KEY	AUTOINCREMENT	,"	\
+		"STATUS			 INTEGER   								,"	\
+		"START_TIME	     DATETIME								,"  \
+		"END_TIME        DATETIME  NOT NULL)					;";
+
+	res = sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
+	if (res != SQLITE_OK)
+		return false;
+
+	// create questions table
+	sqlStatement = "CREATE TABLE T_QUESTIONS("						\
+		"QUESTION_ID	 INTEGER   PRIMARY KEY		AUTOINCREMENT,"	\
+		"QUESTION		 TEXT						NOT NULL,"		\
+		"CORRECT_ANS	 TEXT						NOT NULL,"		\
+		"ANS2			 TEXT						NOT NULL,"		\
+		"ANS3			 TEXT						NOT NULL,"      \
+		"ANS4			 TEXT						NOT NULL;";
+
+	res = sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
+	if (res != SQLITE_OK)
+		return false;
+
+	// create answers table
+	sqlStatement = "CREATE TABLE T_PLAYERS_ANSWERS("							 	\
+		"PLAYER_ANSWER		TEXT												,"	\
+		"IS_CORRECT			INTEGER												,"	\
+		"GAME_ID			INTEGER												,"  \
+		"USERNAME			TEXT												,"  \
+		"QUESTION_ID		INTEGER												,"  \
+		"ANSWER_TIME		INTEGER												,"  \
+		"FOREIGN KEY(GAME_ID)		REFERENCES    T_GAMES(GAME_ID)				,"	\
+		"FOREIGN KEY(USERNAME)		REFERENCES    T_USERS(USERNAME)				,"	\
+		"FOREIGN KEY(QUESTION_ID)   REFERENCES    T_QUESTIONS(QUESTION_ID))		;";
+
+	res = sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
+	if (res != SQLITE_OK)
+		return false;
+
+	return true;
+}
+
+void DataBase::setLastId(char* lastId)
+{/* setter for the private member _lastid */
+	_lastId = atoi(lastId);
+}
+
+void DataBase::resetLastId()
+{/* resetter for the private member _lastid (insert -1) */
+	_lastId = -1;
+}
+
+bool DataBase::open()
+{/* starter for the database manager, including: opening the gallery db file if it exists, and calling the initiator for it if not. */
+	// check if file exists
+	string filename = "triviaDB.sqlite";
+	bool fileExisted = fileExistsOnDisk(filename);
+
+	// try to open the database
+	int res = sqlite3_open(filename.c_str(), &_sqldb);
+	if (res != SQLITE_OK) {
+		_sqldb = nullptr;
+		return false;
+	}
+
+	// db is open, check if we need to init it
+	if (fileExisted){
+
+		char* errmsg = nullptr;
+		//insertion:
+
+		res = sqlite3_exec(_sqldb, "INSERT INTO USERS (NAME) VALUES ('Noam Batito'); ", nullptr, nullptr, &errmsg);
+		if (res != SQLITE_OK) return false;
+		//updating
+		res = sqlite3_exec(_sqldb, "INSERT INTO PICTURES (NAME, LOCATION, CREATION_DATE, ALBUM_ID) VALUES ('My Femily'"
+			", 'Our Home <3', 06/04/17, 6); ", nullptr, nullptr, &errmsg);
+
+		res = sqlite3_exec(_sqldb, "DELETE FROM PICTURES where ALBUM_ID=13; ", nullptr, nullptr, &errmsg);
+		if (res != SQLITE_OK) return false;
+		/**	Done **/
+
+
+
+		return true;
+	}
+
+	// need to init, lets create the tables and some other stuff...
+	return initDatabase();
+}
+
+void DataBase::close()
+{/* close the file and clear the private member that holds it, _sqldb. */
+	RETURN_IF_INVALID;
+
+	sqlite3_close(_sqldb);
+	_sqldb = nullptr;
+}
+
+void DataBase::clear()
+{/* clear the whole database, using DELETE commands. */
+	RETURN_IF_INVALID;
+
+	char *sqlStatement;
+	char *errMessage = nullptr;
+
+	sqlStatement = "DELETE FROM T_GAMES;"	\
+		"DELETE FROM T_QUESTIONS;"				\
+		"DELETE FROM T_USERS;"				\
+		"DELETE FROM T_PLAYERS_ANSWERS;";
+
+	sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
+}
+
+bool DataBase::fileExistsOnDisk(const string& filename)
+{/* checks if a file called [filename] exists on disc, like the name says. */
+	struct stat buffer;
+	return (stat(filename.c_str(), &buffer) == 0);
+}
+
+
+int DataBase::callbackCount(void* param, int argc, char** argv, char** azColName)
+{
+
+}
+
+int DataBase::callbackQuestions(void* param, int argc, char** argv, char** azColName)
+{
+	questions *questionsList = static_cast<questions *>(param);
+	int id;
+	string question, corrAns, ans2, ans3, ans4;
+	for (int i = 0; i<argc; i++) {
+		if (string(azColName[i]).compare("QUESTION_ID") == 0) {
+			id = atoi(argv[i]);
+		}
+		else if (string(azColName[i]).compare("QUESTION") == 0) {
+			question = argv[i];
+		}
+		else if (string(azColName[i]).compare("CORRECT_ANS") == 0) {
+			corrAns = argv[i];
+		}
+		else if (string(azColName[i]).compare("ANS2") == 0) {
+			ans2 = argv[i];
+		}
+		else if (string(azColName[i]).compare("ANS3") == 0) {
+			ans3 = argv[i];
+		}
+		else if (string(azColName[i]).compare("ANS4") == 0) {
+			ans4 = argv[i];
+		}
+	}
+	Question currentQuestion(id, question, corrAns, ans2, ans3, ans4);
+	questionsList->push_back(currentQuestion);
+	return 0;
+}
+
+int DataBase::callbackBestScores(void* param, int argc, char** argv, char** azColName)
+{
+
+}
+
+int DataBase::callbackPersonalStatus(void* param, int argc, char** argv, char** azColName)
+{
+
+}
 
 static int sqlExecCallback(void* param, int argc, char** argv, char** azColName)
 {/* The Callback function (for storing information recieved by SELECT in objects, used in the exec that calls SELECET) that
  covers the ID column only, if it are available (true for all callbacks). This will be primarily used to determine if an object 
  exists (because we only need to know if anything is returned)*/
-	CDatabaseAccess *dbAccess = (CDatabaseAccess *)param;
+	DataBase *dbAccess = (DataBase *)param;
 	dbAccess->resetLastId();
 
 	int i;
@@ -51,120 +348,8 @@ static int sqlInt(void* params, int argc, char** argv, char** azColName)
 	return 0;
 }
 
-static int listUsersCallback(void* param, int argc, char** argv, char** azColName)
-{/* The Callback function (for storing information recieved by SELECT in objects) for the USERS table: takes ID and NAME, and stores them. */
-	users *usersList = static_cast<users *>(param);
 
-	CUser currentUser;
-
-	for(int i=0; i<argc; i++) {
-		if (string(azColName[i]).compare("ID") == 0) {
-			currentUser.setId(atoi(argv[i]));
-		}
-		else if (string(azColName[i]).compare("NAME") == 0) {
-			currentUser.setName(argv[i]);
-		}
-	}
-	usersList->push_back(currentUser);
-
-	return 0;
-}
-
-static int listAlbumsCallback(void* param, int argc, char** argv, char** azColName)
-{/* The Callback function (for storing information recieved by SELECT in objects) for the ALBUMS table: takes ID, NAME
- CREATION_DATE and USER_ID and stored them. */
-	albums *usersList = static_cast<albums *>(param);
-
-	CAlbum currentAlbum;
-
-	for(int i=0; i<argc; i++) {
-		if (string(azColName[i]).compare("ID") == 0) {
-			currentAlbum.setId(atoi(argv[i]));
-		}
-		else if (string(azColName[i]).compare("NAME") == 0) {
-			currentAlbum.setName(argv[i]);
-		}
-		else if (string(azColName[i]).compare("CREATION_DATE") == 0)
-		{
-			currentAlbum.setCreationDate(argv[i]);
-		}
-		else if (string(azColName[i]).compare("USER_ID") == 0)
-		{
-			currentAlbum.setUserId(atoi(argv[i]));
-		}
-	}
-	usersList->push_back(currentAlbum);
-
-	return 0;
-}
-
-static int listPicturesCallback(void* param, int argc, char** argv, char** azColName)
-{/* The Callback function (for storing information recieved by SELECT in objects) for the PICTURES table: takes ID, NAME
-	LOCATION, and CREATION_DATE and stores them. */
-	pictures *picsList = static_cast<pictures *>(param);
-
-	CPicture currentPicture;
-
-	for(int i=0; i<argc; i++) {
-		if (string(azColName[i]).compare("ID") == 0) {
-			currentPicture.setId(atoi(argv[i]));
-		}
-		else if (string(azColName[i]).compare("NAME") == 0) {
-			currentPicture.setName(argv[i]);
-		}
-		else if (string(azColName[i]).compare("LOCATION") == 0) {
-			currentPicture.setLocation(argv[i]);
-		}
-		else if (string(azColName[i]).compare("CREATION_DATE") == 0)
-		{
-			currentPicture.setCreationDate(argv[i]);
-		}
-	}
-	picsList->push_back(currentPicture);
-
-	return 0;
-}
-
-static int listUserTagsCallback(void* param, int argc, char** argv, char** azColName)
-{/* The Callback function (for storing information recieved by SELECT in objects) for the TAGS table: takes USER_ID only and stores it. */
-	set<int> *usersList = (set<int> *)param;
-
-	for(int i=0; i<argc; i++) {
-		if (string(azColName[i]).compare("USER_ID") == 0) {
-			usersList->insert(atoi(argv[i]));
-		}
-	}
-
-	return 0;
-}
-
-CDatabaseAccess::CDatabaseAccess() : _sqldb(nullptr)
-{/* c'tor */
-}
-
-CDatabaseAccess::~CDatabaseAccess()
-{/* d'tor */
-	close();
-}
-
-const albums& CDatabaseAccess::getAlbums()
-{/* regular SELECT sql command (sent using the exec function) from albums, stores all available albums. uses the callback 
-	for albums from above. */
-	_albums.clear();
-	RETURN_RES_IF_INVALID(_albums);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-
-	sqlStatement = "SELECT * FROM ALBUMS;";
-
-	resetLastId();
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), listAlbumsCallback, &_albums, &errMessage);
-
-	return _albums;
-}
-
-const albums& CDatabaseAccess::getAlbumsOfUser(int userId)
+const albums& DataBase::getAlbumsOfUser(int userId)
 {/* SELECT albums of a certain user, using the WHERE sql command (sent using the exec function) from albums. */
 	_albumsOfUser.clear();
 	RETURN_RES_IF_INVALID(_albums);
@@ -183,7 +368,7 @@ const albums& CDatabaseAccess::getAlbumsOfUser(int userId)
 }
 
 
-void CDatabaseAccess::insertAlbum(CAlbum& album)
+void DataBase::insertAlbum(CAlbum& album)
 {/* INSERT an album to the ALBUMS table, using the sql command and a CAlbum object that the information
 	for the album comes from. Using SELECT after with the minimal callback (the first) to determine the INSERT success. */
 	RETURN_IF_INVALID;
@@ -210,7 +395,7 @@ void CDatabaseAccess::insertAlbum(CAlbum& album)
 	album.setId(_lastId);
 }
 
-void CDatabaseAccess::deleteAlbum(string albumName)
+void DataBase::deleteAlbum(string albumName)
 {/* DELETE an album from the ALBUMS table according to a selected name. */
 	RETURN_IF_INVALID;
 
@@ -222,7 +407,7 @@ void CDatabaseAccess::deleteAlbum(string albumName)
 	sqlite3_exec(_sqldb, sqlStatement.c_str(), nullptr, this, &errMessage);
 }
 
-bool CDatabaseAccess::albumExists(string albumName)
+bool DataBase::albumExists(string albumName)
 {/* same as used in the INSERT function, determines if the album exists using the minimal callback function. */
 	RETURN_RES_IF_INVALID(false);
 
@@ -240,7 +425,7 @@ bool CDatabaseAccess::albumExists(string albumName)
 	return _lastId != -1;
 }
 
-CAlbum* CDatabaseAccess::openAlbum(string albumName)
+CAlbum* DataBase::openAlbum(string albumName)
 {/* Preperation of a certain album for the album-specific-function: checks the album's validity and queries for all of its
 	pictures and tags. */
 	RETURN_RES_IF_INVALID(nullptr);
@@ -278,12 +463,12 @@ CAlbum* CDatabaseAccess::openAlbum(string albumName)
 	return &*iter;
 }
 
-void CDatabaseAccess::closeAlbum(CAlbum* pAlbum)
+void DataBase::closeAlbum(CAlbum* pAlbum)
 {/*I guess this is only a placeholder because the RAM based class needed to close the objects, but we don't because its all in
  the file instead of the RAM (that needs to be cleaned) and they wanted this to work with the same files the original did. */
 }
 
-void CDatabaseAccess::addPictureToAlbum(int albumId, CPicture& picture)
+void DataBase::addPictureToAlbum(int albumId, CPicture& picture)
 {/* add a picture, using the INSERT sql command, and a CPicture object for the values of the new line in the PICTURES table,
 	except for ALBUM_ID that is given as parameter. also checks if it exists for confirmation usingthe minimal callback function*/
 	RETURN_IF_INVALID;
@@ -320,7 +505,7 @@ void CDatabaseAccess::addPictureToAlbum(int albumId, CPicture& picture)
 	}
 }
 
-void CDatabaseAccess::removePictureFromAlbum(int albumId, int pictureId)
+void DataBase::removePictureFromAlbum(int albumId, int pictureId)
 {/* DELETE an picture from the PICTURES table according to a selected name, then deletes all the tags that had to do
 	with it (since it doesn't exist anymore). */
 	RETURN_IF_INVALID;
@@ -335,7 +520,7 @@ void CDatabaseAccess::removePictureFromAlbum(int albumId, int pictureId)
 	sqlite3_exec(_sqldb, sqlStatement.c_str(), nullptr, this, &errMessage);
 }
 	
-void CDatabaseAccess::tagUserInPicture(CPicture& picture, int userId)
+void DataBase::tagUserInPicture(CPicture& picture, int userId)
 {/* adds a tag of a user using the INSERT commend for the TAGS table and a given int for the user id. */
 	RETURN_IF_INVALID;
 
@@ -353,7 +538,7 @@ void CDatabaseAccess::tagUserInPicture(CPicture& picture, int userId)
 	picture.tagUser(userId);
 }
 
-void CDatabaseAccess::untagUserInPicture(CPicture& picture, int userId)
+void DataBase::untagUserInPicture(CPicture& picture, int userId)
 {/* remove a tag from a user, which is just to DELETE it from the table. also checks if it still exists 
  for confirmation usingthe minimal callback function.*/
 	RETURN_IF_INVALID;
@@ -371,7 +556,7 @@ void CDatabaseAccess::untagUserInPicture(CPicture& picture, int userId)
 	picture.untagUser(userId);
 }
 
-bool CDatabaseAccess::isUserTaggedInPicture(const CPicture& picture, int userId)
+bool DataBase::isUserTaggedInPicture(const CPicture& picture, int userId)
 {/* checks if a user is tagged in a picture, which means checking if a tag that points to the given picture id and the given user id
  exists using the minimal callback function*/
 	RETURN_RES_IF_INVALID(false);
@@ -387,7 +572,7 @@ bool CDatabaseAccess::isUserTaggedInPicture(const CPicture& picture, int userId)
 	return _lastId != -1;
 }
 
-const users& CDatabaseAccess::getUsers()
+const users& DataBase::getUsers()
 {/* regular SELECT command on the USERS table, queries for all available users and stores them in CUser objects
  using the user callback function. */
 	_users.clear();
@@ -404,7 +589,7 @@ const users& CDatabaseAccess::getUsers()
 	return _users;
 }
 
-void CDatabaseAccess::addUser(CUser& user)
+void DataBase::addUser(CUser& user)
 {/* INSERT a user to the USERS table, using the sql command and a CUser object that the information
 	for the user comes from. Using SELECT after with the minimal callback to determine the INSERT success. */
 	RETURN_IF_INVALID;
@@ -427,7 +612,7 @@ void CDatabaseAccess::addUser(CUser& user)
 	user.setId(_lastId);
 }
 
-void CDatabaseAccess::deleteUser(string userName)
+void DataBase::deleteUser(string userName)
 {/* DELETE a picture from the USERS table according to a selected name. */
 	RETURN_IF_INVALID;
 
@@ -439,7 +624,7 @@ void CDatabaseAccess::deleteUser(string userName)
 	sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
 }
 
-bool CDatabaseAccess::userExists(string userName)
+bool DataBase::userExists(string userName)
 {/* Checks if a user exists using the minimal callback function using his name as a string. */
 	RETURN_RES_IF_INVALID(false);
 
@@ -457,7 +642,7 @@ bool CDatabaseAccess::userExists(string userName)
 	return _lastId != -1;
 }
 
-bool CDatabaseAccess::userExists(int userId)
+bool DataBase::userExists(int userId)
 {/* Checks if a user exists using the minimal callback function using his id (int). */
 	RETURN_RES_IF_INVALID(false);
 
@@ -476,7 +661,7 @@ bool CDatabaseAccess::userExists(int userId)
 	return _lastId != -1;
 }
 
-CUser* CDatabaseAccess::getUser(int userId)
+CUser* DataBase::getUser(int userId)
 {/* actual non-sql function! gets the id of the wanted user and returns a pointer to the right one from the users object-list. */
 	RETURN_RES_IF_INVALID(nullptr);
 
@@ -495,7 +680,7 @@ CUser* CDatabaseAccess::getUser(int userId)
 	return nullptr;
 }
 
-int CDatabaseAccess::countAlbumsOwnedOfUser(int userId) 
+int DataBase::countAlbumsOwnedOfUser(int userId) 
 {/* Count the albums of a certain user by using the exec with the sqlInt function from above.*/
 	RETURN_RES_IF_INVALID(-1);
 
@@ -515,7 +700,7 @@ int CDatabaseAccess::countAlbumsOwnedOfUser(int userId)
 	return albumsCount;
 }
 
-int CDatabaseAccess::countAlbumsTaggedOfUser(int userId)
+int DataBase::countAlbumsTaggedOfUser(int userId)
 {/* tags to a certain user in the his albums by using the exec with the sqlInt function from above. */
 	RETURN_RES_IF_INVALID(-1);
 
@@ -538,7 +723,7 @@ int CDatabaseAccess::countAlbumsTaggedOfUser(int userId)
 	return albumsCount;
 }
 
-int CDatabaseAccess::countTagsOfUser(int userId)
+int DataBase::countTagsOfUser(int userId)
 {/* Count the tags to a certain user by using the exec with the sqlInt function from above. */
 	RETURN_RES_IF_INVALID(-1);
 
@@ -558,7 +743,7 @@ int CDatabaseAccess::countTagsOfUser(int userId)
 	return albumsCount;
 }
 
-float CDatabaseAccess::averageTagsPerAlbumOfUser(int userId)
+float DataBase::averageTagsPerAlbumOfUser(int userId)
 {/* another non-sql function, calls the function that counts the tags of a user and returns the average tags per user,
 	using the album-counting function (if there are any albums). */
 	float albumsOfTaggedUser = static_cast<float>(countAlbumsTaggedOfUser(userId));
@@ -568,7 +753,7 @@ float CDatabaseAccess::averageTagsPerAlbumOfUser(int userId)
 	return static_cast<float>(countTagsOfUser(userId)) / albumsOfTaggedUser;
 }
 
-const CUser* CDatabaseAccess::getTopTaggedUser()
+const CUser* DataBase::getTopTaggedUser()
 {/* counts tags for the users and returns the one with the most, using the sqlTopId function from the start. */
 	RETURN_RES_IF_INVALID(nullptr);
 
@@ -591,7 +776,7 @@ const CUser* CDatabaseAccess::getTopTaggedUser()
 	return getUser(tagsPair.first);
 }
 
-const CPicture* CDatabaseAccess::getTopTaggedPicture()
+const CPicture* DataBase::getTopTaggedPicture()
 {/* counts tags for the all pictures and returns the one with the most, using the sqlTopId function from the start. also 
 	queries (using the pictures callback) for that picture and puts it in the private member _topTaggedPicture. */
 	RETURN_RES_IF_INVALID(nullptr);
@@ -636,7 +821,7 @@ const CPicture* CDatabaseAccess::getTopTaggedPicture()
 	return nullptr;
 }
 
-const pictures& CDatabaseAccess::getTaggedPicturesOfUser(int userId)
+const pictures& DataBase::getTaggedPicturesOfUser(int userId)
 {/* queries for pictures that are tagged to a certain user using the pictures callback function. */
 	_picturesOfUser.clear();
 	RETURN_RES_IF_INVALID(_picturesOfUser);
@@ -652,210 +837,4 @@ const pictures& CDatabaseAccess::getTaggedPicturesOfUser(int userId)
 	int res = sqlite3_exec(_sqldb, sqlStatement.c_str(), listPicturesCallback, &_picturesOfUser, &errMessage);
 
 	return _picturesOfUser;
-}
-
-void CDatabaseAccess::setLastId(char* lastId)
-{/* setter for the private member _lastid */
-	_lastId = atoi(lastId);
-}
-
-void CDatabaseAccess::resetLastId()
-{/* resetter for the private member _lastid (insert -1) */
-	_lastId = -1;
-}
-
-bool CDatabaseAccess::open()
-{/* starter for the database manager, including: opening the gallery db file if it exists, and calling the initiator for it if not. */
-	// check if file exists
-	string filename = "galleryDB.sqlite";
-	bool fileExisted = fileExistsOnDisk(filename);
-
-	// try to open the database
-	int res = sqlite3_open(filename.c_str(), &_sqldb);
-	if (res != SQLITE_OK) {
-		_sqldb = nullptr;
-		return false;
-	}
-
-	// db is open, check if we need to init it
-	if (fileExisted){
-
-		/**			sql/c++ tutorial exercises:			**/
-		char* errmsg = nullptr;
-			//insertion:
-
-		res = sqlite3_exec(_sqldb, "INSERT INTO USERS (NAME) VALUES ('Noam Batito'); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO ALBUMS (NAME, CREATION_DATE, USER_ID) VALUES ('itsa me batito', '06/04/17'"
-			", 15); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO PICTURES (NAME, LOCATION, CREATION_DATE, ALBUM_ID) VALUES ('Bathitub'"
-			", 'Batito's tub', 06/04/17, 12); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (31, 4); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (31, 7); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO PICTURES (NAME, LOCATION, CREATION_DATE, ALBUM_ID) VALUES ('Batito Salad'"
-			", 'Batito's kitchen', 06/04/17, 12); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (32, 4); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (32, 3); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		//2nd user
-		res = sqlite3_exec(_sqldb, "INSERT INTO USERS (NAME) VALUES ('Amit Malka'); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO ALBUMS (NAME, CREATION_DATE, USER_ID) VALUES ('Malka in da haus', '06/04/17'"
-			", 16); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO PICTURES (NAME, LOCATION, CREATION_DATE, ALBUM_ID) VALUES ('bloddy ell'"
-			", 'literally ell', 06/04/17, 13); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (33, 8); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (33, 2); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-
-		res = sqlite3_exec(_sqldb, "INSERT INTO PICTURES (NAME, LOCATION, CREATION_DATE, ALBUM_ID) VALUES ('Malkware'"
-			", 'Hacker lab', 06/04/17, 13); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (34, 5); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (34, 6); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		//3rd user
-		res = sqlite3_exec(_sqldb, "INSERT INTO USERS (NAME) VALUES ('Singsongpingpongdingdong'); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO ALBUMS (NAME, CREATION_DATE, USER_ID) VALUES ('So Small Mr child', '06/04/17'"
-			", 17); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO PICTURES (NAME, LOCATION, CREATION_DATE, ALBUM_ID) VALUES ('lmao u dumb'"
-			", 'low prio', 06/04/17, 14); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (35, 2); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (35, 1); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-
-		res = sqlite3_exec(_sqldb, "INSERT INTO PICTURES (NAME, LOCATION, CREATION_DATE, ALBUM_ID) VALUES ('Shamefur dispuray'"
-			", 'high prio city', 06/04/17, 14); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (36, 3); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "INSERT INTO TAGS (PICTURE_ID, USER_ID) VALUES (36, 6); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-
-		//updating
-		res = sqlite3_exec(_sqldb, "INSERT INTO PICTURES (NAME, LOCATION, CREATION_DATE, ALBUM_ID) VALUES ('My Femily'"
-			", 'Our Home <3', 06/04/17, 6); ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "UPDATE PICTURES set NAME = 'My Family' where PREFIX='My Femily'; ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "UPDATE PICTURES set LOCATION = 'C:\\Users\\User\\Documents\\magshimim\\marieCuriePics\\MarieCurie3.jpg' where ID=20; ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-
-
-		//Deletion
-		res = sqlite3_exec(_sqldb, "DELETE FROM USERS where NAME='Amit Malka'; ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "DELETE FROM ALBUMS where NAME='Malka in da haus'; ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		res = sqlite3_exec(_sqldb, "DELETE FROM PICTURES where ALBUM_ID=13; ", nullptr, nullptr, &errmsg);
-		if (res != SQLITE_OK) return false;
-		/**	Done **/
-		
-		
-		
-		return true;
-	}
-
-	// need to init, lets create the tables and some other stuff...
-	return initDatabase();
-}
-
-void CDatabaseAccess::close()
-{/* close the file and clear the private member that holds it, _sqldb. */
-	RETURN_IF_INVALID;
-
-	sqlite3_close(_sqldb);
-	_sqldb = nullptr;
-}
-
-void CDatabaseAccess::clear()
-{/* clear the whole database, using DELETE commands. */
-	RETURN_IF_INVALID;
-
-	char *sqlStatement;
-	char *errMessage = nullptr;
-
-	sqlStatement = "DELETE FROM ALBUMS;"	\
-		"DELETE FROM PICTURES;"				\
-		"DELETE FROM USERS;"				\
-		"DELETE FROM TAGS;";
-
-	sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
-}
-
-bool CDatabaseAccess::fileExistsOnDisk(const string& filename)
-{/* checks if a file called [filename] exists on disc, like the name says. */
-	struct stat buffer;   
-	return (stat(filename.c_str(), &buffer) == 0); 
-}
-
-bool CDatabaseAccess::initDatabase()
-{ /* Initiates the database in case it didn't exist beforehand, meaning creating all of the tables. */
-	char *sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-
-	// create Users table
-	sqlStatement = "CREATE TABLE USERS("				\
-		"ID    INTEGER   PRIMARY KEY   AUTOINCREMENT,"	\
-		"NAME  TEXT					NOT NULL);";
-
-	res = sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
-	if (res != SQLITE_OK)
-		return false;
-
-	// create Albums table
-	sqlStatement = "CREATE TABLE ALBUMS("							\
-		"ID			     INTEGER   PRIMARY KEY	AUTOINCREMENT,"   	\
-		"NAME			 TEXT					NOT NULL,"			\
-		"CREATION_DATE   TEXT					NOT NULL,"          \
-		"USER_ID         INT                    NOT NULL,"          \
-		"FOREIGN KEY(USER_ID)      REFERENCES   USER(ID));";
-
-	res = sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
-	if (res != SQLITE_OK)
-		return false;
-
-
-
-	// create Pictures table
-	sqlStatement = "CREATE TABLE PICTURES("							\
-         "ID			 INTEGER   PRIMARY KEY		AUTOINCREMENT,"	\
-         "NAME			 TEXT						NOT NULL,"		\
-         "LOCATION		 TEXT						NOT NULL,"		\
-		 "CREATION_DATE  TEXT						NOT NULL,"		\
-         "ALBUM_ID		 INT						NOT NULL,"      \
-		 "FOREIGN KEY(ALBUM_ID)    REFERENCES       ALBUM(ID));";
-
-	res = sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
-	if (res != SQLITE_OK)
-		return false;
-
-	// create Tags table
-	sqlStatement = "CREATE TABLE TAGS("						     	\
-         "ID			INTEGER      PRIMARY KEY   AUTOINCREMENT,"	\
-         "PICTURE_ID	INT						   NOT NULL,"		\
-         "USER_ID		INT						   NOT NULL,"       \
-		 "FOREIGN KEY(PICTURE_ID)    REFERENCES    PICTURES(ID),"    \
-	     "FOREIGN KEY(USER_ID)       REFERENCES    USERS(ID));";
-
-	res = sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
-	if (res != SQLITE_OK)
-		return false;
-
-	return true;
 }

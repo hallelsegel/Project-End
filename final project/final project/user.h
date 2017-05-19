@@ -17,6 +17,7 @@ public:
 	void leaveRoom();
 	int closeRoom();
 	bool leaveGame();
+	void clearRoom();
 
 	// GETS
 	string getUsername();
