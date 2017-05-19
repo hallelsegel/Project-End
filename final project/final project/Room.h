@@ -3,6 +3,7 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include <map>
+#include "Protocol.h"
 
 using namespace std;
 
@@ -22,17 +23,17 @@ public:
 	int getQuestionNo();	
 	int getId();
 	string getName();
-	string getUsersAsAsString();
+	string getUsersAsAsString(vector<User*>, User*);
 
 	// SETS
 
 private:
 
 	vector<User*> _users;
-	User* admin;
+	User* _admin;
 	int _maxUsers;
 	int _questionTime;
-	int questionsNo;
+	int _questionsNo;
 	string _name;
 	int _id;
 };

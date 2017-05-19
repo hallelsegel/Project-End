@@ -67,6 +67,7 @@
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="Protocol.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="RecievedMeassage.h" />
     <ClInclude Include="Room.h" />

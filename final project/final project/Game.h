@@ -3,22 +3,23 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include <map>
+#include "Protocol.h"
 
 using namespace std;
 
 class Game
 {
 public:
-	Game(string, SOCKET);
+	Game(const vector<User*>&, int, DataBase&);
 	~Game();
-	void sendFIrstQuestion();
-	void handleFinishQuestion();
+	void sendFirstQuestion();
+	void handleFinishGame();
 	bool handleNextTurn();
 	bool handleAnswerFromUser(User*,int,int);
 	bool leaveGame(User*);
 	bool insertGameToDB();
 	void initQuestionsFromDB();
-	void sendQuestionTAllUsers();
+	void sendQuestionToAllUsers();
 	
 	// GETS
 	int getId();
@@ -27,11 +28,12 @@ public:
 	
 private:
 
-	vector<Questions*> _questions;
-	vector<User*> __Players;
+	vector<Question*> _questions;
+	vector<User*> _players;
 	int _question_no;
-	int currQuestionIndex;
+	int _currQuestionIndex;
 	DataBase& _db;
 	map<string, int> _results;
-	int currentTurnAnswers;
+	int _currentTurnAnswers;
+	int _ID;
 };
