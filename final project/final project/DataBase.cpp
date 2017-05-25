@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "sqlite3.h"
 #include "DataBase.h"
-#include <time.h>
+#include <ctime>
 #define RETURN_IF_INVALID				if (_sqldb == nullptr) return;
 #define RETURN_RES_IF_INVALID(res)		if (_sqldb == nullptr) return res;
 
@@ -80,6 +80,7 @@ vector<Question*> DataBase::initQuestion(int questionNo)
 	vector<Question*> questionsV;
 	string sqlStatement;
 	char *errMessage = nullptr;
+	char buff[10];
 
 	sqlStatement = "SELECT * FROM T_QUESTIONS ORDER BY RANDOM() LIMIT " + string(_itoa(questionNo, buff, 10)) + ";";
 	resetLastId();
@@ -97,10 +98,9 @@ int DataBase::insertNewGame()
 	int res;
 
 	char buff[10];
-
 	sqlStatement = "INSERT INTO T_GAMES (STATUS, START_TIME, END_TIME) "	\
-		"VALUES ('0', '" +  + "', " + email + "); "	\
-		"SELECT * FROM T_USERS WHERE USERNAME='" + username + "';";
+		"VALUES (0, time('now'), time('now'); "	\
+		"SELECT * FROM T_GAMES WHERE START_TIME=time('now');";  //time('now') is the current time (h/m/s), is temporarily inserted to END_TIME.
 
 	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
 	if (res != SQLITE_OK)
@@ -113,12 +113,47 @@ int DataBase::insertNewGame()
 
 bool DataBase::updateGameStatus(int gameId)
 {
+	RETURN_IF_INVALID;
 
+	string sqlStatement;
+	char *errMessage = nullptr;
+	int res;
+	char buff[10];
+	
+	sqlStatement = "UPDATE T_GAMES SET END_TIME = date('now') WHERE GAME_ID = " + string(_itoa(gameId, buff, 10)) + ";";
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	if (res != SQLITE_OK)
+		return false;
+
+	if (_lastId == -1)
+		return false;
+	return true;
 }
 
 bool DataBase::addAnswerToPlayer(int gameId, string username, int questionId, string answer, bool isCorrect, int answerTime)
 {
+	RETURN_IF_INVALID;
 
+	string sqlStatement;
+	char *errMessage = nullptr;
+	int res;
+	char buff[10];
+	
+	sqlStatement = "INSERT INTO T_PLAYERS_ANSWERS (PLAYER_ANSWER, IS_CORRECT, GAME_ID, USERNAME, QUESTION_ID, ANSWER_TIME)" \
+		"VALUES(" + answer + ", " + string(_itoa(isCorrect, buff, 10)) + ", " + string(_itoa(gameId, buff, 10)) + ", "		\
+		+ username + ", " + string(_itoa(questionId, buff, 10)) + ", " + string(_itoa(answerTime, buff, 10)) + "); "		\
+		+ "SELECT * FROM T_PLAYERS_ANSWETS WHERE GAME_ID = " + string(_itoa(gameId, buff, 10)) + "AND WHERE USERNAME ="		\
+		+ username + "AND WHERE QUESTION_ID =" + string(_itoa(questionId, buff, 10)) +									 ";";
+	//first insert with all required values and then call select where its the right question for the right user in the right
+	//game to check success.
+	
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	if (res != SQLITE_OK)
+		return false;
+
+	if (_lastId == -1)
+		return false;
+	return true;
 }
 
 bool DataBase::initDatabase()
@@ -129,7 +164,7 @@ bool DataBase::initDatabase()
 
 	// create users table
 	sqlStatement = "CREATE TABLE T_USERS("				\
-		"USERNAME  TEXT PRIMARY KEY					,"	\
+		"USERNAME  TEXT PRIMARY KEY		NOT NULL	,"	\
 		"PASSWORD  TEXT	NOT NULL					,"	\
 		"EMAIL     TEXT	NOT NULL)					;";
 
@@ -139,10 +174,10 @@ bool DataBase::initDatabase()
 
 	// create games table
 	sqlStatement = "CREATE TABLE T_GAMES("							\
-		"GAME_ID	     INTEGER   PRIMARY KEY	AUTOINCREMENT	,"	\
-		"STATUS			 INTEGER   								,"	\
-		"START_TIME	     DATETIME								,"  \
-		"END_TIME        DATETIME  NOT NULL)					;";
+		"GAME_ID	     INTEGER   PRIMARY KEY	AUTOINCREMENT NOT NULL	,"	\
+		"STATUS			 INTEGER   NOT NULL								,"	\
+		"START_TIME	     DATETIME  NOT NULL								,"  \
+		"END_TIME        DATETIME)										;";
 
 	res = sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
 	if (res != SQLITE_OK)
@@ -150,12 +185,12 @@ bool DataBase::initDatabase()
 
 	// create questions table
 	sqlStatement = "CREATE TABLE T_QUESTIONS("						\
-		"QUESTION_ID	 INTEGER   PRIMARY KEY		AUTOINCREMENT,"	\
-		"QUESTION		 TEXT						NOT NULL,"		\
-		"CORRECT_ANS	 TEXT						NOT NULL,"		\
-		"ANS2			 TEXT						NOT NULL,"		\
-		"ANS3			 TEXT						NOT NULL,"      \
-		"ANS4			 TEXT						NOT NULL;";
+		"QUESTION_ID	 INTEGER   PRIMARY KEY		AUTOINCREMENT NOT NULL,"	\
+		"QUESTION		 TEXT						NOT NULL			  ,"	\
+		"CORRECT_ANS	 TEXT						NOT NULL			  ,"	\
+		"ANS2			 TEXT						NOT NULL			  ,"	\
+		"ANS3			 TEXT						NOT NULL			  ,"	\
+		"ANS4			 TEXT						NOT NULL			  ;";
 
 	res = sqlite3_exec(_sqldb, sqlStatement, nullptr, nullptr, &errMessage);
 	if (res != SQLITE_OK)
@@ -163,12 +198,12 @@ bool DataBase::initDatabase()
 
 	// create answers table
 	sqlStatement = "CREATE TABLE T_PLAYERS_ANSWERS("							 	\
-		"PLAYER_ANSWER		TEXT												,"	\
-		"IS_CORRECT			INTEGER												,"	\
-		"GAME_ID			INTEGER												,"  \
-		"USERNAME			TEXT												,"  \
-		"QUESTION_ID		INTEGER												,"  \
-		"ANSWER_TIME		INTEGER												,"  \
+		"PLAYER_ANSWER		TEXT						NOT NULL				,"	\
+		"IS_CORRECT			INTEGER						NOT NULL				,"	\
+		"GAME_ID			INTEGER						NOT NULL				,"  \
+		"USERNAME			TEXT						NOT NULL				,"  \
+		"QUESTION_ID		INTEGER						NOT NULL				,"  \
+		"ANSWER_TIME		INTEGER						NOT NULL				,"  \
 		"FOREIGN KEY(GAME_ID)		REFERENCES    T_GAMES(GAME_ID)				,"	\
 		"FOREIGN KEY(USERNAME)		REFERENCES    T_USERS(USERNAME)				,"	\
 		"FOREIGN KEY(QUESTION_ID)   REFERENCES    T_QUESTIONS(QUESTION_ID))		;";
@@ -191,7 +226,7 @@ void DataBase::resetLastId()
 }
 
 bool DataBase::open()
-{/* starter for the database manager, including: opening the gallery db file if it exists, and calling the initiator for it if not. */
+{/* starter for the database manager, including: opening the trivia database file if it exists, and calling the initiator for it if not. */
 	// check if file exists
 	string filename = "triviaDB.sqlite";
 	bool fileExisted = fileExistsOnDisk(filename);
@@ -212,9 +247,6 @@ bool DataBase::open()
 		res = sqlite3_exec(_sqldb, "INSERT INTO USERS (NAME) VALUES ('Noam Batito'); ", nullptr, nullptr, &errmsg);
 		if (res != SQLITE_OK) return false;
 		//updating
-		res = sqlite3_exec(_sqldb, "INSERT INTO PICTURES (NAME, LOCATION, CREATION_DATE, ALBUM_ID) VALUES ('My Femily'"
-			", 'Our Home <3', 06/04/17, 6); ", nullptr, nullptr, &errmsg);
-
 		res = sqlite3_exec(_sqldb, "DELETE FROM PICTURES where ALBUM_ID=13; ", nullptr, nullptr, &errmsg);
 		if (res != SQLITE_OK) return false;
 		/**	Done **/
@@ -260,7 +292,20 @@ bool DataBase::fileExistsOnDisk(const string& filename)
 
 int DataBase::callbackCount(void* param, int argc, char** argv, char** azColName)
 {
+	string sqlStatement;
+	char *errMessage = nullptr;
+	int res;
+	char buff[10];
 
+	sqlStatement = "SELECT COUNT(*) FROM TAGS WHERE USER_ID=" + string(_itoa(userId, buff, 10)) + ";";
+
+	int albumsCount;
+
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlInt, &albumsCount, &errMessage);
+	if (res != SQLITE_OK)
+		return -1;
+
+	return albumsCount;
 }
 
 int DataBase::callbackQuestions(void* param, int argc, char** argv, char** azColName)
