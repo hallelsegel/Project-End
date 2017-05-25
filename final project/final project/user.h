@@ -3,7 +3,8 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include <map>
-
+#include "Room.h"
+#include "Game.h"
 using namespace std;
 
 class User

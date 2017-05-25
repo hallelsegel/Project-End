@@ -3,6 +3,7 @@
 #include "Helper.h"
 #include "DataBase.h"
 #include "Question.h"
+#include <iostream>
 
 Game::Game(const vector<User*>& players, int questionsNo, DataBase& db) : _db(db)
 {
@@ -41,7 +42,7 @@ Game::~Game()
 
 void Game::handleFinishGame()
 {
-	this->_db.updateGameStatus(/*ID*/);
+	this->_db.updateGameStatus(this->_ID);
 	for (int i = 0; i < this->_players.size(); i++)
 	{
 		try
@@ -87,8 +88,8 @@ bool Game::handleNextTurn()
 
 bool Game::handleAnswerFromUser(User* user, int answerNo, int time)
 {
-	string  msg;
-	msg = SERVER_ANSWER;
+	stringstream  msg;
+	msg << SERVER_ANSWER;
 	bool isCorrect = false;
 	this->_currentTurnAnswers++;
 	if (answerNo = this->_questions[this->_currQuestionIndex]->getCorrectAnswerIndex())
@@ -104,8 +105,8 @@ bool Game::handleAnswerFromUser(User* user, int answerNo, int time)
 	{
 		cout << ex.what() << endl;
 	}
-	msg += (isCorrect ? 1 : 0);
-	user->send(msg);
+	msg << (isCorrect ? 1 : 0);
+	user->send(msg.str());
 	return handleNextTurn();
 }
 
@@ -130,18 +131,18 @@ void Game::initQuestionsFromDB()
 
 void Game::sendQuestionToAllUsers()
 {
-	string msg;
+	stringstream msg;
 	string que = _questions[_currQuestionIndex]->getQuestion(), *ans = _questions[_currQuestionIndex]->getAnswers();
 	this->_currentTurnAnswers = 0;
 
 	if (que.length() > 0)
 	{                   // Building the message:
-		msg += SERVER_SEND_QUESTION += Helper::getPaddedNumber(que.length(), 3) += que << Helper::getPaddedNumber(ans[0].length(), 3) += ans[0] += Helper::getPaddedNumber(ans[1].length(), 3) += ans[1] += Helper::getPaddedNumber(ans[2].length(), 3) += ans[2] += Helper::getPaddedNumber(ans[3].length(), 3) += ans[3];
+		msg << SERVER_SEND_QUESTION << Helper::getPaddedNumber(que.length(), 3) << que << Helper::getPaddedNumber(ans[0].length(), 3) << ans[0] << Helper::getPaddedNumber(ans[1].length(), 3) << ans[1] << Helper::getPaddedNumber(ans[2].length(), 3) << ans[2] << Helper::getPaddedNumber(ans[3].length(), 3) << ans[3];
 		for (int i = 0; i < _players.size(); i++) // Sending the message:
 		{
 			try
 			{
-				_players[i]->send(msg);
+				_players[i]->send(msg.str());
 			}
 			catch (exception e)
 			{

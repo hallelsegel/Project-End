@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <map>
 #include "Protocol.h"
+#include "TriviaServer.h"
 
 using namespace std;
 
@@ -17,9 +18,6 @@ public:
 	bool handleNextTurn();
 	bool handleAnswerFromUser(User*,int,int);
 	bool leaveGame(User*);
-	bool insertGameToDB();
-	void initQuestionsFromDB();
-	void sendQuestionToAllUsers();
 	
 	// GETS
 	int getId();
@@ -36,4 +34,8 @@ private:
 	map<string, int> _results;
 	int _currentTurnAnswers;
 	int _ID;
+
+	bool insertGameToDB();
+	void initQuestionsFromDB();
+	void sendQuestionToAllUsers();
 };

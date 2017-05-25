@@ -1,6 +1,6 @@
 #include "User.h"
 #include "Helper.h"
-#include "Server.h"
+#include "TriviaServer.h"
 
 User::User(string username, SOCKET sock)
 {
@@ -20,41 +20,43 @@ void User::clearGame()
 
 bool User::createRoom(int roomId, string roomName, int maxUsers, int questionsNo, int questionTime)
 {
-	if (this->_currRoom != nullptr)
-	{
-		send(this->_sock, "1141", 5, 0); //////*******************************************************//////
-		return false;
-	}
-	this->_currRoom = new Room(roomId, roomName, maxUsers, questionsNo, questionTime);
-	send(this->_sock, "1140", 5, 0); //////*******************************************************//////
-	return true;
+	bool re = _currRoom == nullptr;
+	string message = SERVER_CREAT_ROOM_SECCESS;
+	if (re)
+		_currRoom = new Room(roomId, this, roomName, maxUsers, questionsNo, questionTime);
+	else
+		message = SERVER_CREAT_ROOM_FAIL;
+	send(message);
+	return re;
 }
 
-bool User::joinRoom(Room*)
+bool User::joinRoom(Room* newRoom)
 {
-	if (this->_currRoom != nullptr)
+	if (_currRoom == nullptr && newRoom->joinRoom(this))
 	{
-		return false;
+		_currRoom = newRoom;
+		return true;
 	}
-
+	return false;
 }
 
 void User::leaveRoom()
 {
-	if (this->_currRoom != nullptr) this->_currRoom = nullptr;
+	if (this->_currRoom != nullptr) this->_currRoom = nullptr, this->_currRoom->leaveRoom(this);
 }
 
 int User::closeRoom()
 {
-	if (this->_currRoom = nullptr) return -1;
-	int roomNum = this->_currRoom;
+	if (this->_currRoom == nullptr) return -1;
+	int roomNum = this->_currRoom->closeRoom(this);
 	this->_currRoom = nullptr;
+	this->clearRoom();
 	return roomNum;
 }
 
 bool User::leaveGame()
 {
-	if (this->_currGame = nullptr) return false;
+	if (this->_currGame == nullptr) return false;
 	
 	this->_currGame = nullptr;
 	return true;
