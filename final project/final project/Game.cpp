@@ -64,7 +64,7 @@ void Game::sendFirstQuestion()
 
 bool Game::handleNextTurn()
 {
-	if (this->_players.size > 0) // Checks if there are players in the game
+	if (this->_players.size() > 0) // Checks if there are players in the game
 	{
 		if (this->_currentTurnAnswers = this->_players.size()) // Checks if everyone answered the given question yet.
 		{

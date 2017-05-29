@@ -9,20 +9,23 @@
 #include <mutex>
 #include <condition_variable>
 #include <sstream>
-
+#include "RecievedMessage.h"
+#include "Game.h"
+#include "Room.h"
+#include "user.h"
 
 using namespace std;
 
-class Server
+class TriviaServer
 {
 public:
-	Server();
-	~Server();
+	TriviaServer();
+	~TriviaServer();
 	void serve(int port);
 
 private:
 
-	void bindAndListen();
+	void bindAndListen(int port);
 	void accept();
 	void clientHandler(SOCKET clientSocket);
 	Room* getRoomById(int roomId);
@@ -49,7 +52,7 @@ private:
 	void buildRecievedMessage(RecievedMessage* msg); //225
 
 
-
+	
 	SOCKET _serverSocket;
 	map<int, Room*> _roomsList;
 	map<SOCKET, User*> _connectedUsers;

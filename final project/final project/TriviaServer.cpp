@@ -74,7 +74,7 @@ void TriviaServer::accept()
 	cout << "Client accepted. Server and client can speak" << endl;
 
 	// the function that handle the conversation with the client
-	thread t(clientHandler, client_socket);
+	thread t(&TriviaServer::clientHandler, this, client_socket);
 	t.detach();
 }
 
@@ -95,7 +95,7 @@ void TriviaServer::clientHandler(SOCKET clientSocket)
 
 }
 
-void TriviaServer::Register(SOCKET clientSocket)
+bool TriviaServer::handleSignup(RecievedMessage* msg)
 {
 	char m[21], p[21];
 	bool nameFlag = 1;
@@ -106,13 +106,13 @@ void TriviaServer::Register(SOCKET clientSocket)
 		send(clientSocket, s.c_str(), s.size(), 0);
 		recv(clientSocket, m, 4, 0);
 		m[20] = 0;
-		it = _userDataBase.find(m);
-		if (it != _userDataBase.end()) cout << "Username found. " << endl;
+		it = _connectedUsers.find(m);
+		if (it != _connectedUsers.end()) cout << "Username found. " << endl;
 		else {
 			s = "Username not found, please try again\n";
 			send(clientSocket, s.c_str(), s.size(), 0);
 		}
-	} while (it == _userDataBase.end());
+	} while (it == _connectedUsers.end());
 	cout << "Client name is: " << m << endl;
 
 	string s = "Enter Password (up to 20 characters): ";
@@ -121,12 +121,12 @@ void TriviaServer::Register(SOCKET clientSocket)
 	p[20] = 0;
 	cout << "Client pass is: " << p << endl;
 
-	_userDataBase.insert(pair<string, string>(m, p));
+	_connectedUsers.insert(pair<string, string>(m, p));
 	s = "Login succesful \n";
 	send(clientSocket, s.c_str(), s.size(), 0);
 }
 
-void TriviaServer::signIn(SOCKET clientSocket)
+User* TriviaServer::handleSignin(RecievedMessage* msg)
 {
 	char m[21], p[21];
 	map<string, string>::iterator it;
@@ -138,8 +138,8 @@ void TriviaServer::signIn(SOCKET clientSocket)
 		send(clientSocket, s.c_str(), s.size(), 0);
 		recv(clientSocket, m, 4, 0);
 		m[20] = 0;
-		it = _userDataBase.find(m);
-		if (it != _userDataBase.end()) cout << "Username found. " << endl;
+		it = _connectedUsers.find(m);
+		if (it != _connectedUsers.end()) cout << "Username found. " << endl;
 		else {
 			s = "Username not found, please try again\n";
 			send(clientSocket, s.c_str(), s.size(), 0);
@@ -150,8 +150,8 @@ void TriviaServer::signIn(SOCKET clientSocket)
 		s = "Enter Password (up to 20 characters): ";
 		send(clientSocket, s.c_str(), s.size(), 0);
 		recv(clientSocket, p, 4, 0);
-		it = _userDataBase.find(s);
-		if (it != _userDataBase.end()) cout << "Password found. " << endl;
+		it = _connectedUsers.find(s);
+		if (it != _connectedUsers.end()) cout << "Password found. " << endl;
 		else {
 			s = "Username not found, please try again\n";
 			send(clientSocket, s.c_str(), s.size(), 0);
@@ -161,9 +161,31 @@ void TriviaServer::signIn(SOCKET clientSocket)
 		cout << "Client pass is: " << p << endl;
 
 
-	} while (it == _userDataBase.end());
-	_userDataBase.insert(pair<string, string>(m, p));
+	} while (it == _connectedUsers.end());
+	_connectedUsers.insert(pair<string, string>(m, p));
 	s = "Login succesful \n";
 	send(clientSocket, s.c_str(), s.size(), 0);
 }
 
+Room* TriviaServer::getRoomById(int roomId)
+{
+	return _roomsList[roomId];
+}
+
+User* TriviaServer::getUserByName(string username)
+{
+	for (map<SOCKET, User*>::iterator i = _connectedUsers.begin(); i != _connectedUsers.end(); i++)
+	{
+		if (i->second->getUsername() == username) return i->second;
+	}
+}
+
+User* TriviaServer::getUserBySocket(SOCKET client_socket)
+{
+
+}
+
+void TriviaServer::handleRecievedMessages()
+{
+
+}
