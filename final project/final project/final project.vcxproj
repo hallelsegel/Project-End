@@ -75,6 +75,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TriviaServer.h" />
     <ClInclude Include="user.h" />
+    <ClInclude Include="Validator.h" />
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +90,7 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TriviaServer.cpp" />
     <ClCompile Include="user.cpp" />
+    <ClCompile Include="Validator.cpp" />
     <ClCompile Include="WSAInitializer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

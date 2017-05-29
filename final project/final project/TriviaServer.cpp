@@ -100,30 +100,7 @@ bool TriviaServer::handleSignup(RecievedMessage* msg)
 	char m[21], p[21];
 	bool nameFlag = 1;
 	map<string, string>::iterator it;
-	do
-	{
-		string s = "Enter Username (up to 20 characters): ";
-		send(clientSocket, s.c_str(), s.size(), 0);
-		recv(clientSocket, m, 4, 0);
-		m[20] = 0;
-		it = _connectedUsers.find(m);
-		if (it != _connectedUsers.end()) cout << "Username found. " << endl;
-		else {
-			s = "Username not found, please try again\n";
-			send(clientSocket, s.c_str(), s.size(), 0);
-		}
-	} while (it == _connectedUsers.end());
-	cout << "Client name is: " << m << endl;
 
-	string s = "Enter Password (up to 20 characters): ";
-	send(clientSocket, s.c_str(), s.size(), 0); 
-	recv(clientSocket, p, 4, 0);
-	p[20] = 0;
-	cout << "Client pass is: " << p << endl;
-
-	_connectedUsers.insert(pair<string, string>(m, p));
-	s = "Login succesful \n";
-	send(clientSocket, s.c_str(), s.size(), 0);
 }
 
 User* TriviaServer::handleSignin(RecievedMessage* msg)
