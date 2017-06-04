@@ -1,7 +1,11 @@
-﻿Build started 29-May-17 18:23:58.
+﻿Build started 29-May-17 19:21:08.
      1>Project "C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\final project\final project.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DataBase.cpp Game.cpp Question.cpp RecievedMessage.cpp Room.cpp Source.cpp TriviaServer.cpp stdafx.cpp user.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DataBase.cpp Game.cpp Question.cpp RecievedMessage.cpp Room.cpp Source.cpp stdafx.cpp TriviaServer.cpp user.cpp Validator.cpp
+         Validator.cpp
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C3867: 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::length': function call missing argument list; use '&std::basic_string<char,std::char_traits<char>,std::allocator<char>>::length' to create a pointer to member
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C2296: '>' : illegal, left operand has type 'unsigned int (__thiscall std::basic_string<char,std::char_traits<char>,std::allocator<char>>::* )(void) throw() const'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C2297: '>' : illegal, right operand has type 'unsigned int (__thiscall std::basic_string<char,std::char_traits<char>,std::allocator<char>>::* )(void) throw() const'
          user.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(13): error C2061: syntax error : identifier 'User'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(14): error C2061: syntax error : identifier 'User'
@@ -58,8 +62,6 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(35): error C2660: 'Room::joinRoom' : function does not take 1 arguments
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(45): error C2660: 'Room::leaveRoom' : function does not take 1 arguments
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(51): error C2660: 'Room::closeRoom' : function does not take 1 arguments
-         stdafx.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\stdafx.h(8): fatal error C1083: Cannot open include file: 'targetver.h': No such file or directory
          TriviaServer.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
@@ -105,108 +107,11 @@
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(33): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(106): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(107): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(109): error C2664: 'std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find(__w64 const unsigned int &) const' : cannot convert argument 1 from 'char [21]' to '__w64 const unsigned int &'
-                 with
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-         ,            _Pr=std::less<SOCKET>
-         ,            _Alloc=std::allocator<std::pair<const SOCKET,User *>>
-                 ]
-                 Reason: cannot convert from 'char [21]' to '__w64 const unsigned int'
-                 There is no context in which this conversion is possible
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(110): error C2678: binary '!=' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\xtree(339): could be 'bool std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>::operator !=(const std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> &) const'
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 c:\program files (x86)\windows kits\8.1\include\shared\guiddef.h(197): or       'bool operator !=(const GUID &,const GUID &)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\system_error(426): or       'bool std::operator !=(const std::error_condition &,const std::error_code &) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\system_error(419): or       'bool std::operator !=(const std::error_code &,const std::error_condition &) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\thread(239): or       'bool std::operator !=(std::thread::id,std::thread::id) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(522): or       'bool std::operator !=(const std::exception_ptr &,std::nullptr_t)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(517): or       'bool std::operator !=(std::nullptr_t,const std::exception_ptr &)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(512): or       'bool std::operator !=(const std::exception_ptr &,const std::exception_ptr &)'
-                 while trying to match the argument list '(std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>, std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>)'
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 and
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-                 ]
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(113): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(115): error C2678: binary '==' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\xtree(321): could be 'bool std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>::operator ==(const std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> &) const'
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 c:\program files (x86)\windows kits\8.1\include\shared\guiddef.h(192): or       'bool operator ==(const GUID &,const GUID &)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\system_error(410): or       'bool std::operator ==(const std::error_condition &,const std::error_code &) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\system_error(402): or       'bool std::operator ==(const std::error_code &,const std::error_condition &) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\thread(202): or       'bool std::operator ==(std::thread::id,std::thread::id) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(507): or       'bool std::operator ==(const std::exception_ptr &,std::nullptr_t)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(502): or       'bool std::operator ==(std::nullptr_t,const std::exception_ptr &)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(497): or       'bool std::operator ==(const std::exception_ptr &,const std::exception_ptr &)'
-                 while trying to match the argument list '(std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>, std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>)'
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 and
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-                 ]
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(119): error C2065: 'clientSocket' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(109): error C2059: syntax error : '}'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(109): error C2143: syntax error : missing ';' before '}'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(120): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(124): error C2664: 'void std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::insert(std::initializer_list<std::pair<const _Kty,_Ty>>)' : cannot convert argument 1 from 'std::pair<std::string,std::string>' to 'std::pair<const _Kty,_Ty> &&'
-                 with
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-         ,            _Pr=std::less<SOCKET>
-         ,            _Alloc=std::allocator<std::pair<const SOCKET,User *>>
-                 ]
-                 and
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-                 ]
-                 Reason: cannot convert from 'std::pair<std::string,std::string>' to 'std::pair<const _Kty,_Ty>'
-                 with
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-                 ]
-                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(126): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(130): error C2556: 'bool TriviaServer::handleSignin(RecievedMessage *)' : overloaded function differs only by return type from 'User *TriviaServer::handleSignin(RecievedMessage *)'
-                 c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38) : see declaration of 'TriviaServer::handleSignin'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(130): error C2040: 'TriviaServer::handleSignin' : 'bool (RecievedMessage *)' differs in levels of indirection from 'User *(RecievedMessage *)'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(138): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(139): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(141): error C2664: 'std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find(__w64 const unsigned int &) const' : cannot convert argument 1 from 'char [21]' to '__w64 const unsigned int &'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(121): error C2065: 'clientSocket' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(123): error C2664: 'std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find(__w64 const unsigned int &) const' : cannot convert argument 1 from 'char [21]' to '__w64 const unsigned int &'
                  with
                  [
                      _Kty=SOCKET
@@ -216,7 +121,7 @@
                  ]
                  Reason: cannot convert from 'char [21]' to '__w64 const unsigned int'
                  There is no context in which this conversion is possible
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(142): error C2678: binary '!=' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(124): error C2678: binary '!=' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
                  with
                  [
                      _Kty=std::string
@@ -246,10 +151,10 @@
                      _Kty=SOCKET
          ,            _Ty=User *
                  ]
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(145): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(151): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(152): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(153): error C2664: 'std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find(__w64 const unsigned int &) const' : cannot convert argument 1 from 'std::string' to '__w64 const unsigned int &'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(127): error C2065: 'clientSocket' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(133): error C2065: 'clientSocket' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(134): error C2065: 'clientSocket' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(135): error C2664: 'std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find(__w64 const unsigned int &) const' : cannot convert argument 1 from 'std::string' to '__w64 const unsigned int &'
                  with
                  [
                      _Kty=SOCKET
@@ -259,7 +164,7 @@
                  ]
                  Reason: cannot convert from 'std::string' to '__w64 const unsigned int'
                  No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(154): error C2678: binary '!=' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(136): error C2678: binary '!=' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
                  with
                  [
                      _Kty=std::string
@@ -289,8 +194,8 @@
                      _Kty=SOCKET
          ,            _Ty=User *
                  ]
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(157): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(164): error C2678: binary '==' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(139): error C2065: 'clientSocket' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(146): error C2678: binary '==' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
                  with
                  [
                      _Kty=std::string
@@ -320,7 +225,7 @@
                      _Kty=SOCKET
          ,            _Ty=User *
                  ]
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(165): error C2664: 'void std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::insert(std::initializer_list<std::pair<const _Kty,_Ty>>)' : cannot convert argument 1 from 'std::pair<std::string,std::string>' to 'std::pair<const _Kty,_Ty> &&'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(147): error C2664: 'void std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::insert(std::initializer_list<std::pair<const _Kty,_Ty>>)' : cannot convert argument 1 from 'std::pair<std::string,std::string>' to 'std::pair<const _Kty,_Ty> &&'
                  with
                  [
                      _Kty=SOCKET
@@ -340,7 +245,9 @@
          ,            _Ty=User *
                  ]
                  No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(167): error C2065: 'clientSocket' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(149): error C2065: 'clientSocket' : undeclared identifier
+         stdafx.cpp
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\stdafx.h(8): fatal error C1083: Cannot open include file: 'targetver.h': No such file or directory
          Source.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(4): error C2001: newline in constant
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): error C2143: syntax error : missing ';' before '*'
@@ -713,4 +620,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:07.42
+Time Elapsed 00:00:07.18

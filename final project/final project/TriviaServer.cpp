@@ -4,6 +4,9 @@
 #include <string>
 #include <thread>
 #include "Helper.h"
+#include "Validator.h"
+#include "DataBase.h"
+
 using namespace std;
 
 TriviaServer::TriviaServer()
@@ -17,7 +20,10 @@ TriviaServer::TriviaServer()
 
 	if (_serverSocket == INVALID_SOCKET)
 		throw std::exception(__FUNCTION__ " - socket");
-} //fsghg
+	_db = DataBase();
+	if (!_db.open())
+		throw exception("Unable to open database");
+}
 
 TriviaServer::~TriviaServer()
 {
@@ -91,60 +97,95 @@ void TriviaServer::clientHandler(SOCKET clientSocket)
 	{
 		closesocket(clientSocket);
 	}
-
-
 }
 
-bool TriviaServer::handleSignup(RecievedMessage* msg)
+bool TriviaServer::handleSignup(RecievedMessage* msg) //203
 {
-	char m[21], p[21];
-	bool nameFlag = 1;
-	map<string, string>::iterator it;
-
+	string username = msg->getValues()[0];
+	string password = msg->getValues()[1];
+	string email = msg->getValues()[2];
+	if (Validator::isPasswordValid(password) == false)			msg->getUser()->send(SERVER_SIGN_UP_PASS_ILEGAL);
+	else if (Validator::isUsernameValid(username) == false)		msg->getUser()->send(SERVER_SIGN_UP_USERNAME_ILEGAL);
+	else if (_db.isUserExists(username))						msg->getUser()->send(SERVER_SIGN_UP_USERNAME_ALLREDY_EXIST);
+	else if (_db.addNewUser(username, password, email))			msg->getUser()->send(SERVER_SIGN_UP_SUCCESS);
+	else														msg->getUser()->send(SERVER_SIGN_UP_OTHER);
 }
 
-User* TriviaServer::handleSignin(RecievedMessage* msg)
+User* TriviaServer::handleSignin(RecievedMessage* msg) //200
 {
-	char m[21], p[21];
-	map<string, string>::iterator it;
-	bool nameFlag = 1;
-	string s;
-	do
-	{// get username
-		s = "Enter Username (up to 20 characters): ";
-		send(clientSocket, s.c_str(), s.size(), 0);
-		recv(clientSocket, m, 4, 0);
-		m[20] = 0;
-		it = _connectedUsers.find(m);
-		if (it != _connectedUsers.end()) cout << "Username found. " << endl;
-		else {
-			s = "Username not found, please try again\n";
-			send(clientSocket, s.c_str(), s.size(), 0);
-			continue;
-		}
-	// get username
-
-		s = "Enter Password (up to 20 characters): ";
-		send(clientSocket, s.c_str(), s.size(), 0);
-		recv(clientSocket, p, 4, 0);
-		it = _connectedUsers.find(s);
-		if (it != _connectedUsers.end()) cout << "Password found. " << endl;
-		else {
-			s = "Username not found, please try again\n";
-			send(clientSocket, s.c_str(), s.size(), 0);
-			continue;
-		}
-		p[20] = 0;
-		cout << "Client pass is: " << p << endl;
-
-
-	} while (it == _connectedUsers.end());
-	_connectedUsers.insert(pair<string, string>(m, p));
-	s = "Login succesful \n";
-	send(clientSocket, s.c_str(), s.size(), 0);
+	string username = msg->getValues()[0];
+	string password = msg->getValues()[1];
+	SOCKET socket = msg->getSock();
+	if (!_db.isUserAndPassMatch(username, password))		{
+		msg->getUser()->send(SERVER_SIGN_IN_WRONG_DETAILS);
+		return nullptr;
+	}
+	if (getUserByName(username) != nullptr)					{
+		msg->getUser()->send(SERVER_SIGN_IN_ALLREADY_CONNECTAED);
+		return nullptr;
+	}
+	User* u = new User(username, socket);
+	_connectedUsers.insert(pair<SOCKET, User*>(socket, u));
+	return u;
 }
 
-Room* TriviaServer::getRoomById(int roomId)
+void TriviaServer::handleSignout(RecievedMessage* msg) //201
+{
+	SOCKET sock = msg->getSock();
+	map<SOCKET, User*>::iterator it;
+	for (it = _connectedUsers.begin(); it->first != sock; it++){}
+	if (it != _connectedUsers.end())
+	{
+		_connectedUsers.erase(it);
+		handleLeaveRoom(msg);
+		handleCloseRoom(msg);
+		handleLeaveGame(msg);
+	}
+	else cout << "No such user." << endl; //error info
+}
+
+bool TriviaServer::handleLeaveRoom(RecievedMessage* msg)
+{
+	SOCKET sock = msg->getSock();
+	map<SOCKET, User*>::iterator it;
+	for (it = _connectedUsers.begin(); it->first != sock; it++){}
+	if (it != _connectedUsers.end())
+	{
+		Room* room = it->second->getRoom();
+		map<int, Room*>::iterator it2;
+		for (it2 = _roomsList.begin(); it2->second != room; it2++){}
+		if (it2 != _roomsList.end())
+		{
+			it->second->leaveRoom();
+		}
+		else return false;
+
+	}
+	else return false;
+}
+
+bool TriviaServer::handleCloseRoom(RecievedMessage* msg)
+{
+	SOCKET sock = msg->getSock();
+	map<SOCKET, User*>::iterator it;
+	for (it = _connectedUsers.begin(); it->first != sock; it++){}
+	if (it != _connectedUsers.end())
+	{
+		Room* room = it->second->getRoom();
+		map<int, Room*>::iterator it2;
+		for (it2 = _roomsList.begin(); it2->second != room; it2++){}
+		if (it2 != _roomsList.end())
+		{
+			if (it->second->closeRoom() != -1)
+				_roomsList.erase(it2);
+		}
+		else return false;
+
+	}
+	else return false;
+}
+
+Room* TriviaServer::getRoomById(int roomId)	
 {
 	return _roomsList[roomId];
 }
@@ -155,11 +196,16 @@ User* TriviaServer::getUserByName(string username)
 	{
 		if (i->second->getUsername() == username) return i->second;
 	}
+	return nullptr;
 }
 
 User* TriviaServer::getUserBySocket(SOCKET client_socket)
 {
-
+	//map<SOCKET, User*> _connectedUsers;
+	for (map<SOCKET, User*>::iterator i = _connectedUsers.begin(); i != _connectedUsers.end(); i++)
+	{
+		if (i->first == client_socket) return i->second;
+	}
 }
 
 void TriviaServer::handleRecievedMessages()

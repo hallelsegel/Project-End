@@ -34,7 +34,7 @@ void Room::leaveRoom(User* user)
 	int i;
 	for (i = 0; i < this->_users.size() && this->_users[i]->getSocket() != user->getSocket(); i++);
 	_users.erase(_users.begin() + i);
-	user->send("LEAVE ROOM");
+	user->send(SERVER_LEAVE_ROOM);
 	sendMessage(user, getUsersListMessage());
 }
 

@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+﻿ #include "stdafx.h"
 #include "sqlite3.h"
 #include "DataBase.h"
 #include <ctime>

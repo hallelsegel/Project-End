@@ -13,7 +13,6 @@
 #include "Game.h"
 #include "Room.h"
 #include "user.h"
-
 using namespace std;
 
 class TriviaServer
@@ -24,7 +23,14 @@ public:
 	void serve(int port);
 
 private:
-
+	SOCKET _serverSocket;
+	map<int, Room*> _roomsList;
+	map<SOCKET, User*> _connectedUsers;
+	queue<RecievedMessage*> _queRcvMessages;
+	static int _roomIdSequence;
+	DataBase _db;
+	mutex _mtxRecievedMessages;
+	
 	void bindAndListen(int port);
 	void accept();
 	void clientHandler(SOCKET clientSocket);
@@ -49,14 +55,9 @@ private:
 	void handleGetBestScores(RecievedMessage* msg); //223
 	void handleGetPersonalStatus(RecievedMessage* msg); //225
 	void addRecievedMessage(RecievedMessage* msg); //225
-	void buildRecievedMessage(RecievedMessage* msg); //225
+	void buildRecieveMessage(SOCKET client_socket, int msgCode); //225
 
 
 	
-	SOCKET _serverSocket;
-	map<int, Room*> _roomsList;
-	map<SOCKET, User*> _connectedUsers;
-	queue<RecievedMessage*> _queRcvMessages;
-	static int _roomIdSequence;
 };
 
