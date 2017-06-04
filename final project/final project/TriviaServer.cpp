@@ -99,6 +99,8 @@ void TriviaServer::clientHandler(SOCKET clientSocket)
 	}
 }
 
+/*		User connection functions		*//////////////////////////////////////////////////////////////////////
+
 bool TriviaServer::handleSignup(RecievedMessage* msg) //203
 {
 	string username = msg->getValues()[0];
@@ -144,46 +146,108 @@ void TriviaServer::handleSignout(RecievedMessage* msg) //201
 	else cout << "No such user." << endl; //error info
 }
 
-bool TriviaServer::handleLeaveRoom(RecievedMessage* msg)
-{
-	SOCKET sock = msg->getSock();
-	map<SOCKET, User*>::iterator it;
-	for (it = _connectedUsers.begin(); it->first != sock; it++){}
-	if (it != _connectedUsers.end())
-	{
-		Room* room = it->second->getRoom();
-		map<int, Room*>::iterator it2;
-		for (it2 = _roomsList.begin(); it2->second != room; it2++){}
-		if (it2 != _roomsList.end())
-		{
-			it->second->leaveRoom();
-		}
-		else return false;
+/*		Game related functions		*//////////////////////////////////////////////////////////////////////
 
+void TriviaServer::handleLeaveGame(RecievedMessage* msg) //222
+{
+	bool leaveSuccess = msg->getUser()->leaveGame();
+	if (leaveSuccess)
+	{
+		delete msg->getUser()->getGame();
 	}
-	else return false;
 }
 
-bool TriviaServer::handleCloseRoom(RecievedMessage* msg)
+void TriviaServer::handleStartGame(RecievedMessage* msg) //217
 {
-	SOCKET sock = msg->getSock();
-	map<SOCKET, User*>::iterator it;
-	for (it = _connectedUsers.begin(); it->first != sock; it++){}
-	if (it != _connectedUsers.end())
+	Room* room = msg->getUser()->getRoom();
+	Game* newGame;
+	try
 	{
-		Room* room = it->second->getRoom();
-		map<int, Room*>::iterator it2;
-		for (it2 = _roomsList.begin(); it2->second != room; it2++){}
-		if (it2 != _roomsList.end())
-		{
-			if (it->second->closeRoom() != -1)
-				_roomsList.erase(it2);
-		}
-		else return false;
-
+		newGame = new Game(room->getUsers(), room->getQuestionNo(), _db);
 	}
-	else return false;
+	catch (exception e)
+	{
+		cout << e.what() << endl;
+	}
+	for (int i = 0; i < room->getUsers().size(); i++)
+	{
+		room->getUsers()[i]->setGame(newGame);
+	}
+	map<int, Room*>::iterator it;
+	for (it = _roomsList.begin(); it->second != room; it++){} //find the room in the map
+	if (it != _roomsList.end()) _roomsList.erase(it);
+	newGame->sendFirstQuestion();
 }
+
+/*		Room related functions		*//////////////////////////////////////////////////////////////////////
+
+bool TriviaServer::handleCreateRoom(RecievedMessage* msg) //213
+{
+	User* user = msg->getUser();
+	if (user == NULL) return false; //no user found
+	string roomName = msg->getValues()[0];
+	int maxUsers = atoi(msg->getValues()[1].c_str());
+	int questionsNo = atoi(msg->getValues()[2].c_str());
+	int questionTime = atoi(msg->getValues()[3].c_str());
+	if (user->createRoom(++_roomIdSequence, roomName, maxUsers, questionsNo, questionTime))
+	{
+		_roomsList.insert(pair<int, Room*>(_roomIdSequence, user->getRoom()));
+		user->send(SERVER_CREATE_ROOM_SUCCESS);
+		return true; //success
+	}
+	user->send(SERVER_CREATE_ROOM_FAIL);
+	return false;
+}
+
+bool TriviaServer::handleJoinRoom(RecievedMessage* msg) //209
+{
+	User* user = msg->getUser();
+	if (user == NULL) return false; //no user found
+	int roomId = atoi(msg->getValues()[0].c_str());
+	Room* room = getRoomById(roomId);
+	if (room == NULL) user->send(SERVER_JOIN_ROOM_NOT_EXIST);
+	if (user->joinRoom(room))
+	{
+		_roomsList.insert(pair<int, Room*>(_roomIdSequence, user->getRoom()));
+		user->send(SERVER_JOIN_ROOM_SUCCESS);
+		return true; //success
+	}
+	user->send(SERVER_JOIN_ROOM_FULL);
+	return false;
+}
+
+bool TriviaServer::handleLeaveRoom(RecievedMessage* msg) //211
+{
+	User* user = msg->getUser();
+	if (user == NULL) return false; //no user found
+
+	Room* room = user->getRoom();
+	map<int, Room*>::iterator it;
+	for (it = _roomsList.begin(); it->second != room; it++){}
+	if (it != _roomsList.end())
+	{
+		user->leaveRoom();
+	}
+	else return false; //no such room
+}
+
+bool TriviaServer::handleCloseRoom(RecievedMessage* msg) //215
+{
+	User* user = msg->getUser();
+	if (user == NULL) return false; //no user found
+
+	Room* room = user->getRoom();
+	map<int, Room*>::iterator it;
+	for (it = _roomsList.begin(); it->second != room; it++){}
+	if (it != _roomsList.end())
+	{
+		if (user->closeRoom() != -1)
+			_roomsList.erase(it);
+	}
+	else return false; //no such room
+}
+
+/*		support 'get' functions		*//////////////////////////////////////////////////////////////////////
 
 Room* TriviaServer::getRoomById(int roomId)	
 {

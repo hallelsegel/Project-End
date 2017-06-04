@@ -1,11 +1,7 @@
-﻿Build started 29-May-17 19:21:08.
+﻿Build started 04-Jun-17 18:35:25.
      1>Project "C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\final project\final project.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DataBase.cpp Game.cpp Question.cpp RecievedMessage.cpp Room.cpp Source.cpp stdafx.cpp TriviaServer.cpp user.cpp Validator.cpp
-         Validator.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C3867: 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::length': function call missing argument list; use '&std::basic_string<char,std::char_traits<char>,std::allocator<char>>::length' to create a pointer to member
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C2296: '>' : illegal, left operand has type 'unsigned int (__thiscall std::basic_string<char,std::char_traits<char>,std::allocator<char>>::* )(void) throw() const'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C2297: '>' : illegal, right operand has type 'unsigned int (__thiscall std::basic_string<char,std::char_traits<char>,std::allocator<char>>::* )(void) throw() const'
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DataBase.cpp Game.cpp Question.cpp RecievedMessage.cpp Room.cpp Source.cpp TriviaServer.cpp Validator.cpp stdafx.cpp user.cpp
          user.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(13): error C2061: syntax error : identifier 'User'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(14): error C2061: syntax error : identifier 'User'
@@ -27,19 +23,21 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(23): error C2061: syntax error : identifier 'User'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(28): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(28): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(32): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(32): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(32): warning C4183: 'getUserByName': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(33): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(33): warning C4183: 'getUserBySocket': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(28): error C2065: 'User' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(28): error C2059: syntax error : '>'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(28): error C2976: 'std::map' : too few template arguments
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\map(69) : see declaration of 'std::map'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C2146: syntax error : missing ';' before identifier '_db'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): warning C4183: 'handleSignin': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(58): error C2065: 'User' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(58): error C2059: syntax error : '>'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(58): error C2976: 'std::map' : too few template arguments
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\map(69) : see declaration of 'std::map'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): warning C4183: 'getUserByName': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(39): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(39): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(39): warning C4183: 'getUserBySocket': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(44): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(44): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(44): warning C4183: 'handleSignin': missing return type; assumed to be a member function returning 'int'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(14): error C2065: 'User' : undeclared identifier
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(14): error C2059: syntax error : '>'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(14): error C2976: 'std::vector' : too few template arguments
@@ -58,10 +56,18 @@
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(33): error C2143: syntax error : missing ';' before '&'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(24): error C2065: 'SERVER_CREAT_ROOM_SECCESS' : undeclared identifier
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(26): error C2661: 'Room::Room' : no overloaded function takes 6 arguments
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(28): error C2065: 'SERVER_CREAT_ROOM_FAIL' : undeclared identifier
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(35): error C2660: 'Room::joinRoom' : function does not take 1 arguments
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(45): error C2660: 'Room::leaveRoom' : function does not take 1 arguments
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(51): error C2660: 'Room::closeRoom' : function does not take 1 arguments
+         stdafx.cpp
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\stdafx.h(8): fatal error C1083: Cannot open include file: 'targetver.h': No such file or directory
+         Validator.cpp
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C3867: 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::length': function call missing argument list; use '&std::basic_string<char,std::char_traits<char>,std::allocator<char>>::length' to create a pointer to member
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C2296: '>' : illegal, left operand has type 'unsigned int (__thiscall std::basic_string<char,std::char_traits<char>,std::allocator<char>>::* )(void) throw() const'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C2297: '>' : illegal, right operand has type 'unsigned int (__thiscall std::basic_string<char,std::char_traits<char>,std::allocator<char>>::* )(void) throw() const'
          TriviaServer.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
@@ -107,147 +113,60 @@
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(33): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(109): error C2059: syntax error : '}'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(109): error C2143: syntax error : missing ';' before '}'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(120): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(121): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(123): error C2664: 'std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find(__w64 const unsigned int &) const' : cannot convert argument 1 from 'char [21]' to '__w64 const unsigned int &'
-                 with
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-         ,            _Pr=std::less<SOCKET>
-         ,            _Alloc=std::allocator<std::pair<const SOCKET,User *>>
-                 ]
-                 Reason: cannot convert from 'char [21]' to '__w64 const unsigned int'
-                 There is no context in which this conversion is possible
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(124): error C2678: binary '!=' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\xtree(339): could be 'bool std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>::operator !=(const std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> &) const'
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 c:\program files (x86)\windows kits\8.1\include\shared\guiddef.h(197): or       'bool operator !=(const GUID &,const GUID &)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\system_error(426): or       'bool std::operator !=(const std::error_condition &,const std::error_code &) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\system_error(419): or       'bool std::operator !=(const std::error_code &,const std::error_condition &) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\thread(239): or       'bool std::operator !=(std::thread::id,std::thread::id) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(522): or       'bool std::operator !=(const std::exception_ptr &,std::nullptr_t)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(517): or       'bool std::operator !=(std::nullptr_t,const std::exception_ptr &)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(512): or       'bool std::operator !=(const std::exception_ptr &,const std::exception_ptr &)'
-                 while trying to match the argument list '(std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>, std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>)'
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 and
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-                 ]
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(127): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(133): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(134): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(135): error C2664: 'std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find(__w64 const unsigned int &) const' : cannot convert argument 1 from 'std::string' to '__w64 const unsigned int &'
-                 with
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-         ,            _Pr=std::less<SOCKET>
-         ,            _Alloc=std::allocator<std::pair<const SOCKET,User *>>
-                 ]
-                 Reason: cannot convert from 'std::string' to '__w64 const unsigned int'
-                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(136): error C2678: binary '!=' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\xtree(339): could be 'bool std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>::operator !=(const std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> &) const'
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 c:\program files (x86)\windows kits\8.1\include\shared\guiddef.h(197): or       'bool operator !=(const GUID &,const GUID &)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\system_error(426): or       'bool std::operator !=(const std::error_condition &,const std::error_code &) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\system_error(419): or       'bool std::operator !=(const std::error_code &,const std::error_condition &) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\thread(239): or       'bool std::operator !=(std::thread::id,std::thread::id) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(522): or       'bool std::operator !=(const std::exception_ptr &,std::nullptr_t)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(517): or       'bool std::operator !=(std::nullptr_t,const std::exception_ptr &)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(512): or       'bool std::operator !=(const std::exception_ptr &,const std::exception_ptr &)'
-                 while trying to match the argument list '(std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>, std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>)'
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 and
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-                 ]
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(139): error C2065: 'clientSocket' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(146): error C2678: binary '==' : no operator found which takes a left-hand operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>' (or there is no acceptable conversion)
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\xtree(321): could be 'bool std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>::operator ==(const std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>> &) const'
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 c:\program files (x86)\windows kits\8.1\include\shared\guiddef.h(192): or       'bool operator ==(const GUID &,const GUID &)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\system_error(410): or       'bool std::operator ==(const std::error_condition &,const std::error_code &) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\system_error(402): or       'bool std::operator ==(const std::error_code &,const std::error_condition &) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\thread(202): or       'bool std::operator ==(std::thread::id,std::thread::id) throw()'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(507): or       'bool std::operator ==(const std::exception_ptr &,std::nullptr_t)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(502): or       'bool std::operator ==(std::nullptr_t,const std::exception_ptr &)'
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\exception(497): or       'bool std::operator ==(const std::exception_ptr &,const std::exception_ptr &)'
-                 while trying to match the argument list '(std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>, std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>)'
-                 with
-                 [
-                     _Kty=std::string
-         ,            _Ty=std::string
-                 ]
-                 and
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-                 ]
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(147): error C2664: 'void std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::insert(std::initializer_list<std::pair<const _Kty,_Ty>>)' : cannot convert argument 1 from 'std::pair<std::string,std::string>' to 'std::pair<const _Kty,_Ty> &&'
-                 with
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-         ,            _Pr=std::less<SOCKET>
-         ,            _Alloc=std::allocator<std::pair<const SOCKET,User *>>
-                 ]
-                 and
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-                 ]
-                 Reason: cannot convert from 'std::pair<std::string,std::string>' to 'std::pair<const _Kty,_Ty>'
-                 with
-                 [
-                     _Kty=SOCKET
-         ,            _Ty=User *
-                 ]
-                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(149): error C2065: 'clientSocket' : undeclared identifier
-         stdafx.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\stdafx.h(8): fatal error C1083: Cannot open include file: 'targetver.h': No such file or directory
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C2146: syntax error : missing ';' before identifier '_db'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(23): error C2065: '_db' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(24): error C2065: '_db' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(24): error C2228: left of '.open' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(109): error C2227: left of '->send' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(110): error C2227: left of '->send' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(111): error C2065: '_db' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(111): error C2228: left of '.isUserExists' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(111): error C2227: left of '->send' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(112): error C2065: '_db' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(112): error C2228: left of '.addNewUser' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(112): error C2227: left of '->send' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(113): error C2227: left of '->send' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(121): error C2065: '_db' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(121): error C2228: left of '.isUserAndPassMatch' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(122): error C2227: left of '->send' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(126): error C2227: left of '->send' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(153): error C2227: left of '->leaveGame' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(156): error C2227: left of '->getGame' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(162): error C2227: left of '->getRoom' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(166): error C2065: '_db' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(172): error C2662: '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type std::vector<_Ty,_Alloc>::size(void) throw() const' : cannot convert 'this' pointer from 'std::vector' to 'const std::vector<_Ty,_Alloc> &'
+                 Reason: cannot convert from 'std::vector' to 'const std::vector<_Ty,_Alloc>'
+                 Conversion requires a second user-defined-conversion operator or constructor
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(174): error C2678: binary '[' : no operator found which takes a left-hand operand of type 'std::vector' (or there is no acceptable conversion)
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(1196): could be '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::reference std::vector<_Ty,_Alloc>::operator [](_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(1180): or       '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::const_reference std::vector<_Ty,_Alloc>::operator [](_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type) const'
+                 while trying to match the argument list '(std::vector, int)'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(174): error C2227: left of '->setGame' must point to class/struct/union/generic type
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(181): error C2065: 'SERVER_' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(181): error C2146: syntax error : missing ';' before identifier 'newGame'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(188): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(206): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(223): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(238): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
          Source.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(4): error C2001: newline in constant
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): error C2143: syntax error : missing ';' before '*'
@@ -294,6 +213,8 @@
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(33): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C2146: syntax error : missing ';' before identifier '_db'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(15): error C2065: 'Server' : undeclared identifier
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(15): error C2146: syntax error : missing ';' before identifier 'myServer'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(15): error C2065: 'myServer' : undeclared identifier
@@ -321,19 +242,21 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(23): error C2061: syntax error : identifier 'User'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(28): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(28): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(32): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(32): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(32): warning C4183: 'getUserByName': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(33): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(33): warning C4183: 'getUserBySocket': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(28): error C2065: 'User' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(28): error C2059: syntax error : '>'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(28): error C2976: 'std::map' : too few template arguments
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\map(69) : see declaration of 'std::map'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C2146: syntax error : missing ';' before identifier '_db'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): warning C4183: 'handleSignin': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(58): error C2065: 'User' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(58): error C2059: syntax error : '>'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(58): error C2976: 'std::map' : too few template arguments
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\map(69) : see declaration of 'std::map'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): warning C4183: 'getUserByName': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(39): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(39): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(39): warning C4183: 'getUserBySocket': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(44): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(44): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(44): warning C4183: 'handleSignin': missing return type; assumed to be a member function returning 'int'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(14): error C2065: 'User' : undeclared identifier
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(14): error C2059: syntax error : '>'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(14): error C2976: 'std::vector' : too few template arguments
@@ -378,6 +301,7 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(25): error C2671: 'Room::joinRoom' : static member functions do not have 'this' pointers
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(25): error C2227: left of '->_users' must point to class/struct/union/generic type
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(25): error C2228: left of '.push_back' must have class/struct/union
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(26): error C2065: 'SERVER_JOIN_ROOM_SECCESS' : undeclared identifier
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(27): error C2352: 'Room::getUsersListMessage' : illegal call of non-static member function
                  c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(22) : see declaration of 'Room::getUsersListMessage'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(33): error C2511: 'void Room::leaveRoom(User *)' : overloaded member function not found in 'Room'
@@ -433,10 +357,7 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(90): error C2228: left of '.size' must have class/struct/union
                  type is 'unknown-type'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(91): error C2065: '_users' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(91): error C2228: left of '.size' must have class/struct/union
-                 type is 'unknown-type'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(93): error C2065: '_users' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(93): fatal error C1003: error count exceeds 100; stopping compilation
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(91): fatal error C1003: error count exceeds 100; stopping compilation
          RecievedMessage.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(13): error C2061: syntax error : identifier 'User'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(14): error C2061: syntax error : identifier 'User'
@@ -458,19 +379,21 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(23): error C2061: syntax error : identifier 'User'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(28): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(28): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(32): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(32): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(32): warning C4183: 'getUserByName': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(33): error C2143: syntax error : missing ';' before '*'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(33): warning C4183: 'getUserBySocket': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(28): error C2065: 'User' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(28): error C2059: syntax error : '>'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(28): error C2976: 'std::map' : too few template arguments
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\map(69) : see declaration of 'std::map'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C2146: syntax error : missing ';' before identifier '_db'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): warning C4183: 'handleSignin': missing return type; assumed to be a member function returning 'int'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(58): error C2065: 'User' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(58): error C2059: syntax error : '>'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(58): error C2976: 'std::map' : too few template arguments
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\map(69) : see declaration of 'std::map'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(38): warning C4183: 'getUserByName': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(39): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(39): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(39): warning C4183: 'getUserBySocket': missing return type; assumed to be a member function returning 'int'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(44): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(44): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(44): warning C4183: 'handleSignin': missing return type; assumed to be a member function returning 'int'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(14): error C2065: 'User' : undeclared identifier
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(14): error C2059: syntax error : '>'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(14): error C2976: 'std::vector' : too few template arguments
@@ -534,6 +457,8 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(30): error C2061: syntax error : identifier 'Game'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(36): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.h(36): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C2146: syntax error : missing ';' before identifier '_db'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(14): error C2061: syntax error : identifier 'DataBase'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(29): error C2065: 'Question' : undeclared identifier
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.h(29): error C2059: syntax error : '>'
@@ -620,4 +545,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:07.18
+Time Elapsed 00:00:06.52
