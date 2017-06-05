@@ -1,7 +1,7 @@
 #pragma comment (lib, "ws2_32.lib")
 
 #include "WSAInitializer.h"
-#include "TriviaServer.h
+#include "TriviaServer.h"
 #include <iostream>
 #include <exception>
 

@@ -6,6 +6,13 @@
 #include "Helper.h"
 #include "Validator.h"
 #include "DataBase.h"
+#include <iostream>
+#include <chrono>
+#include <mutex>
+
+//CV:
+#include <condition_variable>
+std::condition_variable cv;
 
 using namespace std;
 
@@ -274,5 +281,90 @@ User* TriviaServer::getUserBySocket(SOCKET client_socket)
 
 void TriviaServer::handleRecievedMessages()
 {
+	User* user;
+	RecievedMessage* msg;
+	unique_lock<mutex> lck(this->_mtxRecievedMessages, defer_lock);
+	while (true)
+	{
+		lck.lock();
+		while (this->_queRcvMessages.empty())
+		{
+			cv.wait(lck);
+		}
+		msg = this->_queRcvMessages.front();
+		this->_queRcvMessages.pop();
+		lck.unlock();
+		user = getUserBySocket(msg->getSock());
+		msg->setUser(user);
+		TRACE("handleRecivedMessages: msg code = %d, client_socket = %d", msg->getMessageCode(), msg->getSock());
 
+		try
+		{
+			if (msg->getMessageCode() == CLIENT_SIGN_IN)
+			{
+				handleSignin(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_SIGN_UP)
+			{
+				handleSignup(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_SIGN_OUT)
+			{
+				handleSignout(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_LEAVE_GAME)
+			{
+				handleLeaveGame(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_START_GAME)
+			{
+				handleStartGame(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_ANSWER)
+			{
+				handlePlayerAnswer(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_CREAT_NEW_ROOM)
+			{
+				handleCreateRoom(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_CLOSE_ROOM)
+			{
+				handleCloseRoom(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_JOIN_EXISTING_ROOM)
+			{
+				handleJoinRoom(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_LEAVE_ROOM)
+			{
+				handleLeaveRoom(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_USERS_IN_ROOM)
+			{
+				handleGetUsersInRoom(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_GET_EXIST_ROOMS)
+			{
+				handleGetRooms(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_BEST_SCORE)
+			{
+				handleGetBestScores(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_STATUS)
+			{
+				handleGetPersonalStatus(msg);
+			}
+			else
+			{
+				safeDeleteUser(msg);
+			}
+		}
+		catch (exception ex)
+		{
+			safeDeleteUser(msg);
+			cout << ex.what() << endl;
+		}
+	}
 }
