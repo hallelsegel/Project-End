@@ -113,7 +113,7 @@ int DataBase::insertNewGame()
 
 bool DataBase::updateGameStatus(int gameId)
 {
-	RETURN_IF_INVALID;
+	if (_sqldb == nullptr) return false;
 
 	string sqlStatement;
 	char *errMessage = nullptr;

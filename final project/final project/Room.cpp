@@ -4,7 +4,7 @@
 
 Room::Room(int id, User* admin, string name, int maxUsers, int questionsNo, int questionTime)
 {
-	this->_id = id;
+	this->_id = id; 
 	this->_name = name;
 	this->_maxUsers = maxUsers;
 	this->_questionTime = questionTime;
@@ -23,7 +23,7 @@ bool Room::joinRoom(User* user)
 	else
 	{
 		this->_users.push_back(user);
-		user->send(SERVER_JOIN_ROOM_SECCESS);
+		user->send(SERVER_JOIN_ROOM_SUCCESS);
 		sendMessage(getUsersListMessage());
 		return (true);
 	}

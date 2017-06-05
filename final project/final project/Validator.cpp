@@ -20,6 +20,6 @@ static bool isUsernameValid(string username)
 	regex alpha("[a-zA-Z]");
 	if (!regex_match(&username[0], alpha) || \
 		username.find(' ') || \
-		username.length > 0) return false;
+		username.length() > 0) return false;
 	return true;
 }

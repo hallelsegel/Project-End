@@ -55,8 +55,7 @@ private:
 	void handleGetBestScores(RecievedMessage* msg); //223
 	void handleGetPersonalStatus(RecievedMessage* msg); //225
 	void addRecievedMessage(RecievedMessage* msg); //225
-	void buildRecieveMessage(SOCKET client_socket, int msgCode); //225
-
+	RecievedMessage* buildRecieveMessage(SOCKET client_socket, int msgCode); //225
 
 	
 };

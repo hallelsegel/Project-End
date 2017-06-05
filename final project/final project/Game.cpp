@@ -18,7 +18,7 @@ Game::Game(const vector<User*>& players, int questionsNo, DataBase& db) : _db(db
 	{
 		throw exception("ERROR: Failed to insert a new game.");
 	}
-
+	
 	this->_players = players;
 
 	for (int i = 0; i < _players.size(); i++)

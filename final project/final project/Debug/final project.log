@@ -1,7 +1,7 @@
-﻿Build started 04-Jun-17 18:35:25.
+﻿Build started 05-Jun-17 17:20:37.
      1>Project "C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\final project\final project.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DataBase.cpp Game.cpp Question.cpp RecievedMessage.cpp Room.cpp Source.cpp TriviaServer.cpp Validator.cpp stdafx.cpp user.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DataBase.cpp Game.cpp Question.cpp RecievedMessage.cpp Room.cpp Source.cpp TriviaServer.cpp user.cpp
          user.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(13): error C2061: syntax error : identifier 'User'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(14): error C2061: syntax error : identifier 'User'
@@ -62,12 +62,6 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(35): error C2660: 'Room::joinRoom' : function does not take 1 arguments
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(45): error C2660: 'Room::leaveRoom' : function does not take 1 arguments
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\user.cpp(51): error C2660: 'Room::closeRoom' : function does not take 1 arguments
-         stdafx.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\stdafx.h(8): fatal error C1083: Cannot open include file: 'targetver.h': No such file or directory
-         Validator.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C3867: 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::length': function call missing argument list; use '&std::basic_string<char,std::char_traits<char>,std::allocator<char>>::length' to create a pointer to member
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C2296: '>' : illegal, left operand has type 'unsigned int (__thiscall std::basic_string<char,std::char_traits<char>,std::allocator<char>>::* )(void) throw() const'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\validator.cpp(23): error C2297: '>' : illegal, right operand has type 'unsigned int (__thiscall std::basic_string<char,std::char_traits<char>,std::allocator<char>>::* )(void) throw() const'
          TriviaServer.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
@@ -142,33 +136,41 @@
                  type is 'int *'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(126): error C2227: left of '->send' must point to class/struct/union/generic type
                  type is 'int *'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(153): error C2227: left of '->leaveGame' must point to class/struct/union/generic type
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(166): error C2227: left of '->leaveGame' must point to class/struct/union/generic type
                  type is 'int *'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(156): error C2227: left of '->getGame' must point to class/struct/union/generic type
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(169): error C2227: left of '->getGame' must point to class/struct/union/generic type
                  type is 'int *'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(162): error C2227: left of '->getRoom' must point to class/struct/union/generic type
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(175): error C2227: left of '->getRoom' must point to class/struct/union/generic type
                  type is 'int *'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(166): error C2065: '_db' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(172): error C2662: '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type std::vector<_Ty,_Alloc>::size(void) throw() const' : cannot convert 'this' pointer from 'std::vector' to 'const std::vector<_Ty,_Alloc> &'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(179): error C2065: '_db' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(185): error C2662: '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type std::vector<_Ty,_Alloc>::size(void) throw() const' : cannot convert 'this' pointer from 'std::vector' to 'const std::vector<_Ty,_Alloc> &'
                  Reason: cannot convert from 'std::vector' to 'const std::vector<_Ty,_Alloc>'
                  Conversion requires a second user-defined-conversion operator or constructor
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(174): error C2678: binary '[' : no operator found which takes a left-hand operand of type 'std::vector' (or there is no acceptable conversion)
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(187): error C2678: binary '[' : no operator found which takes a left-hand operand of type 'std::vector' (or there is no acceptable conversion)
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(1196): could be '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::reference std::vector<_Ty,_Alloc>::operator [](_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type)'
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(1180): or       '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::const_reference std::vector<_Ty,_Alloc>::operator [](_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type) const'
                  while trying to match the argument list '(std::vector, int)'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(174): error C2227: left of '->setGame' must point to class/struct/union/generic type
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(181): error C2065: 'SERVER_' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(181): error C2146: syntax error : missing ';' before identifier 'newGame'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(188): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(187): error C2227: left of '->setGame' must point to class/struct/union/generic type
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(199): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
                  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(206): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(217): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
                  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(223): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(234): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
                  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(238): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(249): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
                  Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(273): error C2227: left of '->send' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(286): error C2227: left of '->send' must point to class/struct/union/generic type
+                 type is 'int *'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(291): error C2146: syntax error : missing ';' before identifier 'when'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(291): error C2061: syntax error : identifier 'when'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(296): error C2146: syntax error : missing ';' before identifier 'when'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(296): error C2061: syntax error : identifier 'when'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(301): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.cpp(307): error C2660: 'Game::handleAnswerFromUser' : function does not take 3 arguments
          Source.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(4): error C2001: newline in constant
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): error C2143: syntax error : missing ';' before '*'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\recievedmessage.h(18): warning C4183: 'getUser': missing return type; assumed to be a member function returning 'int'
@@ -215,12 +217,6 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C2146: syntax error : missing ';' before identifier '_db'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\triviaserver.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(15): error C2065: 'Server' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(15): error C2146: syntax error : missing ';' before identifier 'myServer'
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(15): error C2065: 'myServer' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(17): error C2065: 'myServer' : undeclared identifier
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\source.cpp(17): error C2228: left of '.serve' must have class/struct/union
-                 type is 'unknown-type'
          Room.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(13): error C2061: syntax error : identifier 'User'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(14): error C2061: syntax error : identifier 'User'
@@ -301,7 +297,6 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(25): error C2671: 'Room::joinRoom' : static member functions do not have 'this' pointers
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(25): error C2227: left of '->_users' must point to class/struct/union/generic type
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(25): error C2228: left of '.push_back' must have class/struct/union
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(26): error C2065: 'SERVER_JOIN_ROOM_SECCESS' : undeclared identifier
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(27): error C2352: 'Room::getUsersListMessage' : illegal call of non-static member function
                  c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(22) : see declaration of 'Room::getUsersListMessage'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(33): error C2511: 'void Room::leaveRoom(User *)' : overloaded member function not found in 'Room'
@@ -357,6 +352,7 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(90): error C2228: left of '.size' must have class/struct/union
                  type is 'unknown-type'
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(91): error C2065: '_users' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(91): error C2228: left of '.size' must have class/struct/union
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.cpp(91): fatal error C1003: error count exceeds 100; stopping compilation
          RecievedMessage.cpp
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\room.h(13): error C2061: syntax error : identifier 'User'
@@ -539,10 +535,89 @@
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.cpp(135): error C2227: left of '->getAnswers' must point to class/struct/union/generic type
      1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\game.cpp(141): warning C4018: '<' : signed/unsigned mismatch
          DataBase.cpp
-     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\stdafx.h(8): fatal error C1083: Cannot open include file: 'targetver.h': No such file or directory
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(30): error C2065: 'sqlExecCallback' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(39): error C2561: 'DataBase::addNewUser' : function must return a value
+                 c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.h(32) : see declaration of 'DataBase::addNewUser'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(51): error C2065: 'sqlExecCallback' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(71): error C2065: 'sqlExecCallback' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(87): error C2664: 'int sqlite3_exec(sqlite3 *,const char *,int (__cdecl *)(void *,int,char **,char **),void *,char **)' : cannot convert argument 4 from 'std::vector<Question *,std::allocator<_Ty>>' to 'void *'
+                 with
+                 [
+                     _Ty=Question *
+                 ]
+                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(89): error C2561: 'DataBase::initQuestion' : function must return a value
+                 c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.h(34) : see declaration of 'DataBase::initQuestion'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(94): error C2561: 'DataBase::insertNewGame' : function must return a value
+                 c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.h(35) : see declaration of 'DataBase::insertNewGame'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(105): error C2065: 'sqlExecCallback' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(124): error C2065: 'sqlExecCallback' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(135): error C2561: 'DataBase::addAnswerToPlayer' : function must return a value
+                 c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.h(37) : see declaration of 'DataBase::addAnswerToPlayer'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(150): error C2065: 'sqlExecCallback' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(300): error C2065: 'userId' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(304): error C2597: illegal reference to non-static member 'DataBase::_sqldb'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(304): error C2065: 'sqlInt' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(397): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(397): error C2143: syntax error : missing ';' before '&'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(397): error C2039: 'getAlbumsOfUser' : is not a member of 'DataBase'
+                 c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.h(10) : see declaration of 'DataBase'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(398): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(399): error C2065: '_albumsOfUser' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(399): error C2228: left of '.clear' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(400): error C2065: '_sqldb' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(400): error C2065: '_albums' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(409): error C3861: 'resetLastId': identifier not found
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(410): error C2065: '_sqldb' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(410): error C2065: 'listAlbumsCallback' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(410): error C2065: '_albumsOfUser' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(412): error C2065: '_albumsOfUser' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(416): error C2039: 'insertAlbum' : is not a member of 'DataBase'
+                 c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.h(10) : see declaration of 'DataBase'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(416): error C2065: 'CAlbum' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(416): error C2065: 'album' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(417): error C2448: 'insertAlbum' : function-style initializer appears to be a function definition
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(443): error C2039: 'deleteAlbum' : is not a member of 'DataBase'
+                 c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.h(10) : see declaration of 'DataBase'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(445): error C2065: '_sqldb' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(452): error C2065: '_sqldb' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(452): error C2355: 'this' : can only be referenced inside non-static member functions or non-static data member initializers
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(455): error C2039: 'albumExists' : is not a member of 'DataBase'
+                 c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.h(10) : see declaration of 'DataBase'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(457): error C2065: '_sqldb' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(465): error C3861: 'resetLastId': identifier not found
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(466): error C2065: '_sqldb' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(466): error C2355: 'this' : can only be referenced inside non-static member functions or non-static data member initializers
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(470): error C2065: '_lastId' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(473): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(473): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(473): error C2039: 'openAlbum' : is not a member of 'DataBase'
+                 c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.h(10) : see declaration of 'DataBase'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(474): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(476): error C2065: '_sqldb' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(476): error C2440: 'return' : cannot convert from 'nullptr' to 'int'
+                 A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(478): error C3861: 'getAlbums': identifier not found
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(479): error C2065: '_albums' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(479): error C2228: left of '.size' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(480): error C2440: 'return' : cannot convert from 'nullptr' to 'int'
+                 A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(482): error C2065: 'albums_iter' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(482): error C2146: syntax error : missing ';' before identifier 'iter'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(482): error C2065: 'iter' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(482): error C2065: '_albums' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(482): error C2228: left of '.begin' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(483): error C2065: 'iter' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(483): error C2065: '_albums' : undeclared identifier
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(483): error C2228: left of '.end' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\user\documents\magshimim\עקרונות מתקדמים\פרויקט סוף\project-end\final project\final project\database.cpp(483): fatal error C1903: unable to recover from previous error(s); stopping compilation
          Generating Code...
      1>Done Building Project "C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\final project\final project.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:06.52
+Time Elapsed 00:00:06.18
