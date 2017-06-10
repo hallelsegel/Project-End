@@ -1,4 +1,3 @@
-#include "user.h"
 #include "Helper.h"
 #include "RecievedMessage.h"
 

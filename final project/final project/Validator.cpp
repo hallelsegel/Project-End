@@ -1,25 +1,22 @@
 #include "Validator.h"
 #include <regex>
 
-static bool isPasswordValid(string password)
+bool Validator::isPasswordValid(string password)
 {
-	regex num("[1-9]");
-	regex upper("[A-Z]");
-	regex lower("[a-z]");
-	if (password.length() < 4 || \
-		password.find(' ') || \
-		!regex_match(password.c_str(), num) || \
-		!regex_match(password.c_str(), upper) || \
-		!regex_match(password.c_str(), lower))
-		return false;
+	if (password.length() < 4) 		return false;
+	else if (password.find(' ') != string::npos) 	return false;
+	else if (regex_search(password, regex("[A-Z]+")) == 0) 	return false;
+	else if (regex_search(password, regex(".*[0-9]+")) == 0)		return false;
+	else if (regex_search(password, regex("[a-z]+")) == 0)	return false;
+
 	return true;
 }
 
-static bool isUsernameValid(string username)
+bool Validator::isUsernameValid(string username)
 {
-	regex alpha("[a-zA-Z]");
-	if (!regex_match(&username[0], alpha) || \
-		username.find(' ') || \
-		username.length() > 0) return false;
+	regex alpha("^[a-zA-Z]");
+	if (!regex_search(username, alpha)) 	return false;
+	else if( username.find(' ') != string::npos) 	return false;
+	else if (username.length() == 0) return false;
 	return true;
 }

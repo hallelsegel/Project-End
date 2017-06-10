@@ -1,7 +1,6 @@
 #include "User.h"
 #include "Helper.h"
-#include "TriviaServer.h"
-
+#include "Room.h"
 User::User(string username, SOCKET sock)
 {
 	this->_username = username;
@@ -21,11 +20,11 @@ void User::clearGame()
 bool User::createRoom(int roomId, string roomName, int maxUsers, int questionsNo, int questionTime)
 {
 	bool re = _currRoom == nullptr;
-	string message = SERVER_CREAT_ROOM_SECCESS;
+	string message = SERVER_CREATE_ROOM_SUCCESS;
 	if (re)
 		_currRoom = new Room(roomId, this, roomName, maxUsers, questionsNo, questionTime);
 	else
-		message = SERVER_CREAT_ROOM_FAIL;
+		message = SERVER_CREATE_ROOM_FAIL;
 	send(message);
 	return re;
 }
@@ -42,7 +41,7 @@ bool User::joinRoom(Room* newRoom)
 
 void User::leaveRoom()
 {
-	if (this->_currRoom != nullptr) this->_currRoom = nullptr, this->_currRoom->leaveRoom(this);
+	if (this->_currRoom != nullptr) this->_currRoom->leaveRoom(this), this->_currRoom = nullptr;
 }
 
 int User::closeRoom()

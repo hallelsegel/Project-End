@@ -24,3 +24,24 @@ Question::~Question()
 {
 
 }
+
+string Question::getQuestion()
+{
+	return _question;
+}
+
+string* Question::getAnswers()
+{
+	string ans[4] = { _answers[0], _answers[1], _answers[2], _answers[3] };
+	return ans;
+}
+
+int Question::getCorrectAnswerIndex()
+{
+	return _correctPlace;
+}
+
+int Question::getId()
+{
+	return _id;
+}

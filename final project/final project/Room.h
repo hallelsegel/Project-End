@@ -3,14 +3,16 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include <map>
+#include <vector>
 #include "Protocol.h"
-
+#include "User.h"
 using namespace std;
 
 class Room
 {
 public:
 	Room(int, User*, string, int, int, int);
+	~Room();
 	bool joinRoom(User*);
 	void leaveRoom(User*);
 	int closeRoom(User*);

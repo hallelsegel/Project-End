@@ -1,10 +1,5 @@
 #include "Game.h"
-#include "user.h"
-#include "Helper.h"
-#include "DataBase.h"
-#include "Question.h"
 #include <iostream>
-
 Game::Game(const vector<User*>& players, int questionsNo, DataBase& db) : _db(db)
 {
 	this->_question_no = questionsNo;
@@ -21,7 +16,7 @@ Game::Game(const vector<User*>& players, int questionsNo, DataBase& db) : _db(db
 	
 	this->_players = players;
 
-	for (int i = 0; i < _players.size(); i++)
+	for (int i = 0; i < (int)_players.size(); i++)
 	{
 		_results.insert(pair<string, int>(_players[i]->getUsername(), 0));
 		_players[i]->setGame(this);
@@ -30,7 +25,7 @@ Game::Game(const vector<User*>& players, int questionsNo, DataBase& db) : _db(db
 
 Game::~Game()
 {
-	for (int i = 0; i < _questions.size(); i++)
+	for (int i = 0; i < (int)_questions.size(); i++)
 	{
 		delete _questions[i];
 	}
@@ -43,7 +38,7 @@ Game::~Game()
 void Game::handleFinishGame()
 {
 	this->_db.updateGameStatus(this->_ID);
-	for (int i = 0; i < this->_players.size(); i++)
+	for (int i = 0; i < (int)_players.size(); i++)
 	{
 		try
 		{
@@ -138,7 +133,7 @@ void Game::sendQuestionToAllUsers()
 	if (que.length() > 0)
 	{                   // Building the message:
 		msg << SERVER_SEND_QUESTION << Helper::getPaddedNumber(que.length(), 3) << que << Helper::getPaddedNumber(ans[0].length(), 3) << ans[0] << Helper::getPaddedNumber(ans[1].length(), 3) << ans[1] << Helper::getPaddedNumber(ans[2].length(), 3) << ans[2] << Helper::getPaddedNumber(ans[3].length(), 3) << ans[3];
-		for (int i = 0; i < _players.size(); i++) // Sending the message:
+		for (int i = 0; i < (int)_players.size(); i++) // Sending the message:
 		{
 			try
 			{

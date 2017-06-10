@@ -4,7 +4,6 @@
 #include <Windows.h>
 #include <map>
 #include <queue>
-#include <queue>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
@@ -12,7 +11,10 @@
 #include "RecievedMessage.h"
 #include "Game.h"
 #include "Room.h"
-#include "user.h"
+#include "User.h"
+#include "DataBase.h"
+#include "Validator.h"
+
 using namespace std;
 
 class TriviaServer
@@ -27,7 +29,7 @@ private:
 	map<int, Room*> _roomsList;
 	map<SOCKET, User*> _connectedUsers;
 	queue<RecievedMessage*> _queRcvMessages;
-	static int _roomIdSequence;
+	int _roomIdSequence;
 	DataBase _db;
 	mutex _mtxRecievedMessages;
 	
@@ -38,8 +40,8 @@ private:
 	User* getUserByName(string username);
 	User* getUserBySocket(SOCKET client_socket);
 	void handleRecievedMessages();
-
 	void safeDeleteUser(RecievedMessage* msg);
+
 	bool handleSignup(RecievedMessage* msg); //203
 	User* handleSignin(RecievedMessage* msg); //200
 	void handleSignout(RecievedMessage* msg); //201
