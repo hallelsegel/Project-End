@@ -40,6 +40,7 @@ c:\users\user\documents\github\project-end\final project\final project\game.h(14
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
 c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2061: syntax error : identifier 'DataBase'
+c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2574: 'Game::Game(const std::vector &,int)' : cannot be declared static
 c:\users\user\documents\github\project-end\final project\final project\game.h(19): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\game.h(20): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\game.h(29): error C2065: 'Question' : undeclared identifier
@@ -77,6 +78,7 @@ c:\users\user\documents\github\project-end\final project\final project\game.h(14
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
 c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2061: syntax error : identifier 'DataBase'
+c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2574: 'Game::Game(const std::vector &,int)' : cannot be declared static
 c:\users\user\documents\github\project-end\final project\final project\game.h(19): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\game.h(20): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\game.h(29): error C2065: 'Question' : undeclared identifier
@@ -111,59 +113,58 @@ c:\users\user\documents\github\project-end\final project\final project\room.h(33
 c:\users\user\documents\github\project-end\final project\final project\room.h(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
 c:\users\user\documents\github\project-end\final project\final project\triviaserver.h(31): error C2146: syntax error : missing ';' before identifier '_db'
 c:\users\user\documents\github\project-end\final project\final project\triviaserver.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(28): error C2065: '_db' : undeclared identifier
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(29): error C2065: '_db' : undeclared identifier
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(29): error C2228: left of '.open' must have class/struct/union
-          type is 'unknown-type'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(114): error C2227: left of '->send' must point to class/struct/union/generic type
-          type is 'int *'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(115): error C2227: left of '->send' must point to class/struct/union/generic type
-          type is 'int *'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(116): error C2065: '_db' : undeclared identifier
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(116): error C2228: left of '.isUserExists' must have class/struct/union
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(30): error C2065: '_db' : undeclared identifier
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(31): error C2065: '_db' : undeclared identifier
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(31): error C2228: left of '.open' must have class/struct/union
           type is 'unknown-type'
 c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(116): error C2227: left of '->send' must point to class/struct/union/generic type
           type is 'int *'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(117): error C2065: '_db' : undeclared identifier
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(117): error C2228: left of '.addNewUser' must have class/struct/union
-          type is 'unknown-type'
 c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(117): error C2227: left of '->send' must point to class/struct/union/generic type
           type is 'int *'
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(118): error C2065: '_db' : undeclared identifier
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(118): error C2228: left of '.isUserExists' must have class/struct/union
+          type is 'unknown-type'
 c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(118): error C2227: left of '->send' must point to class/struct/union/generic type
           type is 'int *'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(126): error C2065: '_db' : undeclared identifier
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(126): error C2228: left of '.isUserAndPassMatch' must have class/struct/union
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(119): error C2065: '_db' : undeclared identifier
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(119): error C2228: left of '.addNewUser' must have class/struct/union
           type is 'unknown-type'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(127): error C2227: left of '->send' must point to class/struct/union/generic type
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(119): error C2227: left of '->send' must point to class/struct/union/generic type
           type is 'int *'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(131): error C2227: left of '->send' must point to class/struct/union/generic type
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(120): error C2227: left of '->send' must point to class/struct/union/generic type
           type is 'int *'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(158): error C2227: left of '->leaveGame' must point to class/struct/union/generic type
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(128): error C2065: '_db' : undeclared identifier
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(128): error C2228: left of '.isUserAndPassMatch' must have class/struct/union
+          type is 'unknown-type'
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(129): error C2227: left of '->send' must point to class/struct/union/generic type
           type is 'int *'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(161): error C2227: left of '->getGame' must point to class/struct/union/generic type
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(133): error C2227: left of '->send' must point to class/struct/union/generic type
           type is 'int *'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(167): error C2227: left of '->getRoom' must point to class/struct/union/generic type
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(160): error C2227: left of '->leaveGame' must point to class/struct/union/generic type
           type is 'int *'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(171): error C2065: '_db' : undeclared identifier
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(177): error C2662: '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type std::vector<_Ty,_Alloc>::size(void) throw() const' : cannot convert 'this' pointer from 'std::vector' to 'const std::vector<_Ty,_Alloc> &'
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(163): error C2227: left of '->getGame' must point to class/struct/union/generic type
+          type is 'int *'
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(169): error C2227: left of '->getRoom' must point to class/struct/union/generic type
+          type is 'int *'
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(173): error C2065: '_db' : undeclared identifier
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(179): error C2662: '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type std::vector<_Ty,_Alloc>::size(void) throw() const' : cannot convert 'this' pointer from 'std::vector' to 'const std::vector<_Ty,_Alloc> &'
           Reason: cannot convert from 'std::vector' to 'const std::vector<_Ty,_Alloc>'
           Conversion requires a second user-defined-conversion operator or constructor
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(179): error C2678: binary '[' : no operator found which takes a left-hand operand of type 'std::vector' (or there is no acceptable conversion)
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(181): error C2678: binary '[' : no operator found which takes a left-hand operand of type 'std::vector' (or there is no acceptable conversion)
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(1196): could be '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::reference std::vector<_Ty,_Alloc>::operator [](_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type)'
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(1180): or       '_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::const_reference std::vector<_Ty,_Alloc>::operator [](_Vector_alloc<!std::is_empty<_Alloc_types::_Alloc>::value,std::_Vec_base_types<_Ty,_Alloc_types::_Alloc>>::size_type) const'
           while trying to match the argument list '(std::vector, int)'
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(179): error C2227: left of '->setGame' must point to class/struct/union/generic type
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(191): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(181): error C2227: left of '->setGame' must point to class/struct/union/generic type
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(193): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
           Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(209): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(211): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
           Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(226): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(228): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
           Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(241): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(243): error C2440: 'initializing' : cannot convert from 'int *' to 'User *'
           Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(296): error C2660: 'RecievedMessage::setUser' : function does not take 1 arguments
+c:\users\user\documents\github\project-end\final project\final project\triviaserver.cpp(298): error C2660: 'RecievedMessage::setUser' : function does not take 1 arguments
   Source.cpp
-c:\users\user\documents\github\project-end\final project\final project\source.cpp(4): error C2001: newline in constant
 c:\users\user\documents\github\project-end\final project\final project\recievedmessage.h(18): error C2143: syntax error : missing ';' before '*'
 c:\users\user\documents\github\project-end\final project\final project\recievedmessage.h(18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
 c:\users\user\documents\github\project-end\final project\final project\recievedmessage.h(18): warning C4183: 'getUser': missing return type; assumed to be a member function returning 'int'
@@ -176,6 +177,7 @@ c:\users\user\documents\github\project-end\final project\final project\game.h(14
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
 c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2061: syntax error : identifier 'DataBase'
+c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2574: 'Game::Game(const std::vector &,int)' : cannot be declared static
 c:\users\user\documents\github\project-end\final project\final project\game.h(19): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\game.h(20): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\game.h(29): error C2065: 'Question' : undeclared identifier
@@ -258,6 +260,7 @@ c:\users\user\documents\github\project-end\final project\final project\game.h(14
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
 c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2061: syntax error : identifier 'DataBase'
+c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2574: 'Game::Game(const std::vector &,int)' : cannot be declared static
 c:\users\user\documents\github\project-end\final project\final project\game.h(19): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\game.h(20): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\game.h(29): error C2065: 'Question' : undeclared identifier
@@ -350,9 +353,7 @@ c:\users\user\documents\github\project-end\final project\final project\room.cpp(
 c:\users\user\documents\github\project-end\final project\final project\room.cpp(83): error C2227: left of '->_users' must point to class/struct/union/generic type
 c:\users\user\documents\github\project-end\final project\final project\room.cpp(90): error C2065: '_users' : undeclared identifier
 c:\users\user\documents\github\project-end\final project\final project\room.cpp(90): error C2228: left of '.size' must have class/struct/union
-          type is 'unknown-type'
-c:\users\user\documents\github\project-end\final project\final project\room.cpp(91): error C2065: '_users' : undeclared identifier
-c:\users\user\documents\github\project-end\final project\final project\room.cpp(91): fatal error C1003: error count exceeds 100; stopping compilation
+c:\users\user\documents\github\project-end\final project\final project\room.cpp(90): fatal error C1003: error count exceeds 100; stopping compilation
   RecievedMessage.cpp
 c:\users\user\documents\github\project-end\final project\final project\room.h(13): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\room.h(14): error C2061: syntax error : identifier 'User'
@@ -395,6 +396,7 @@ c:\users\user\documents\github\project-end\final project\final project\game.h(14
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
           c:\program files (x86)\microsoft visual studio 12.0\vc\include\vector(650) : see declaration of 'std::vector'
 c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2061: syntax error : identifier 'DataBase'
+c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2574: 'Game::Game(const std::vector &,int)' : cannot be declared static
 c:\users\user\documents\github\project-end\final project\final project\game.h(19): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\game.h(20): error C2061: syntax error : identifier 'User'
 c:\users\user\documents\github\project-end\final project\final project\game.h(29): error C2065: 'Question' : undeclared identifier
@@ -455,6 +457,11 @@ c:\users\user\documents\github\project-end\final project\final project\user.h(36
 c:\users\user\documents\github\project-end\final project\final project\triviaserver.h(31): error C2146: syntax error : missing ';' before identifier '_db'
 c:\users\user\documents\github\project-end\final project\final project\triviaserver.h(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
 c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2061: syntax error : identifier 'DataBase'
+c:\users\user\documents\github\project-end\final project\final project\game.h(14): error C2574: 'Game::Game(const std::vector<User *,std::allocator<_Ty>> &,int)' : cannot be declared static
+          with
+          [
+              _Ty=User *
+          ]
 c:\users\user\documents\github\project-end\final project\final project\game.h(29): error C2065: 'Question' : undeclared identifier
 c:\users\user\documents\github\project-end\final project\final project\game.h(29): error C2059: syntax error : '>'
 c:\users\user\documents\github\project-end\final project\final project\game.h(29): error C2976: 'std::vector' : too few template arguments
@@ -468,12 +475,9 @@ c:\users\user\documents\github\project-end\final project\final project\game.cpp(
           ]
           c:\users\user\documents\github\project-end\final project\final project\game.h(12) : see declaration of 'Game'
 c:\users\user\documents\github\project-end\final project\final project\game.cpp(9): error C2550: 'Game::{ctor}' : constructor initializer lists are only allowed on constructor definitions
-c:\users\user\documents\github\project-end\final project\final project\game.cpp(10): error C2671: 'Game::{ctor}' : static member functions do not have 'this' pointers
-c:\users\user\documents\github\project-end\final project\final project\game.cpp(10): error C2227: left of '->_question_no' must point to class/struct/union/generic type
-c:\users\user\documents\github\project-end\final project\final project\game.cpp(11): error C2671: 'Game::{ctor}' : static member functions do not have 'this' pointers
-c:\users\user\documents\github\project-end\final project\final project\game.cpp(11): error C2227: left of '->_currentTurnAnswers' must point to class/struct/union/generic type
-c:\users\user\documents\github\project-end\final project\final project\game.cpp(12): error C2671: 'Game::{ctor}' : static member functions do not have 'this' pointers
-c:\users\user\documents\github\project-end\final project\final project\game.cpp(12): error C2227: left of '->_currQuestionIndex' must point to class/struct/union/generic type
+c:\users\user\documents\github\project-end\final project\final project\game.cpp(10): error C2597: illegal reference to non-static member 'Game::_question_no'
+c:\users\user\documents\github\project-end\final project\final project\game.cpp(11): error C2597: illegal reference to non-static member 'Game::_currentTurnAnswers'
+c:\users\user\documents\github\project-end\final project\final project\game.cpp(12): error C2597: illegal reference to non-static member 'Game::_currQuestionIndex'
 c:\users\user\documents\github\project-end\final project\final project\game.cpp(13): error C2352: 'Game::insertGameToDB' : illegal call of non-static member function
           c:\users\user\documents\github\project-end\final project\final project\game.h(38) : see declaration of 'Game::insertGameToDB'
 c:\users\user\documents\github\project-end\final project\final project\game.cpp(15): error C2352: 'Game::initQuestionsFromDB' : illegal call of non-static member function

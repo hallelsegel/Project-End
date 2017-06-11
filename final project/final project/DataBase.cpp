@@ -1,9 +1,12 @@
-﻿ #include "stdafx.h"
+﻿#include "stdafx.h"
 #include "sqlite3.h"
 #include "DataBase.h"
+#include "Helper.h"
 #include <ctime>
+#include <iostream>
 #define RETURN_IF_INVALID				if (_sqldb == nullptr) return;
 #define RETURN_RES_IF_INVALID(res)		if (_sqldb == nullptr) return res;
+
 
 
 DataBase::DataBase()
@@ -84,7 +87,7 @@ vector<Question*> DataBase::initQuestion(int questionNo)
 
 	sqlStatement = "SELECT * FROM T_QUESTIONS ORDER BY RANDOM() LIMIT " + string(_itoa(questionNo, buff, 10)) + ";";
 	resetLastId();
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackQuestions, questionsV, &errMessage);
+	//sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackQuestions, questionsV, &errMessage);
 	
 	return;
 }
@@ -297,7 +300,7 @@ int DataBase::callbackCount(void* param, int argc, char** argv, char** azColName
 	int res;
 	char buff[10];
 
-	sqlStatement = "SELECT COUNT(*) FROM TAGS WHERE USER_ID=" + string(_itoa(userId, buff, 10)) + ";";
+	sqlStatement = "SELECT COUNT(*) FROM TAGS WHERE USER_ID=" + string(_itoa(this->_lastId, buff, 10)) + ";";
 
 	int albumsCount;
 
@@ -338,14 +341,30 @@ int DataBase::callbackQuestions(void* param, int argc, char** argv, char** azCol
 	return 0;
 }
 
+vector<string> scores;
+
 int DataBase::callbackBestScores(void* param, int argc, char** argv, char** azColName)
 {
-
+	string currScore;
+	currScore = Helper::getPaddedNumber(string(argv[0]).length(), 2);
+	currScore += argv[0];
+	currScore += Helper::getPaddedNumber(atoi(argv[1]), 6);
+	scores.push_back(currScore);
+	return 0;
 }
 
 int DataBase::callbackPersonalStatus(void* param, int argc, char** argv, char** azColName)
 {
-
+	stringstream sstr;
+	if (argv[3] == nullptr)
+		sstr << /*number of games*/"0000" << /*number of right answers*/"000000" << /*number of wrong answers*/"000000" << /*average time for answer*/"0000";
+	else
+	{
+		string s = argv[3];
+		sstr << Helper::getPaddedNumber(atoi(argv[0]), 4) << Helper::getPaddedNumber(atoi(argv[1]), 6) << Helper::getPaddedNumber(atoi(argv[2]), 6) << Helper::getPaddedNumber(atoi(s.substr(0, s.find('.')).c_str()), 2) << Helper::getPaddedNumber(atoi(s.substr(s.find('.') + 1, s.find('.') + 1).c_str()), 2);
+	}
+	scores.push_back(sstr.str());
+	return 0;
 }
 
 static int sqlExecCallback(void* param, int argc, char** argv, char** azColName)
@@ -391,495 +410,4 @@ static int sqlInt(void* params, int argc, char** argv, char** azColName)
 	*num = atoi(argv[0]);
 
 	return 0;
-}
-
-
-const albums& DataBase::getAlbumsOfUser(int userId)
-{/* SELECT albums of a certain user, using the WHERE sql command (sent using the exec function) from albums. */
-	_albumsOfUser.clear();
-	RETURN_RES_IF_INVALID(_albums);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-
-	char buff[10];
-	sqlStatement = "SELECT * FROM ALBUMS WHERE USER_ID=" + string(_itoa(userId, buff, 10)) + ";"; //sql command with the chosen username 
-	//implemented in.
-
-	resetLastId();
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), listAlbumsCallback, &_albumsOfUser, &errMessage);
-
-	return _albumsOfUser;
-}
-
-
-void DataBase::insertAlbum(CAlbum& album)
-{/* INSERT an album to the ALBUMS table, using the sql command and a CAlbum object that the information
-	for the album comes from. Using SELECT after with the minimal callback (the first) to determine the INSERT success. */
-	RETURN_IF_INVALID;
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-
-	album.setCreationDateNow();
-
-	char buff[10];
-
-	sqlStatement = "INSERT INTO ALBUMS (NAME, CREATION_DATE, USER_ID) "	\
-        "VALUES ('" + album.getName() + "', '" + album.getCreationDate() + "', " + string(_itoa(album.getUserId(), buff, 10)) + "); "	\
-		"SELECT * FROM ALBUMS WHERE NAME='" + album.getName() + "';";
-
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
-	if (res != SQLITE_OK)
-		return;
-
-	if (_lastId == -1)
-		return;
-
-	album.setId(_lastId);
-}
-
-void DataBase::deleteAlbum(string albumName)
-{/* DELETE an album from the ALBUMS table according to a selected name. */
-	RETURN_IF_INVALID;
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-
-	sqlStatement = "DELETE FROM ALBUMS WHERE NAME='" + albumName + "';";
-
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), nullptr, this, &errMessage);
-}
-
-bool DataBase::albumExists(string albumName)
-{/* same as used in the INSERT function, determines if the album exists using the minimal callback function. */
-	RETURN_RES_IF_INVALID(false);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-
-	sqlStatement = "SELECT * FROM ALBUMS WHERE NAME='" + albumName + "';";
-
-	resetLastId();
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
-	if (res != SQLITE_OK)
-		return false;
-
-	return _lastId != -1;
-}
-
-CAlbum* DataBase::openAlbum(string albumName)
-{/* Preperation of a certain album for the album-specific-function: checks the album's validity and queries for all of its
-	pictures and tags. */
-	RETURN_RES_IF_INVALID(nullptr);
-
-	getAlbums();
-	if (_albums.size() == 0)
-		return nullptr;
-
-	albums_iter iter = _albums.begin();
-	while (iter != _albums.end())
-	{
-		if (iter->getName().compare(albumName) == 0)
-			break;
-		++iter;
-	}
-
-	if (iter == _albums.end())
-		return nullptr;
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-
-	char buff[10];
-	sqlStatement = "SELECT * FROM PICTURES WHERE ALBUM_ID=" + string(_itoa(iter->getId(), buff, 10)) + ";";
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), listPicturesCallback, &iter->getPicturesRef(), &errMessage);
-
-	pictures& pictures = iter->getPicturesRef();
-	pictures_iter picIter = pictures.begin();
-	for (; picIter != pictures.end(); ++picIter)
-	{
-		sqlStatement = "SELECT * FROM TAGS WHERE PICTURE_ID=" + string(_itoa(picIter->getId(), buff, 10)) + ";";
-		sqlite3_exec(_sqldb, sqlStatement.c_str(), listUserTagsCallback, &picIter->getUserTagsRef(), &errMessage);
-	}
-
-	return &*iter;
-}
-
-void DataBase::closeAlbum(CAlbum* pAlbum)
-{/*I guess this is only a placeholder because the RAM based class needed to close the objects, but we don't because its all in
- the file instead of the RAM (that needs to be cleaned) and they wanted this to work with the same files the original did. */
-}
-
-void DataBase::addPictureToAlbum(int albumId, CPicture& picture)
-{/* add a picture, using the INSERT sql command, and a CPicture object for the values of the new line in the PICTURES table,
-	except for ALBUM_ID that is given as parameter. also checks if it exists for confirmation usingthe minimal callback function*/
-	RETURN_IF_INVALID;
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-
-	picture.setCreationDateNow();
-
-	char buff[10];
-	sqlStatement = "INSERT INTO PICTURES (NAME, LOCATION, CREATION_DATE, ALBUM_ID) VALUES ("	\
-		"'" + picture.getName() + "', "					\
-		"'" + picture.getLocation() + "', "				\
-        "'" + picture.getCreationDate() + "', "			\
-        "" + string(_itoa(albumId, buff, 10)) + ");"	\
-		"SELECT * FROM PICTURES WHERE NAME='" + picture.getName() + "';";
-
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
-	if (res != SQLITE_OK)
-		return;
-
-	if (_lastId == -1)
-		return;
-
-	picture.setId(_lastId);
-
-	albums_iter iter = _albums.begin();
-	while (iter != _albums.end())
-	{
-		if (iter->getId() == albumId)
-			iter->addPicture(picture);
-		++iter;
-	}
-}
-
-void DataBase::removePictureFromAlbum(int albumId, int pictureId)
-{/* DELETE an picture from the PICTURES table according to a selected name, then deletes all the tags that had to do
-	with it (since it doesn't exist anymore). */
-	RETURN_IF_INVALID;
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	char buff[10];
-	sqlStatement = "DELETE FROM PICTURES WHERE ID=" + string(_itoa(pictureId, buff, 10)) + ";";
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), nullptr, this, &errMessage);
-
-	sqlStatement = "DELETE FROM TAGS WHERE PICTURE_ID=" + string(_itoa(pictureId, buff, 10)) + ";";
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), nullptr, this, &errMessage);
-}
-	
-void DataBase::tagUserInPicture(CPicture& picture, int userId)
-{/* adds a tag of a user using the INSERT commend for the TAGS table and a given int for the user id. */
-	RETURN_IF_INVALID;
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	char buff[10];
-	string picIdStr = string(_itoa(picture.getId(), buff, 10));
-	string userIdStr = string(_itoa(userId, buff, 10));
-
-	sqlStatement = "INSERT INTO TAGS (PICTURE_ID, USER_ID) "	\
-        "VALUES (" + picIdStr + ", " + userIdStr + ");";
-
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), nullptr, this, &errMessage);
-
-	picture.tagUser(userId);
-}
-
-void DataBase::untagUserInPicture(CPicture& picture, int userId)
-{/* remove a tag from a user, which is just to DELETE it from the table. also checks if it still exists 
- for confirmation usingthe minimal callback function.*/
-	RETURN_IF_INVALID;
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	char buff[10];
-	string picIdStr = string(_itoa(picture.getId(), buff, 10));
-	string userIdStr = string(_itoa(userId, buff, 10));
-
-	sqlStatement = "DELETE FROM TAGS WHERE PICTURE_ID=" + picIdStr + " AND USER_ID=" + userIdStr + ";";
-
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
-
-	picture.untagUser(userId);
-}
-
-bool DataBase::isUserTaggedInPicture(const CPicture& picture, int userId)
-{/* checks if a user is tagged in a picture, which means checking if a tag that points to the given picture id and the given user id
- exists using the minimal callback function*/
-	RETURN_RES_IF_INVALID(false);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	char buff[10];
-
-	resetLastId();
-	sqlStatement = "SELECT * FROM TAGS WHERE PICTURE_ID=" + string(_itoa(picture.getId(), buff, 10)) + " AND USER_ID=" + string(_itoa(userId, buff, 10)) + ";";
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
-
-	return _lastId != -1;
-}
-
-const users& DataBase::getUsers()
-{/* regular SELECT command on the USERS table, queries for all available users and stores them in CUser objects
- using the user callback function. */
-	_users.clear();
-	RETURN_RES_IF_INVALID(_users);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-
-	sqlStatement = "SELECT * FROM USERS;";
-
-	resetLastId();
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), listUsersCallback, &_users, &errMessage);
-
-	return _users;
-}
-
-void DataBase::addUser(CUser& user)
-{/* INSERT a user to the USERS table, using the sql command and a CUser object that the information
-	for the user comes from. Using SELECT after with the minimal callback to determine the INSERT success. */
-	RETURN_IF_INVALID;
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-
-	sqlStatement = "INSERT INTO USERS (NAME) "	\
-        "VALUES ('" + user.getName() + "');"	\
-		"SELECT * FROM USERS WHERE NAME='" + user.getName() + "';";
-
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
-	if (res != SQLITE_OK)
-		return;
-
-	if (_lastId == -1)
-		return;
-
-	user.setId(_lastId);
-}
-
-void DataBase::deleteUser(string userName)
-{/* DELETE a picture from the USERS table according to a selected name. */
-	RETURN_IF_INVALID;
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-
-	sqlStatement = "DELETE FROM USERS WHERE NAME='" + userName + "';";
-
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
-}
-
-bool DataBase::userExists(string userName)
-{/* Checks if a user exists using the minimal callback function using his name as a string. */
-	RETURN_RES_IF_INVALID(false);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-
-	sqlStatement = "SELECT * FROM USERS WHERE NAME='" + userName + "';";
-
-	resetLastId();
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
-	if (res != SQLITE_OK)
-		return false;
-
-	return _lastId != -1;
-}
-
-bool DataBase::userExists(int userId)
-{/* Checks if a user exists using the minimal callback function using his id (int). */
-	RETURN_RES_IF_INVALID(false);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-
-	char buff[10];
-	sqlStatement = "SELECT * FROM USERS WHERE ID=" + string(_itoa(userId, buff, 10)) + ";";
-
-	resetLastId();
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
-	if (res != SQLITE_OK)
-		return false;
-
-	return _lastId != -1;
-}
-
-CUser* DataBase::getUser(int userId)
-{/* actual non-sql function! gets the id of the wanted user and returns a pointer to the right one from the users object-list. */
-	RETURN_RES_IF_INVALID(nullptr);
-
-	getUsers();
-	if (_users.size() == 0)
-		return nullptr;
-
-	users_iter iter = _users.begin();
-	while (iter != _users.end())
-	{
-		if (iter->getId() == userId)
-			return &*iter;
-		++iter;
-	}
-
-	return nullptr;
-}
-
-int DataBase::countAlbumsOwnedOfUser(int userId) 
-{/* Count the albums of a certain user by using the exec with the sqlInt function from above.*/
-	RETURN_RES_IF_INVALID(-1);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-	char buff[10];
-
-	sqlStatement = "SELECT COUNT(*) FROM ALBUMS WHERE USER_ID=" + string(_itoa(userId, buff, 10)) + ";";
-
-	int albumsCount;
-
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlInt, &albumsCount, &errMessage);
-	if (res != SQLITE_OK)
-		return -1;
-
-	return albumsCount;
-}
-
-int DataBase::countAlbumsTaggedOfUser(int userId)
-{/* tags to a certain user in the his albums by using the exec with the sqlInt function from above. */
-	RETURN_RES_IF_INVALID(-1);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-	char buff[10];
-
-	sqlStatement = "SELECT COUNT(DISTINCT ALBUM_ID) FROM ALBUMS "                    \
-		           "INNER JOIN PICTURES ON PICTURES.ALBUM_ID = ALBUMS.ID "			 \
-				   "LEFT JOIN TAGS ON PICTURES.ID = TAGS.PICTURE_ID "				 \
-				   "WHERE TAGS.USER_ID =" + string(_itoa(userId, buff, 10)) + ";";
-
-	int albumsCount;
-
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlInt, &albumsCount, &errMessage);
-	if (res != SQLITE_OK)
-		return -1;
-
-	return albumsCount;
-}
-
-int DataBase::countTagsOfUser(int userId)
-{/* Count the tags to a certain user by using the exec with the sqlInt function from above. */
-	RETURN_RES_IF_INVALID(-1);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-	char buff[10];
-
-	sqlStatement = "SELECT COUNT(*) FROM TAGS WHERE USER_ID=" + string(_itoa(userId, buff, 10)) + ";";
-
-	int albumsCount;
-
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlInt, &albumsCount, &errMessage);
-	if (res != SQLITE_OK)
-		return -1;
-
-	return albumsCount;
-}
-
-float DataBase::averageTagsPerAlbumOfUser(int userId)
-{/* another non-sql function, calls the function that counts the tags of a user and returns the average tags per user,
-	using the album-counting function (if there are any albums). */
-	float albumsOfTaggedUser = static_cast<float>(countAlbumsTaggedOfUser(userId));
-	if (albumsOfTaggedUser == 0)
-		return albumsOfTaggedUser;
-
-	return static_cast<float>(countTagsOfUser(userId)) / albumsOfTaggedUser;
-}
-
-const CUser* DataBase::getTopTaggedUser()
-{/* counts tags for the users and returns the one with the most, using the sqlTopId function from the start. */
-	RETURN_RES_IF_INVALID(nullptr);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-
-	sqlStatement = "select USER_ID, count(*) from tags group by USER_ID;";
-
-	pair<int, int> tagsPair;
-	tagsPair.first = -1;
-	tagsPair.second = -1;
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlTopId, &tagsPair, &errMessage);
-	if (res != SQLITE_OK)
-		return nullptr;
-
-	if (tagsPair.first == -1)
-		return nullptr;
-
-	return getUser(tagsPair.first);
-}
-
-const CPicture* DataBase::getTopTaggedPicture()
-{/* counts tags for the all pictures and returns the one with the most, using the sqlTopId function from the start. also 
-	queries (using the pictures callback) for that picture and puts it in the private member _topTaggedPicture. */
-	RETURN_RES_IF_INVALID(nullptr);
-	
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-
-	sqlStatement = "select PICTURE_ID, count(*) from tags group by PICTURE_ID;";
-
-	pair<int, int> tagsPair;
-	tagsPair.first = -1;
-	tagsPair.second = -1;
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlTopId, &tagsPair, &errMessage);
-	if (res != SQLITE_OK)
-		return nullptr;
-
-	if (tagsPair.first == -1)
-		return nullptr;
-
-	char buff[10];
-	pictures picturesList;
-	sqlStatement = "SELECT * FROM PICTURES WHERE ID=" + string(_itoa(tagsPair.first, buff, 10)) + ";";
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), listPicturesCallback, &picturesList, &errMessage); //query for the picture (in case it wasn't queried yet?)
-	if (res != SQLITE_OK)
-		return nullptr;
-
-	if (picturesList.size() == 0)
-		return nullptr;
-
-	pictures_iter iter = picturesList.begin();
-	while (iter != picturesList.end())
-	{
-		if (iter->getId() == tagsPair.first) //go through the pictures in the list until you find the one you just queried for
-		{
-			_topTaggedPicture = *iter;
-			return &_topTaggedPicture; //insert to the private member _topTaggedPicture
-		}
-		++iter;
-	}
-
-	return nullptr;
-}
-
-const pictures& DataBase::getTaggedPicturesOfUser(int userId)
-{/* queries for pictures that are tagged to a certain user using the pictures callback function. */
-	_picturesOfUser.clear();
-	RETURN_RES_IF_INVALID(_picturesOfUser);
-
-	string sqlStatement;
-	char *errMessage = nullptr;
-
-	char buff[10];
-	sqlStatement = "SELECT PICTURES.* FROM PICTURES "                                 \
-			       "LEFT JOIN TAGS ON PICTURES.ID = TAGS.PICTURE_ID "				 \
-		           "WHERE TAGS.USER_ID =" + string(_itoa(userId, buff, 10)) + ";";
-
-	int res = sqlite3_exec(_sqldb, sqlStatement.c_str(), listPicturesCallback, &_picturesOfUser, &errMessage);
-
-	return _picturesOfUser;
 }

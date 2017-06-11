@@ -3,6 +3,12 @@
 #include <vector>
 #include <string>
 #include "Question.h"
+#include <WinSock2.h>
+#include <Windows.h>
+#include <map>
+#include "Protocol.h"
+#include "TriviaServer.h"
+
 using namespace std;
 struct sqlite3;
 
@@ -12,10 +18,10 @@ private:;
 	sqlite3* _sqldb;
 	int _lastId;
 
-	static int callbackCount(void* param, int argc, char** argv, char** azColName);
-	static int callbackQuestions(void* param, int argc, char** argv, char** azColName);
-	static int callbackBestScores(void* param, int argc, char** argv, char** azColName);
-	static int callbackPersonalStatus(void* param, int argc, char** argv, char** azColName);
+	int callbackCount(void* param, int argc, char** argv, char** azColName);
+	int callbackQuestions(void* param, int argc, char** argv, char** azColName);
+	int callbackBestScores(void* param, int argc, char** argv, char** azColName);
+	int callbackPersonalStatus(void* param, int argc, char** argv, char** azColName);
 	bool fileExistsOnDisk(const string& filename);
 	bool initDatabase();
 

@@ -7,9 +7,9 @@
 
 Game::Game(const vector<User*>& players, int questionsNo, DataBase& db) : _db(db)
 {
-	this->_question_no = questionsNo;
-	this->_currentTurnAnswers = 0;
-	this->_currQuestionIndex = 0;
+	_question_no = questionsNo;
+	_currentTurnAnswers = 0;
+	_currQuestionIndex = 0;
 	if (insertGameToDB())
 	{
 		initQuestionsFromDB();
