@@ -38,11 +38,18 @@ Game::~Game()
 void Game::handleFinishGame()
 {
 	this->_db.updateGameStatus(this->_ID);
+	string msg = SERVER_END_GAME + Helper::getPaddedNumber(_players.size(), 1);
+	for (int i = 0; i < (int)_players.size(); i++)
+	{
+		msg += Helper::getPaddedNumber(_players[i]->getUsername().size(), 2); //username size (2 bytes)
+		msg += _players[i]->getUsername(); //username
+		msg += Helper::getPaddedNumber(_results[_players[i]->getUsername()], 2);
+	}
 	for (int i = 0; i < (int)_players.size(); i++)
 	{
 		try
 		{
-			this->_players[i]->send(SERVER_END_GAME);
+			this->_players[i]->send(msg);
 			this->_players[i]->setGame(nullptr);
 		}
 		catch (exception ex)
