@@ -16,8 +16,9 @@ class DataBase
 private:;
 	sqlite3* _sqldb;
 	int _lastId;
-
-	static int sqlExecCallback(void* param, int argc, char** argv, char** azColName);
+	char* _lastUsername;
+	static int sqlExecCallbackID(void* param, int argc, char** argv, char** azColName);
+	static int sqlExecCallbackUM(void* param, int argc, char** argv, char** azColName);
 	int static callbackQuestions(void* param, int argc, char** argv, char** azColName);
 	int static callbackBestScores(void* param, int argc, char** argv, char** azColName);
 	int static callbackPersonalStatus(void* param, int argc, char** argv, char** azColName);
@@ -29,6 +30,9 @@ public:
 	~DataBase();
 	void setLastId(char* lastId);
 	void resetLastId();
+	void setLastUM(char* lastUM);
+	void resetLastUM();
+
 	bool open();
 	void close();
 	void clear();

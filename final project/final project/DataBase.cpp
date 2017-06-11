@@ -33,14 +33,14 @@ bool DataBase::isUserExists(string username)
 
 	sqlStatement = "SELECT * FROM T_USERS WHERE USERNAME='" + username + "';";
 
-	resetLastId();
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	resetLastUM();
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallbackUM, this, &errMessage);
 	if (res != SQLITE_OK)
 	{
 		throw exception(errMessage);
 		return false;
 	}
-	return _lastId != -1;
+	return (_lastUsername != "-1");
 }
 
 bool DataBase::addNewUser(string username, string password, string email)
@@ -55,11 +55,11 @@ bool DataBase::addNewUser(string username, string password, string email)
 		"VALUES ('" + username + "', '" + password + "', '" + email + "'); "	\
 		"SELECT * FROM T_USERS WHERE USERNAME='" + username + "';";
 
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallbackUM, this, &errMessage);
 	if (res != SQLITE_OK)
 		return false;
 
-	return (_lastId != -1);
+	return (_lastUsername != "-1");
 }
 
 bool DataBase::isUserAndPassMatch(string username, string password)
@@ -72,12 +72,12 @@ bool DataBase::isUserAndPassMatch(string username, string password)
 
 	sqlStatement = "SELECT * FROM T_USERS WHERE USERNAME='" + username + "' AND PASSWORD='" + password + "';";
 
-	resetLastId();
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	resetLastUM();
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallbackUM, this, &errMessage);
 	if (res != SQLITE_OK)
 		return false;
 
-	return _lastId != -1;
+	return (_lastUsername != "-1");
 }
 
 vector<Question*> DataBase::initQuestion(int questionNo)
@@ -88,8 +88,8 @@ vector<Question*> DataBase::initQuestion(int questionNo)
 	char buff[10];
 	sqlStatement = "SELECT * FROM T_QUESTIONS ORDER BY RANDOM() LIMIT " + string(_itoa(questionNo, buff, 10)) + ";";
 	resetLastId();
-	sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackQuestions, &questionsV, &errMessage);
 	
+	sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackQuestions, &questionsV, &errMessage);
 	return questionsV;
 }
 
@@ -122,13 +122,11 @@ int DataBase::insertNewGame()
 		"VALUES (0, time('now'), time('now'); "	\
 		"SELECT * FROM T_GAMES WHERE START_TIME=time('now');";  //time('now') is the current time (h/m/s), is temporarily inserted to END_TIME.
 
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallbackID, this, &errMessage);
 	if (res != SQLITE_OK)
 		return false;
 
-	if (_lastId == -1)
-		return false;
-	return true;
+	return (_lastId != -1);
 }
 
 bool DataBase::updateGameStatus(int gameId)
@@ -139,14 +137,12 @@ bool DataBase::updateGameStatus(int gameId)
 	char *errMessage = nullptr;
 	int res;
 	char buff[10];
-	sqlStatement = "UPDATE T_GAMES SET END_TIME = date('now') WHERE GAME_ID = " + string(_itoa(gameId, buff, 10)) + ";";
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	sqlStatement = "UPDATE T_GAMES SET END_TIME = time('now') WHERE GAME_ID = " + string(_itoa(gameId, buff, 10)) + ";";
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallbackID, this, &errMessage);
 	if (res != SQLITE_OK)
 		return false;
 
-	if (_lastId == -1)
-		return false;
-	return true;
+	return (_lastId != -1);
 }
 
 bool DataBase::addAnswerToPlayer(int gameId, string username, int questionId, string answer, bool isCorrect, int answerTime)
@@ -160,19 +156,19 @@ bool DataBase::addAnswerToPlayer(int gameId, string username, int questionId, st
 	sqlStatement = "INSERT INTO T_PLAYERS_ANSWERS (PLAYER_ANSWER, IS_CORRECT, GAME_ID, USERNAME, QUESTION_ID, ANSWER_TIME)" \
 		"VALUES(" + answer + ", " + string(_itoa(isCorrect, buff, 10)) + ", " + string(_itoa(gameId, buff, 10)) + ", "		\
 		+ username + ", " + string(_itoa(questionId, buff, 10)) + ", " + string(_itoa(answerTime, buff, 10)) + "); "		\
-		+ "SELECT * FROM T_PLAYERS_ANSWETS WHERE GAME_ID = " + string(_itoa(gameId, buff, 10)) + "AND WHERE USERNAME ="		\
-		+ username + "AND WHERE QUESTION_ID =" + string(_itoa(questionId, buff, 10)) +									 ";";
+		+ "SELECT * FROM T_PLAYERS_ANSWERS WHERE GAME_ID = " + string(_itoa(gameId, buff, 10)) + "AND USERNAME ="		\
+		+ username + "AND QUESTION_ID =" + string(_itoa(questionId, buff, 10)) +									 ";";
 	//first insert with all required values and then call select where its the right question for the right user in the right
 	//game to check success.
 	
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallback, this, &errMessage);
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallbackID, this, &errMessage);
 	if (res != SQLITE_OK)
 		return false;
 
-	if (_lastId == -1)
-		return false;
-	return true;
+	return (_lastId != -1);
 }
+
+
 
 void DataBase::setLastId(char* lastId)
 {/* setter for the private member _lastid */
@@ -182,6 +178,16 @@ void DataBase::setLastId(char* lastId)
 void DataBase::resetLastId()
 {/* resetter for the private member _lastid (insert -1) */
 	_lastId = -1;
+}
+
+void DataBase::setLastUM(char* lastUM)
+{
+	_lastUsername = lastUM;
+}
+
+void DataBase::resetLastUM()
+{
+	_lastUsername = "-1";
 }
 
 bool DataBase::open()
@@ -325,8 +331,8 @@ int DataBase::callbackQuestions(void* param, int argc, char** argv, char** azCol
 			ans4 = argv[i];
 		}
 	}
-	Question currentQuestion(id, question, corrAns, ans2, ans3, ans4);
-	(static_cast<questions *>(param))->push_back(currentQuestion);
+	Question* currentQuestion = new Question(id, question, corrAns, ans2, ans3, ans4);
+	(static_cast<vector<Question*>*>(param))->push_back(currentQuestion);
 	return 0;
 }
 
@@ -361,22 +367,35 @@ int DataBase::callbackPersonalStatus(void* param, int argc, char** argv, char** 
 	return 0;
 }
 
-int DataBase::sqlExecCallback(void* param, int argc, char** argv, char** azColName)
+int DataBase::sqlExecCallbackID(void* param, int argc, char** argv, char** azColName)
 {/* The Callback function (for storing information recieved by SELECT in objects, used in the exec that calls SELECET) that
  covers the ID column only, if it are available (true for all callbacks). This will be primarily used to determine if an object 
  exists (because we only need to know if anything is returned)*/
 	DataBase *dbAccess = (DataBase *)param;
 	dbAccess->resetLastId();
-
 	int i;
 	for(i=0; i<argc; i++) {
-		if (string(azColName[i]).compare("ID") == 0) { //store in _lastid if it is the ID column
+		if (strstr(azColName[i],"ID") != nullptr) { //store in _lastid if it is the ID column
 			dbAccess->setLastId(argv[i]);
 		}
 	}
 	return 0;
 }
 
+int DataBase::sqlExecCallbackUM(void* param, int argc, char** argv, char** azColName)
+{/* The Callback function (for storing information recieved by SELECT in objects, used in the exec that calls SELECET) that
+ covers the ID column only, if it are available (true for all callbacks). This will be primarily used to determine if an object
+ exists (because we only need to know if anything is returned)*/
+	DataBase *dbAccess = (DataBase *)param;
+	dbAccess->resetLastUM();
+	int i;
+	for (i = 0; i<argc; i++) {
+		if (strstr(azColName[i], "USERNAME") != nullptr) { //store in _lastUM if it is the username column
+			dbAccess->setLastUM(argv[i]);
+		}
+	}
+	return 0;
+}
 static int sqlTopId(void* param, int argc, char** argv, char** azColName)
 {/* used to determine highest value for the "top tagged user/picture" commands (used on every one, if higher value
 	new one is saved).	this is a like a callback function, but its for using COUNT. */

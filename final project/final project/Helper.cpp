@@ -34,7 +34,7 @@ void Helper::sendData(SOCKET sc, std::string message)
 {
 	const char* data = message.c_str();
 	
-	if (send(sc, data, message.size(), 0) == INVALID_SOCKET)
+	if (send(sc, data, message.size(), 0) == INVALID_SOCKET) //doesn't manage to send SERVER_END_GAME for some reason
 	{
 		throw std::exception("Error while sending message to client");
 	}

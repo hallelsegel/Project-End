@@ -12,9 +12,9 @@ Question::Question(int id, string question, string correctAnswer, string answer2
 	vector<string> temp = { correctAnswer, answer2, answer3, answer4 };
 	int i;
 	for (int j = 0; j < 4; j++)
-	{
+	{ 
 		i = rand() % (4-j);
-		if (i = 0) _correctPlace = j;
+		if (i == 0) _correctPlace = j;
 		_answers[j] = temp[i];
 		temp.erase(temp.begin() + i);
 	}
@@ -32,8 +32,7 @@ string Question::getQuestion()
 
 string* Question::getAnswers()
 {
-	string ans[4] = { _answers[0], _answers[1], _answers[2], _answers[3] };
-	return ans;
+	return &_answers[0];
 }
 
 int Question::getCorrectAnswerIndex()

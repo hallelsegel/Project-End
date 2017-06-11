@@ -61,9 +61,9 @@ bool Game::handleNextTurn()
 {
 	if (this->_players.size() > 0) // Checks if there are players in the game
 	{
-		if (this->_currentTurnAnswers = this->_players.size()) // Checks if everyone answered the given question yet.
+		if (this->_currentTurnAnswers == this->_players.size()) // Checks if everyone answered the given question yet.
 		{
-			if (this->_currQuestionIndex = this->_question_no) // Checks if its the last question of the game.
+			if (this->_currQuestionIndex == this->_question_no - 1) // Checks if its the last question of the game.
 			{
 				handleFinishGame();
 				return (false);
@@ -71,7 +71,7 @@ bool Game::handleNextTurn()
 			this->_currQuestionIndex++;
 			sendQuestionToAllUsers();
 		}
-		// Do nthing until everyone answers.
+		// Do nothing until everyone answers.
 	}
 	else
 	{
@@ -127,7 +127,8 @@ void Game::initQuestionsFromDB()
 void Game::sendQuestionToAllUsers()
 {
 	stringstream msg;
-	string que = _questions[_currQuestionIndex]->getQuestion(), *ans = _questions[_currQuestionIndex]->getAnswers();
+	string que = _questions[_currQuestionIndex]->getQuestion();
+	string* ans = _questions[_currQuestionIndex]->getAnswers();
 	this->_currentTurnAnswers = 0;
 
 	if (que.length() > 0)

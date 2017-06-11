@@ -121,7 +121,7 @@ bool TriviaServer::handleSignup(RecievedMessage* msg) //203
 	if (Validator::isPasswordValid(password) == false)			Helper::sendData(msg->getSock(), SERVER_SIGN_UP_PASS_ILEGAL);
 	else if (Validator::isUsernameValid(username) == false)		Helper::sendData(msg->getSock(), SERVER_SIGN_UP_USERNAME_ILEGAL);
 	else if (_db.isUserExists(username))						Helper::sendData(msg->getSock(), SERVER_SIGN_UP_USERNAME_ALLREDY_EXIST);
-	else if (_db.addNewUser(username, password, email) == -1)			{
+	else if (_db.addNewUser(username, password, email))			{
 		Helper::sendData(msg->getSock(), SERVER_SIGN_UP_SUCCESS);
 		return true;
 	}
@@ -155,10 +155,12 @@ void TriviaServer::handleSignout(RecievedMessage* msg) //201
 	for (it = _connectedUsers.begin(); it->first != sock; it++){}
 	if (it != _connectedUsers.end())
 	{
+		if (it->second->getRoom()) {
+			handleLeaveRoom(msg);
+			handleCloseRoom(msg);
+		}
+		if (it->second->getGame()) handleLeaveGame(msg);
 		_connectedUsers.erase(it);
-		handleLeaveRoom(msg);
-		handleCloseRoom(msg);
-		handleLeaveGame(msg);
 	}
 	else cout << "No such user." << endl; //error info
 }
@@ -361,7 +363,7 @@ RecievedMessage* TriviaServer::buildRecieveMessage(SOCKET client_socket, int msg
 	{
 		values.push_back(Helper::getStringPartFromSocket(client_socket, Helper::getIntPartFromSocket(client_socket, 2))); //username
 		values.push_back(Helper::getStringPartFromSocket(client_socket, Helper::getIntPartFromSocket(client_socket, 2))); //password
-		if (CLIENT_SIGN_UP) values.push_back(Helper::getStringPartFromSocket(client_socket, Helper::getIntPartFromSocket(client_socket, 2))); //email
+		if (msgCode == CLIENT_SIGN_UP) values.push_back(Helper::getStringPartFromSocket(client_socket, Helper::getIntPartFromSocket(client_socket, 2))); //email
 	}
 	else
 	{

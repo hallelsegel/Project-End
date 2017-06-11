@@ -5,6 +5,8 @@ User::User(string username, SOCKET sock)
 {
 	this->_username = username;
 	this->_sock = sock;
+	this->_currGame = NULL;
+	this->_currRoom = NULL;
 }
 
 void User::send(string message)
