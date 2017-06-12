@@ -19,9 +19,9 @@ private:;
 	char* _lastUsername;
 	static int sqlExecCallbackID(void* param, int argc, char** argv, char** azColName);
 	static int sqlExecCallbackUM(void* param, int argc, char** argv, char** azColName);
-	int static callbackQuestions(void* param, int argc, char** argv, char** azColName);
-	int static callbackBestScores(void* param, int argc, char** argv, char** azColName);
-	int static callbackPersonalStatus(void* param, int argc, char** argv, char** azColName);
+	static int callbackUsers(void* param, int argc, char** argv, char** azColName);
+	static int callbackQuestions(void* param, int argc, char** argv, char** azColName);
+	static int callbackCount(void* params, int argc, char** argv, char** azColName);
 	bool fileExistsOnDisk(const string& filename);
 	bool initDatabase();
 
@@ -41,7 +41,7 @@ public:
 	bool addNewUser(string username, string password, string email);
 	bool isUserAndPassMatch(string username, string password);
 	vector<Question*> initQuestion(int questionNo);
-	vector<string> getBestScores();
+	map<int, string> getBestScores();
 	vector<string> getPersonalStatus(string username);
 	int insertNewGame();
 	bool updateGameStatus(int gameId);

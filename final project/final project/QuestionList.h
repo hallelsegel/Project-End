@@ -28,7 +28,7 @@ public:
 			" VALUES ('A group of Ravens is called:', 'An Unkindness', 'A Coal mine', 'A Party', 'A Flock'); ");
 		//q6
 		_list.push_back("INSERT INTO T_QUESTIONS (QUESTION, CORRECT_ANS, ANS2, ANS3, ANS4)"
-			" VALUES ('Taphephobia is the fear of:', 'Typhoons', 'Being buried alive', 'Tea parties', 'Clowns'); ");
+			" VALUES ('Taphephobia is the fear of:', 'Being buried alive', 'Typhoons', 'Tea parties', 'Clowns'); ");
 		//q7
 		_list.push_back("INSERT INTO T_QUESTIONS (QUESTION, CORRECT_ANS, ANS2, ANS3, ANS4)"
 			" VALUES ('How many eggs does a female mackerel lay at a time?', '500,000', '1.3 million', '450-500', '23,000'); ");

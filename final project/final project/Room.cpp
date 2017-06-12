@@ -20,7 +20,7 @@ Room::~Room()
 
 bool Room::joinRoom(User* user)
 {
-	if (this->_maxUsers = this->_users.size())
+	if (this->_maxUsers == this->_users.size())
 	{
 		user->send(SERVER_JOIN_ROOM_FULL);
 		return(false);
@@ -28,7 +28,8 @@ bool Room::joinRoom(User* user)
 	else
 	{
 		this->_users.push_back(user);
-		user->send(SERVER_JOIN_ROOM_SUCCESS);
+		string msg = SERVER_JOIN_ROOM_SUCCESS + Helper::getPaddedNumber(_questionsNo, 2) + Helper::getPaddedNumber(_questionTime, 1);
+		user->send(msg);
 		sendMessage(getUsersListMessage());
 		return (true);
 	}

@@ -6,6 +6,7 @@
 #include <ctime>
 #include <iostream>
 #include <sstream>
+
 #pragma warning(disable:4996)
 #define RETURN_IF_INVALID				if (_sqldb == nullptr) return;
 #define RETURN_RES_IF_INVALID(res)		if (_sqldb == nullptr) return res;
@@ -93,21 +94,49 @@ vector<Question*> DataBase::initQuestion(int questionNo)
 	return questionsV;
 }
 
-vector<string> scores;
-
-vector<string> getBestScores()
+map<int, string> DataBase::getBestScores()
 {
 	string sqlStatement;
+	map<int, string> scores;
+	vector<string> users;
 	char *errMessage = nullptr;
 	char buff[10];
-	sqlStatement = "SELECT * FROM T_QUESTIONS ORDER BY RANDOM() LIMIT 3;";
+	int i = 0, correct = 0, wrong = 0;
+	sqlStatement = "SELECT DISTINCT USERNAME FROM T_PLAYERS_ANSWERS;";
+	sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackUsers, &users, &errMessage);
 
+	for (i = 0; i < users.size(); i++)
+	{
+		correct = atoi(this->getPersonalStatus(users[i])[1].c_str());
+		wrong = atoi(this->getPersonalStatus(users[i])[2].c_str());
+		scores.insert(pair<int, string>(correct * 100 / (correct + wrong), users[i])); //score: percent of correct answers
+	}
 	return scores;
 }
 
-vector<string> getPersonalStatus(string username)
+vector<string> DataBase::getPersonalStatus(string username)
 {
-	return scores;
+	string sqlStatement;
+	vector<string> stats;
+	char *errMessage = nullptr;
+	int res, numOfGames, numOfCorrect, numOfWrong, avgTime;
+	sqlStatement = "select count(distinct game_id) from t_players_answers where username = '" + username + "';";
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackCount, &numOfGames, &errMessage);
+	stats.push_back(Helper::getPaddedNumber(numOfGames, 4));
+
+	sqlStatement = "select count() from t_players_answers where username = '" + username + "' AND IS_CORRECT = 1;";
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackCount, &numOfCorrect, &errMessage);
+	stats.push_back(Helper::getPaddedNumber(numOfCorrect, 6));
+
+	sqlStatement = "select count() from t_players_answers where username = '" + username + "' AND IS_CORRECT = 0;";
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackCount, &numOfWrong, &errMessage);
+	stats.push_back(Helper::getPaddedNumber(numOfWrong, 6));
+
+	sqlStatement = "select sum(answer_time) from t_players_answers where username = '" + username + "';";
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackCount, &avgTime, &errMessage);
+	stats.push_back(Helper::getPaddedNumber((int)(avgTime * 100.0 / (numOfWrong + numOfCorrect)), 4));
+
+	return stats;
 }
 
 int DataBase::insertNewGame()
@@ -119,14 +148,13 @@ int DataBase::insertNewGame()
 	int res;
 
 	sqlStatement = "INSERT INTO T_GAMES (STATUS, START_TIME, END_TIME) "	\
-		"VALUES (0, time('now'), time('now'); "	\
+		"VALUES (0, time('now'), time('now')); "	\
 		"SELECT * FROM T_GAMES WHERE START_TIME=time('now');";  //time('now') is the current time (h/m/s), is temporarily inserted to END_TIME.
 
 	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallbackID, this, &errMessage);
 	if (res != SQLITE_OK)
 		return false;
-
-	return (_lastId != -1);
+	else return _lastId;
 }
 
 bool DataBase::updateGameStatus(int gameId)
@@ -153,11 +181,12 @@ bool DataBase::addAnswerToPlayer(int gameId, string username, int questionId, st
 	char *errMessage = nullptr;
 	int res;
 	char buff[10];
+	if (answer == "") answer = "no answer";
 	sqlStatement = "INSERT INTO T_PLAYERS_ANSWERS (PLAYER_ANSWER, IS_CORRECT, GAME_ID, USERNAME, QUESTION_ID, ANSWER_TIME)" \
-		"VALUES(" + answer + ", " + string(_itoa(isCorrect, buff, 10)) + ", " + string(_itoa(gameId, buff, 10)) + ", "		\
-		+ username + ", " + string(_itoa(questionId, buff, 10)) + ", " + string(_itoa(answerTime, buff, 10)) + "); "		\
-		+ "SELECT * FROM T_PLAYERS_ANSWERS WHERE GAME_ID = " + string(_itoa(gameId, buff, 10)) + "AND USERNAME ="		\
-		+ username + "AND QUESTION_ID =" + string(_itoa(questionId, buff, 10)) +									 ";";
+		"VALUES('" + answer + "', " + string(_itoa(isCorrect, buff, 10)) + ", " + string(_itoa(gameId, buff, 10)) + ", '"		\
+		+ username + "', " + string(_itoa(questionId, buff, 10)) + ", " + string(_itoa(answerTime, buff, 10)) + "); "		\
+		+ "SELECT * FROM T_PLAYERS_ANSWERS WHERE GAME_ID = " + string(_itoa(gameId, buff, 10)) + " AND USERNAME = '"		\
+		+ username + "' AND QUESTION_ID =" + string(_itoa(questionId, buff, 10)) +									 ";";
 	//first insert with all required values and then call select where its the right question for the right user in the right
 	//game to check success.
 	
@@ -167,8 +196,6 @@ bool DataBase::addAnswerToPlayer(int gameId, string username, int questionId, st
 
 	return (_lastId != -1);
 }
-
-
 
 void DataBase::setLastId(char* lastId)
 {/* setter for the private member _lastid */
@@ -307,6 +334,19 @@ bool DataBase::fileExistsOnDisk(const string& filename)
 	return (stat(filename.c_str(), &buffer) == 0);
 }
 
+int DataBase::callbackUsers(void* param, int argc, char** argv, char** azColName)
+{
+	vector<string>* users = (static_cast<vector<string>*>(param));
+	string question, corrAns, ans2, ans3, ans4;
+	for (int i = 0; i < argc; i++) {
+		if (string(azColName[i]).compare("USERNAME") == 0) {
+			users->push_back(argv[i]);
+		}
+		return 0;
+	}
+	return 1;
+}
+
 int DataBase::callbackQuestions(void* param, int argc, char** argv, char** azColName)
 {
 	int id;
@@ -333,37 +373,6 @@ int DataBase::callbackQuestions(void* param, int argc, char** argv, char** azCol
 	}
 	Question* currentQuestion = new Question(id, question, corrAns, ans2, ans3, ans4);
 	(static_cast<vector<Question*>*>(param))->push_back(currentQuestion);
-	return 0;
-}
-
-int DataBase::callbackBestScores(void* param, int argc, char** argv, char** azColName)
-{
-	string currScore;
-	currScore = Helper::getPaddedNumber(string(argv[0]).length(), 2);
-	currScore += argv[0];
-	currScore += Helper::getPaddedNumber(atoi(argv[1]), 6);
-	scores.push_back(currScore);
-	return 0;
-}
-
-int DataBase::callbackPersonalStatus(void* param, int argc, char** argv, char** azColName)
-{
-	stringstream sstr;
-	if (argv[3] == nullptr)
-		sstr << /*number of games*/"0000" << \
-		/*number of right answers*/"000000" << \
-		/*number of wrong answers*/"000000" << \
-		/*average time for answer*/"0000";
-	else
-	{
-		string s = argv[3];
-		sstr << /*number of games*/		Helper::getPaddedNumber(atoi(argv[0]), 4) << \
-			/*number of right answers*/	Helper::getPaddedNumber(atoi(argv[1]), 6) << \
-			/*number of wrong answers*/	Helper::getPaddedNumber(atoi(argv[2]), 6) << \
-			/**/Helper::getPaddedNumber(atoi(s.substr(0, s.find('.')).c_str()), 2) << \
-			Helper::getPaddedNumber(atoi(s.substr(s.find('.') + 1, s.find('.') + 1).c_str()), 2);
-	}
-	scores.push_back(sstr.str());
 	return 0;
 }
 
@@ -396,24 +405,8 @@ int DataBase::sqlExecCallbackUM(void* param, int argc, char** argv, char** azCol
 	}
 	return 0;
 }
-static int sqlTopId(void* param, int argc, char** argv, char** azColName)
-{/* used to determine highest value for the "top tagged user/picture" commands (used on every one, if higher value
-	new one is saved).	this is a like a callback function, but its for using COUNT. */
-	pair<int, int> *topId = (pair<int, int> *)param; 
-	if (argc != 2) 
-		return 0;
 
-	int curCount = atoi(argv[1]);
-	if (curCount < topId->second) //check for higher count
-		return 0;
-
-	topId->first = atoi(argv[0]);
-	topId->second = curCount;
-
-		return 0;
-}
-
-static int sqlInt(void* params, int argc, char** argv, char** azColName)
+int DataBase::callbackCount(void* params, int argc, char** argv, char** azColName)
 {/* used to count albums and tags of a user (called until reaching end), similar to the last function.*/
 	int *num = (int*)params;
 

@@ -94,7 +94,7 @@ bool Game::handleAnswerFromUser(User* user, int answerNo, int time)
 	msg << SERVER_ANSWER;
 	bool isCorrect = false;
 	this->_currentTurnAnswers++;
-	if (answerNo = this->_questions[this->_currQuestionIndex]->getCorrectAnswerIndex())
+	if (answerNo == this->_questions[this->_currQuestionIndex]->getCorrectAnswerIndex())
 	{
 		this->_results[user->getUsername()]++;
 		isCorrect = true;
@@ -123,7 +123,7 @@ bool Game::leaveGame(User* currUser)
 bool Game::insertGameToDB()
 {
 	this->_ID = this->_db.insertNewGame();
-	return this->_ID != -1;
+	return (this->_ID != -1);
 }
 
 void Game::initQuestionsFromDB()

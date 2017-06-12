@@ -14,7 +14,7 @@ Question::Question(int id, string question, string correctAnswer, string answer2
 	for (int j = 0; j < 4; j++)
 	{ 
 		i = rand() % (4-j);
-		if (i == 0) _correctPlace = j;
+		if (temp[i] == correctAnswer) _correctPlace = j+1;
 		_answers[j] = temp[i];
 		temp.erase(temp.begin() + i);
 	}
