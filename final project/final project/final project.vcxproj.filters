@@ -42,9 +42,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Protocol.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RecievedMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -58,6 +55,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QuestionList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\client\Protocol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

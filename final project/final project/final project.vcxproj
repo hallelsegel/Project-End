@@ -65,10 +65,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\client\Protocol.h" />
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Helper.h" />
-    <ClInclude Include="Protocol.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="QuestionList.h" />
     <ClInclude Include="RecievedMessage.h" />

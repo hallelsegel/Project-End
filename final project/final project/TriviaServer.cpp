@@ -165,7 +165,7 @@ void TriviaServer::handleSignout(RecievedMessage* msg) //201
 	else cout << "No such user." << endl; //error info
 }
 
-void TriviaServer::safeDeleteUser(RecievedMessage* msg)
+void TriviaServer::safeDeleteUser(RecievedMessage* msg) //299
 {
 	try
 	{
