@@ -13,7 +13,6 @@ int main()
 	{
 		WSAInitializer wsaInit;
 		TriviaServer myServer;
-
 		myServer.serve(8820);
 	}
 	catch (exception& e)

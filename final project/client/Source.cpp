@@ -1,4 +1,3 @@
-
 #pragma comment (lib, "ws2_32.lib")
 
 #include <WinSock2.h>
@@ -17,7 +16,7 @@ int main()
 		WSAInitializer wsaInit;
 		Client c1;
 		c1.Connect("127.0.0.1", 8820);
-		c1.suggestMessage();
+		c1.handleOption();
 	}	
 	catch (exception& e)
 	{
