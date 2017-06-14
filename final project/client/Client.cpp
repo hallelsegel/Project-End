@@ -55,7 +55,7 @@ void Client::printOptions()
 	}
 	else
 	{
-		cout << "Choose an action:\n1. Sign out\n2. Join room" << endl;
+		cout << "Choose an action:\n1. Sign out\n2. Join room\n3. Create room\n4. View highscores\n5. View personal stats" << endl;
 	}
 }
 
@@ -67,7 +67,9 @@ void Client::handleOption()
 		printOptions();
 		cin >> answer;
 		if (_isConnected == 0) {
-			if (answer == 1) if (signIn()) _isConnected = 1;
+			if (answer == 1){
+				if (signIn()) _isConnected = 1;
+			}
 			else if (answer == 2) signUp();
 		}
 		else {
@@ -76,9 +78,22 @@ void Client::handleOption()
 				send(_clientSocket, "201", 3, 0);
 				_isConnected = 0;
 			}
-			else if (answer == 2) if (joinRoom());
+			else if (answer == 2) {
+				CRoom newRoom(_clientSocket, 0);
+				if (newRoom.joinRoom() == 0)   cin.clear(); cin.ignore(INT_MAX, '\n'); //clean buffer
+			}
+			else if (answer == 3){
+				CRoom newRoom(_clientSocket, 1);
+				if (newRoom.createRoom() == 0) cin.clear(); cin.ignore(INT_MAX, '\n'); //clean buffer
+			}
+			else if (answer == 4){
+				getBestScores();
+			}
+			else if (answer == 5){
+				getPersonalStatus();
+			}
 		}
-		system("PAUSE");
+		if (answer != 15)  cin.clear(); cin.ignore(INT_MAX, '\n'); //clean buffer
 	}
 	string s = "299";
 	send(_clientSocket, s.c_str(), s.size(), 0);
@@ -139,69 +154,52 @@ bool Client::signUp() //203
 	catch (exception e) { cout << e.what() << endl; }
 }
 
-bool Client::joinRoom() //209
+bool Client::getBestScores()
 {
-	if (!getRooms()) return false;
-	int roomId;
-	cin >> roomId;
-	string msg = "209" + Helper::getPaddedNumber(roomId, 4);
+	send(_clientSocket, "223", 3, 0);
 	string rcvMsg = Helper::getPartFromSocket(_clientSocket, 3, 0);
-	if (rcvMsg == SERVER_JOIN_ROOM_NOT_EXIST)
+	if (rcvMsg != SERVER_BEST_SCORES)
 	{
-		cout << "This room doesn't exist or an unknown problem" << endl;
+		cout << "Error in getting highscores. please try again" << endl;
 		return false;
 	}
-	else if (rcvMsg == SERVER_JOIN_ROOM_FULL)
+	else
 	{
-		cout << "The room was filled before you could join" << endl;
-		return false;
-	}
-	else if (rcvMsg == SERVER_JOIN_ROOM_SUCCESS)
-	{
-		cout << "Joining succesful!\nIn this room: " << endl;
-		cout << "Number of questions: " << Helper::getIntPartFromSocket(_clientSocket, 2) << " | ";
-		cout << "Time to answer per question: " << Helper::getIntPartFromSocket(_clientSocket, 2) << " seconds." << endl;
+		cout << "Highest scores: " << endl;
+		for (int i = 0; i < 3; i++)
+		{
+			int usernameLen = Helper::getIntPartFromSocket(_clientSocket, 2);
+			if (usernameLen == 0) break;
+			cout << "User " << Helper::getPartFromSocket(_clientSocket, usernameLen, 0);
+			cout << " has answered correctly " << Helper::getIntPartFromSocket(_clientSocket, 6) << "% of the time" << endl;
+		}
 	}
 	return true;
 }
 
-bool Client::getRooms() //205
+bool Client::getPersonalStatus()
 {
-	send(_clientSocket, "205", 3, 0);
+	send(_clientSocket, "225", 3, 0);
 	string rcvMsg = Helper::getPartFromSocket(_clientSocket, 3, 0);
-	if (rcvMsg != SERVER_GET_EXIST_ROOMS){
-		cout << "Error on getting room's list" << endl;
-		return false;
-	}
-
-	int roomNum = Helper::getIntPartFromSocket(_clientSocket, 4);
-	if (roomNum == 0){
-		cout << "There are no rooms open at this moment." << endl;
-		return false;
-	}
-	cout << "Choose of these existing rooms: " << endl;
-	for (int i = 0; i < roomNum; i++)
+	if (rcvMsg != SERVER_PERSONAL_STATUS)
 	{
-		cout << "Room Id: " << Helper::getIntPartFromSocket(_clientSocket, 4) << " | ";
-		cout << "Room Name: " << Helper::getPartFromSocket(_clientSocket, Helper::getIntPartFromSocket(_clientSocket, 2), 0);
-		getUsersByRoom(i);
+		cout << "Error in getting personal status. please try again" << endl;
+		return false;
+	}
+	else
+	{
+		cout << "Your stats: " << endl;
+		int numOfGames = Helper::getIntPartFromSocket(_clientSocket, 4);
+		if (numOfGames == 0)
+		{
+			cout << "You have played no games, and thus have no personal stats... go play some now!" << endl;
+			return false;
+		}
+		cout << "You have played " << numOfGames << " games" << endl;
+		cout << "With " << Helper::getIntPartFromSocket(_clientSocket, 6) << " correct answers" << endl;
+		cout << "And " << Helper::getIntPartFromSocket(_clientSocket, 6) << " wrong answers." << endl;
+		cout << "Your average time to answer is " << (Helper::getIntPartFromSocket(_clientSocket, 4) / 100.0) << " seconds. " << endl;
 	}
 	return true;
 }
 
-void Client::getUsersByRoom(int roomId) //207
-{
-	string msg = "207" + Helper::getPaddedNumber(roomId, 4);
-	send(_clientSocket, msg.c_str(), msg.size(), 0);
-	string rcvMsg = Helper::getPartFromSocket(_clientSocket, 3, 0);
-	if (rcvMsg != SERVER_USER_IN_ROOM);
-
-	int userNum = Helper::getIntPartFromSocket(_clientSocket, 1);
-	if (userNum == 0) cout << "There are no users, the room probably closed" << endl;
-	cout << " | Users: ";
-	for (int i = 0; i < userNum; i++)
-	{
-		cout << Helper::getPartFromSocket(_clientSocket, Helper::getIntPartFromSocket(_clientSocket, 2), 0) << " | ";
-	}
-	cout << endl;
-}

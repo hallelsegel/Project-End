@@ -5,6 +5,7 @@
 #include <string>
 #include "Protocol.h"
 #include "Helper.h"
+#include "CRoom.h"
 
 class Client
 {
@@ -14,23 +15,15 @@ public:
 	void Connect(std::string serverIP, int port);
 	void printOptions();
 	void handleOption();
-
 									//Message Code:
 	bool signIn();					//200
 	bool signUp();					//203
-
-	/* room fucntions */
-	bool getRooms();				//205
-	void getUsersByRoom(int roomId);//207
-	bool joinRoom();				//209
-	bool leaveRoom();				//211
-	bool createRoom();				//213
-	bool closeRoom();				//215
 	
-	/* game functions*/
+	/* game functions (probabl need to move to a Game class) */
 	bool startGame();				//217
 	bool sendAnswer();				//219
 	bool leaveGame();				//222
+	void handleQuestion();
 		
 	/* feature functions */
 	bool getBestScores();			//223

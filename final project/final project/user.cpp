@@ -11,6 +11,7 @@ User::User(string username, SOCKET sock)
 
 void User::send(string message)
 {
+	cout << "Sent data: " << message << " to user socket: " << this->_sock << endl;
 	Helper::sendData(this->_sock, message);
 }
 

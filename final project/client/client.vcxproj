@@ -67,11 +67,13 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Protocol.h" />
+    <ClInclude Include="CRoom.h" />
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="CRoom.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="WSAInitializer.cpp" />
   </ItemGroup>

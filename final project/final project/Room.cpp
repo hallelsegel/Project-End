@@ -28,7 +28,7 @@ bool Room::joinRoom(User* user)
 	else
 	{
 		this->_users.push_back(user);
-		string msg = SERVER_JOIN_ROOM_SUCCESS + Helper::getPaddedNumber(_questionsNo, 2) + Helper::getPaddedNumber(_questionTime, 1);
+		string msg = SERVER_JOIN_ROOM_SUCCESS + Helper::getPaddedNumber(_questionsNo, 2) + Helper::getPaddedNumber(_questionTime, 2);
 		user->send(msg);
 		sendMessage(getUsersListMessage());
 		return (true);

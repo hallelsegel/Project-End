@@ -3,6 +3,7 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include <map>
+#include <iostream>
 #include "Protocol.h"
 using namespace std;
 
