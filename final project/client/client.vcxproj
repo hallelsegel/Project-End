@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CGame.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Protocol.h" />
@@ -71,6 +72,7 @@
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CGame.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="CRoom.cpp" />

@@ -1,6 +1,7 @@
 #include "CRoom.h"
 #include "Helper.h"
 #include "Protocol.h"
+#include "CGame.h"
 
 using namespace std;
 
@@ -99,29 +100,16 @@ bool CRoom::handleRoom()
 	cin >> choice;
 	if (choice == "L" && !_isAdmin){//leave room
 		send(_clientSock, "211", 3, 0);
-		string rcvMsg = Helper::getPartFromSocket(_clientSock, 3, 0);
-		if (rcvMsg != SERVER_LEAVE_ROOM){
-			cout << "Unknown error" << endl;
-			return false;
-		}
-		else{
-			_inRoom = 0;
-			return true;
-		}
+		//here roomDisplay should catch the answer
 	}
 	else if (choice == "C" && _isAdmin){ //close room (by admin)
 		send(_clientSock, "215", 3, 0);
-		string rcvMsg = Helper::getPartFromSocket(_clientSock, 3, 0);
-		if (rcvMsg != SERVER_CLOSE_ROOM){
-			cout << "Unknown error" << endl;
-			return false;
-		}
-		else{
-			_inRoom = 0;
-			return true;
-		}
+		//here roomDisplay should catch the answer
 	}
-	else if (choice == "S" && _isAdmin);
+	else if (choice == "S" && _isAdmin){
+		send(_clientSock, "217", 3, 0);
+		//tell the server to start the game, roomDisplay should catch the answer (first question)
+	}
 	else cout << "Invalid input." << endl;
 	return true;
 }
@@ -136,16 +124,21 @@ void CRoom::roomDisplay()
 		cout << "Number of questions: " << _questionsNo << " | ";
 		cout << "Time to answer per question: " << _questionTime << " seconds." << endl;
 		cout << "Current users in room";
-		for (int i = 0; i < _users.size(); i++) cout << " | " << _users[i];
-		cout << "\nPlease wait for the game to start" << endl;
-		if (_isAdmin == 0) cout << ", or leave this room by entering 'L'";
-		else cout << ", close this room by entering 'C' or start the game by entering 'S'";
+		for (int i = 0; i < (int)_users.size(); i++) cout << " | " << _users[i];
+		cout << "\nPlease wait for the game to start";
+		if (_isAdmin == 0) cout << ", or leave this room by entering 'L'" << endl;
+		else cout << ", close this room by entering 'C' or start the game by entering 'S'" << endl;
 
 		string rcvMsg = Helper::getPartFromSocket(_clientSock, 3, 0);
-		if (rcvMsg == SERVER_SEND_QUESTION); //fix this, make a Game class
+		cout << "Recieved: " << rcvMsg << endl;
+		if (rcvMsg == SERVER_SEND_QUESTION && !_isAdmin)
+		{
+			CGame newGame(_clientSock, _questionsNo, _questionTime);
+			newGame.handleQuestion();
+		}
 		else if (rcvMsg == SERVER_CLOSE_ROOM)
 		{
-			cout << "Room closed by admin" << endl;
+			cout << "Room closed" << endl;
 			_inRoom = 0;
 		}
 		else if (rcvMsg == SERVER_USER_IN_ROOM) {
@@ -163,12 +156,16 @@ void CRoom::roomDisplay()
 			}
 			roomDisplay(); //reset the loading screen
 		}
+		else if (rcvMsg == "112") //cought from the message handleRoom sent (leave room)
+		{
+			if (Helper::getIntPartFromSocket(_clientSock, 1) == 0)	_inRoom = 0;
+		}
 	}
 }
 
 bool CRoom::createRoom()				//213
 {
-	int userNum, answerTime, questionNum;
+	int userNum;
 	string roomName;
 	system("cls");
 

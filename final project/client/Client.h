@@ -19,12 +19,6 @@ public:
 	bool signIn();					//200
 	bool signUp();					//203
 	
-	/* game functions (probabl need to move to a Game class) */
-	bool startGame();				//217
-	bool sendAnswer();				//219
-	bool leaveGame();				//222
-	void handleQuestion();
-		
 	/* feature functions */
 	bool getBestScores();			//223
 	bool getPersonalStatus();		//225
