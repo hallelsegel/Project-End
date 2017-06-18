@@ -316,18 +316,18 @@ void TriviaServer::handleGetBestScores(RecievedMessage* msg) //223
 	map<int, string> bestScores = _db.getBestScores();
 	map<int, string> ::iterator it = bestScores.begin();
 	string sendMsg = SERVER_BEST_SCORES;
-	if (bestScores.size() == 0) sendMsg += "000000000000000000000";
+	if (bestScores.size() == 0) sendMsg += "00"; //size 0 = no more users (none)
 	else if (bestScores.size() == 1)
 	{
 		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 6);
-		sendMsg += "00000000000000";
+		sendMsg += "00"; //size 0 = no more users 
 	}
 	else if (bestScores.size() == 2)
 	{
 		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 6); 
 		it++; //move 'it' forward once
 		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 6);
-		sendMsg += "0000000";
+		sendMsg += "00"; //size 0 = no more users 
 	}
 	else
 	{

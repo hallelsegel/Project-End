@@ -163,7 +163,6 @@ bool Client::getBestScores()
 	if (rcvMsg != SERVER_BEST_SCORES)
 	{
 		cout << "Error in getting highscores. please try again" << endl;
-		return false;
 	}
 	else
 	{
@@ -187,7 +186,6 @@ bool Client::getPersonalStatus()
 	if (rcvMsg != SERVER_PERSONAL_STATUS)
 	{
 		cout << "Error in getting personal status. please try again" << endl;
-		return false;
 	}
 	else
 	{
@@ -196,12 +194,13 @@ bool Client::getPersonalStatus()
 		if (numOfGames == 0)
 		{
 			cout << "You have played no games, and thus have no personal stats... go play some now!" << endl;
-			return false;
 		}
-		cout << "You have played " << numOfGames << " games" << endl;
-		cout << "With " << Helper::getIntPartFromSocket(_clientSocket, 6) << " correct answers" << endl;
-		cout << "And " << Helper::getIntPartFromSocket(_clientSocket, 6) << " wrong answers." << endl;
-		cout << "Your average time to answer is " << (Helper::getIntPartFromSocket(_clientSocket, 4) / 100.0) << " seconds. " << endl;
+		else {
+			cout << "You have played " << numOfGames << " games" << endl;
+			cout << "With " << Helper::getIntPartFromSocket(_clientSocket, 6) << " correct answers" << endl;
+			cout << "And " << Helper::getIntPartFromSocket(_clientSocket, 6) << " wrong answers." << endl;
+			cout << "Your average time to answer is " << (Helper::getIntPartFromSocket(_clientSocket, 4) / 100.0) << " seconds. " << endl;
+		}
 	}
 	system("PAUSE");
 	return true;

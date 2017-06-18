@@ -42,19 +42,19 @@ void CGame::handleQuestion()
 		{
 			cout << "					answer : " << ans << endl;
 			string msg = "219" + ans + Helper::getPaddedNumber(_questionTime - timeRemaining, 2);
-			timeRemaining = -1;
+			timeRemaining = -1; //stop questionDisplay()
 			sendAnswer(msg);
 		}
 		else if (ans == "L")
 		{
-			timeRemaining = -1;
+			timeRemaining = -1; //stop questionDisplay()
 			leaveGame();
 		}
 		else
 		{
 			cout << "Invalid answer number. Sending as if you didn't answer. " << endl;
 			string msg = "2195" + Helper::getPaddedNumber(_questionTime - timeRemaining, 2);
-			timeRemaining = -1;
+			timeRemaining = -1; //stop questionDisplay()
 			sendAnswer(msg);
 		}
 	}
@@ -106,7 +106,6 @@ void CGame::sendAnswer(string msg)		//219
 		}
 		else if (rcvMsg == SERVER_END_GAME && _currQuestion == _questionsNo) //game finished
 		{
-			cout << _currQuestion << " != " << _questionsNo << endl;
 			cout << "The game ended! Scores:" << endl;
 			int playerNum = Helper::getIntPartFromSocket(_clientSock, 1);
 			for (int i = 0; i < playerNum; i++)
@@ -114,6 +113,7 @@ void CGame::sendAnswer(string msg)		//219
 				cout << Helper::getPartFromSocket(_clientSock, Helper::getIntPartFromSocket(_clientSock, 2), 0);
 				cout << " answered correctly on " << Helper::getIntPartFromSocket(_clientSock, 2) << " questions" << endl;
 			}
+			system("PAUSE");
 			_whenDone->notify_all();
 		}
 		else
