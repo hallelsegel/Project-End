@@ -117,6 +117,7 @@ bool Game::leaveGame(User* currUser)
 	vector<User*>::iterator i;
 	for (i = _players.begin(); i < _players.end() && *i != currUser; i++);
 	_players.erase(i);
+	if (_players.size() == 0) handleFinishGame(); //if last player left, finish game
 	return handleNextTurn();
 }
 

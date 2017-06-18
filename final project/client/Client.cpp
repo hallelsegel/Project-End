@@ -51,18 +51,18 @@ void Client::printOptions()
 	system("cls");
 	if (_isConnected == 0) //need to sign in
 	{
-		cout << "Choose an action:\n1. Sign in\n2. Sign up" << endl;
+		cout << "Choose an action:\n1. Sign in\n2. Sign up\n3. Close trivia" << endl;
 	}
 	else
 	{
-		cout << "Choose an action:\n1. Sign out\n2. Join room\n3. Create room\n4. View highscores\n5. View personal stats" << endl;
+		cout << "Choose an action:\n1. Sign out\n2. Join room\n3. Create room\n4. View highscores\n5. View personal stats\n6. Close trivia" << endl;
 	}
 }
 
 void Client::handleOption()
 {
 	int answer = 0;
-	while (answer != 15)
+	while (!(answer == 3 && !_isConnected) && !(answer == 6 && _isConnected)) //not "Close trivia"
 	{
 		printOptions();
 		cin >> answer;
@@ -72,7 +72,7 @@ void Client::handleOption()
 			}
 			else if (answer == 2) signUp();
 		}
-		else {
+		else{
 			if (answer == 1)
 			{
 				send(_clientSocket, "201", 3, 0);
@@ -93,7 +93,7 @@ void Client::handleOption()
 				getPersonalStatus();
 			}
 		}
-		if (answer != 15)  cin.clear(); cin.ignore(INT_MAX, '\n'); //clean buffer
+		if ((answer == 3 && !_isConnected) || (answer == 6 && _isConnected))  cin.clear(); cin.ignore(INT_MAX, '\n'); //clean buffer
 	}
 	string s = "299";
 	send(_clientSocket, s.c_str(), s.size(), 0);
@@ -118,6 +118,7 @@ bool Client::signIn() //200
 		}
 		else if (rcvMsg == SERVER_SIGN_IN_ALLREADY_CONNECTAED) cout << "Sign in unsuccesful, this user is already connected" << endl;
 		else if (rcvMsg == SERVER_SIGN_IN_WRONG_DETAILS) cout << "Sign in unsuccesful, wrong name or password" << endl;
+		system("PAUSE");
 		return false;
 	}
 	catch (exception e) { cout << e.what() << endl; }
@@ -149,6 +150,7 @@ bool Client::signUp() //203
 		else if (rcvMsg == SERVER_SIGN_UP_USERNAME_ILEGAL) cout << "Sign in unsuccesful, the username has to be begin with a letter, "\
 			"and include no spaces. " << endl;
 		else if (rcvMsg == SERVER_SIGN_UP_OTHER) cout << "Sign in unsuccesful, for no known reason" << endl;
+		system("PAUSE");
 		return false;
 	}
 	catch (exception e) { cout << e.what() << endl; }
@@ -174,6 +176,7 @@ bool Client::getBestScores()
 			cout << " has answered correctly " << Helper::getIntPartFromSocket(_clientSocket, 6) << "% of the time" << endl;
 		}
 	}
+	system("PAUSE");
 	return true;
 }
 
@@ -200,6 +203,7 @@ bool Client::getPersonalStatus()
 		cout << "And " << Helper::getIntPartFromSocket(_clientSocket, 6) << " wrong answers." << endl;
 		cout << "Your average time to answer is " << (Helper::getIntPartFromSocket(_clientSocket, 4) / 100.0) << " seconds. " << endl;
 	}
+	system("PAUSE");
 	return true;
 }
 

@@ -14,7 +14,7 @@ public:
 		//q2
 		_list.push_back("INSERT INTO T_QUESTIONS (QUESTION, CORRECT_ANS, ANS2, ANS3, ANS4)"
 			" VALUES ('What... is the capital of Assyria?', 'I dont know that. Auuuuuuuugh!!',"
-			"'Aššur', 'Nineveh', 'Damascus'); ");
+			"'Assur', 'Nineveh', 'Damascus'); ");
 		//q3
 		_list.push_back("INSERT INTO T_QUESTIONS (QUESTION, CORRECT_ANS, ANS2, ANS3, ANS4)"
 			" VALUES ('If you could decribe yourself in 3 words, how flipping sad would that be?', "

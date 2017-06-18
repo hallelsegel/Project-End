@@ -1,6 +1,7 @@
 #include "Question.h"
 #include <string>
 #include <time.h>
+#include <Windows.h>
 using namespace std;
 
 

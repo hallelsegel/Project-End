@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <thread>
+#include <condition_variable>
 using namespace std;
 
 class CRoom

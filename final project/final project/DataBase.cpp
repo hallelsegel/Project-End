@@ -15,6 +15,7 @@
 
 DataBase::DataBase()
 {
+	srand(time(NULL)); //reset time so that the random inside Question::Question() comes out different every time
 	this->open();
 	//c'tor
 }

@@ -105,7 +105,7 @@ bool CRoom::handleRoom()
 	else if (choice == "C" && _isAdmin){ //close room (by admin)
 		send(_clientSock, "215", 3, 0);
 		//here roomDisplay should catch the answer
-	}
+	}	
 	else if (choice == "S" && _isAdmin){
 		send(_clientSock, "217", 3, 0);
 		//tell the server to start the game, roomDisplay should catch the answer (first question)
@@ -113,6 +113,8 @@ bool CRoom::handleRoom()
 	else cout << "Invalid input." << endl;
 	return true;
 }
+
+condition_variable cv;
 
 void CRoom::roomDisplay()
 {
@@ -131,15 +133,16 @@ void CRoom::roomDisplay()
 
 		string rcvMsg = Helper::getPartFromSocket(_clientSock, 3, 0);
 		cout << "Recieved: " << rcvMsg << endl;
-		if (rcvMsg == SERVER_SEND_QUESTION && !_isAdmin)
+		if (rcvMsg == SERVER_SEND_QUESTION)
 		{
-			CGame newGame(_clientSock, _questionsNo, _questionTime);
+			CGame newGame(_clientSock, _questionsNo, _questionTime, &cv);
 			newGame.handleQuestion();
 		}
 		else if (rcvMsg == SERVER_CLOSE_ROOM)
 		{
 			cout << "Room closed" << endl;
 			_inRoom = 0;
+			cv.notify_all();
 		}
 		else if (rcvMsg == SERVER_USER_IN_ROOM) {
 			_users.clear();
@@ -196,5 +199,10 @@ bool CRoom::createRoom()				//213
 	string rcvMsg = Helper::getPartFromSocket(_clientSock, 4, 0);
 	if (rcvMsg == SERVER_CREATE_ROOM_FAIL) { cout << "Error opening room"; return false; }
 	if (rcvMsg == SERVER_CREATE_ROOM_SUCCESS) handleRoom();
+	mutex mx;
+	unique_lock<mutex> lck(mx, defer_lock);
+	lck.lock();
+	cv.wait(lck); //wait for the game to finish before continuing in to the main menu
+	_inRoom = 0;
 	return true;
 }
