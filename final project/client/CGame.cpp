@@ -22,6 +22,7 @@ string question;
 vector<string> answers;
 string ans;
 int timeRemaining;
+mutex TRLock;
 
 void CGame::handleQuestion()
 {
@@ -31,7 +32,8 @@ void CGame::handleQuestion()
 	{//error, server sends 0 instead of the question
 		cout << "Error in sending the question.." << endl;
 	}
-	else {
+	else
+	{
 		question = Helper::getPartFromSocket(_clientSock, len, 0);
 		answers.clear();
 		for (int j = 0; j < 4; j++) answers.push_back(Helper::getPartFromSocket(_clientSock, Helper::getIntPartFromSocket(_clientSock, 3), 0));
@@ -41,20 +43,26 @@ void CGame::handleQuestion()
 		if (atoi(ans.c_str()) > 0 && atoi(ans.c_str()) < 5)
 		{
 			cout << "					answer : " << ans << endl;
+			TRLock.lock();
 			string msg = "219" + ans + Helper::getPaddedNumber(_questionTime - timeRemaining, 2);
 			timeRemaining = -1; //stop questionDisplay()
+			TRLock.unlock();
 			sendAnswer(msg);
 		}
 		else if (ans == "L")
 		{
+			TRLock.lock();
 			timeRemaining = -1; //stop questionDisplay()
+			TRLock.unlock();
 			leaveGame();
 		}
 		else
 		{
 			cout << "Invalid answer number. Sending as if you didn't answer. " << endl;
+			TRLock.lock();
 			string msg = "2195" + Helper::getPaddedNumber(_questionTime - timeRemaining, 2);
 			timeRemaining = -1; //stop questionDisplay()
+			TRLock.unlock(); 
 			sendAnswer(msg);
 		}
 	}
@@ -62,21 +70,28 @@ void CGame::handleQuestion()
 
 void CGame::questionDisplay()
 {
+	TRLock.lock();
 	timeRemaining = _questionTime;
+	TRLock.unlock();
 	while (timeRemaining > 0)
 	{
+		TRLock.lock();
 		system("cls");
 		cout << "(To leave the game enter 'L')" << "\n" << "Question number " << _currQuestion << "\n" << question << "				Time remaining: " << timeRemaining << endl;
 		for (int j = 0; j < 4; j++) cout << (j + 1) << ". " << answers[j] << endl;
 		timeRemaining--;
+		TRLock.unlock();
 		Sleep(1000);
 	}
-	if (timeRemaining == 0){
-		string msg = "2195" + Helper::getPaddedNumber(_questionTime - timeRemaining, 2); //no answer
-		timeRemaining = -1;
+	TRLock.lock();
+	if (timeRemaining == 0) //time's up
+	{
+		string msg = "2195" + Helper::getPaddedNumber(_questionTime, 2); //no answer
+		timeRemaining--;
 		sendAnswer(msg);
 	}
-}
+	TRLock.unlock();
+}	
 
 void CGame::sendAnswer(string msg)		//219
 {
@@ -104,9 +119,9 @@ void CGame::sendAnswer(string msg)		//219
 			_currQuestion++;
 			handleQuestion();
 		}
-		else if (rcvMsg == SERVER_END_GAME && _currQuestion == _questionsNo) //game finished
+		else if (rcvMsg == SERVER_END_GAME && _currQuestion == _questionsNo) //game ended
 		{
-			cout << "The game ended! Scores:" << endl;
+			cout << "The game ended! Scores: out of " << _questionsNo << " questions" << endl;
 			int playerNum = Helper::getIntPartFromSocket(_clientSock, 1);
 			for (int i = 0; i < playerNum; i++)
 			{

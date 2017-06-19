@@ -5,6 +5,8 @@
 
 using namespace std;
 
+condition_variable cv;
+
 CRoom::CRoom(SOCKET clientSock, bool admin)
 {
 	this->_clientSock = clientSock;
@@ -110,11 +112,13 @@ bool CRoom::handleRoom()
 		send(_clientSock, "217", 3, 0);
 		//tell the server to start the game, roomDisplay should catch the answer (first question)
 	}
-	else cout << "Invalid input." << endl;
+	else {
+		cout << "Invalid input." << endl;
+		system("PAUSE");
+		return false;
+	}
 	return true;
 }
-
-condition_variable cv;
 
 void CRoom::roomDisplay()
 {
@@ -168,6 +172,7 @@ void CRoom::roomDisplay()
 
 bool CRoom::createRoom()				//213
 {
+	bool inputRoom;
 	int userNum;
 	string roomName;
 	system("cls");
@@ -198,7 +203,8 @@ bool CRoom::createRoom()				//213
 
 	string rcvMsg = Helper::getPartFromSocket(_clientSock, 4, 0);
 	if (rcvMsg == SERVER_CREATE_ROOM_FAIL) { cout << "Error opening room"; return false; }
-	if (rcvMsg == SERVER_CREATE_ROOM_SUCCESS) handleRoom();
+	if (rcvMsg == SERVER_CREATE_ROOM_SUCCESS) inputRoom = handleRoom();
+	if (!inputRoom) return false;
 	mutex mx;
 	unique_lock<mutex> lck(mx, defer_lock);
 	lck.lock();
