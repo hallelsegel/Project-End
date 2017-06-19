@@ -1,0 +1,13 @@
+﻿<Window x:Class="WPFclient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="700" Width="416">
+    <Grid>
+        <Label Content="Sign in" Height="60" Width="150" Margin="129,288,129,351"/>
+        <TextBox Height="46" Width="300" TextWrapping="Wrap" Text="UserName" Margin="25,100,25,100"/>
+        <TextBox Height="46" Width="300" TextWrapping="Wrap" Text="Password" Margin="25,176,25,120"/>
+        
+
+    </Grid>
+
+</Window>

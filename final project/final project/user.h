@@ -3,10 +3,12 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include <map>
-#include "Room.h"
-#include "Game.h"
+#include <iostream>
+#include "Protocol.h"
 using namespace std;
 
+class Game;
+class Room;
 class User
 {
 public:

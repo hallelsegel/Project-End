@@ -4,7 +4,7 @@
 #include "TriviaServer.h"
 #include <iostream>
 #include <exception>
-
+#include <regex>
 using namespace std;
 
 int main()
@@ -12,9 +12,8 @@ int main()
 	try
 	{
 		WSAInitializer wsaInit;
-		Server myServer;
-
-		myServer.serve(8876);
+		TriviaServer myServer;
+		myServer.serve(8820);
 	}
 	catch (exception& e)
 	{

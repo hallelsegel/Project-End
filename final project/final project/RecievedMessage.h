@@ -1,12 +1,11 @@
 #pragma once
-
 #include <WinSock2.h>
 #include <Windows.h>
 #include <map>
 #include "Protocol.h"
 
 using namespace std;
-
+class User;
 class RecievedMessage
 {
 public:

@@ -1,6 +1,7 @@
 #include "Question.h"
 #include <string>
 #include <time.h>
+#include <Windows.h>
 using namespace std;
 
 
@@ -12,9 +13,9 @@ Question::Question(int id, string question, string correctAnswer, string answer2
 	vector<string> temp = { correctAnswer, answer2, answer3, answer4 };
 	int i;
 	for (int j = 0; j < 4; j++)
-	{
+	{ 
 		i = rand() % (4-j);
-		if (i = 0) _correctPlace = j;
+		if (temp[i] == correctAnswer) _correctPlace = j+1;
 		_answers[j] = temp[i];
 		temp.erase(temp.begin() + i);
 	}
@@ -23,4 +24,24 @@ Question::Question(int id, string question, string correctAnswer, string answer2
 Question::~Question()
 {
 
+}
+
+string Question::getQuestion()
+{
+	return _question;
+}
+
+string* Question::getAnswers()
+{
+	return &_answers[0];
+}
+
+int Question::getCorrectAnswerIndex()
+{
+	return _correctPlace;
+}
+
+int Question::getId()
+{
+	return _id;
 }

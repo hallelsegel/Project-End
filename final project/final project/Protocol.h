@@ -15,7 +15,7 @@
 #define	CLIENT_USERS_IN_ROOM 207
 #define	CLIENT_JOIN_EXISTING_ROOM 209
 #define	CLIENT_LEAVE_ROOM 211
-#define	CLIENT_CREAT_NEW_ROOM 213
+#define	CLIENT_CREATE_NEW_ROOM 213
 #define	CLIENT_CLOSE_ROOM 215
 
 // game stuff:
@@ -26,12 +26,14 @@
 #define	CLIENT_STATUS 225
 #define	CLIENT_EXIT 299
 
+<<<<<<< HEAD
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+=======
+>>>>>>> 05a18d39aa58a091191552cdeb8323b27c8ff944
 //SERVER:
-
 
 //sign in:
 #define	SERVER_SIGN_IN_SUCCESS "1020"

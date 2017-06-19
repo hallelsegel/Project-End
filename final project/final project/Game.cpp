@@ -1,10 +1,5 @@
 #include "Game.h"
-#include "user.h"
-#include "Helper.h"
-#include "DataBase.h"
-#include "Question.h"
 #include <iostream>
-
 Game::Game(const vector<User*>& players, int questionsNo, DataBase& db) : _db(db)
 {
 	_question_no = questionsNo;
@@ -18,10 +13,10 @@ Game::Game(const vector<User*>& players, int questionsNo, DataBase& db) : _db(db
 	{
 		throw exception("ERROR: Failed to insert a new game.");
 	}
-
+	
 	this->_players = players;
 
-	for (int i = 0; i < _players.size(); i++)
+	for (int i = 0; i < (int)_players.size(); i++)
 	{
 		_results.insert(pair<string, int>(_players[i]->getUsername(), 0));
 		_players[i]->setGame(this);
@@ -30,7 +25,7 @@ Game::Game(const vector<User*>& players, int questionsNo, DataBase& db) : _db(db
 
 Game::~Game()
 {
-	for (int i = 0; i < _questions.size(); i++)
+	for (int i = 0; i < (int)_questions.size(); i++)
 	{
 		delete _questions[i];
 	}
@@ -43,11 +38,18 @@ Game::~Game()
 void Game::handleFinishGame()
 {
 	this->_db.updateGameStatus(this->_ID);
-	for (int i = 0; i < this->_players.size(); i++)
+	string msg = SERVER_END_GAME + Helper::getPaddedNumber(_players.size(), 1);
+	for (int i = 0; i < (int)_players.size(); i++)
+	{
+		msg += Helper::getPaddedNumber(_players[i]->getUsername().size(), 2); //username size (2 bytes)
+		msg += _players[i]->getUsername(); //username
+		msg += Helper::getPaddedNumber(_results[_players[i]->getUsername()], 2);
+	}
+	for (int i = 0; i < (int)_players.size(); i++)
 	{
 		try
 		{
-			this->_players[i]->send(SERVER_END_GAME);
+			this->_players[i]->send(msg);
 			this->_players[i]->setGame(nullptr);
 		}
 		catch (exception ex)
@@ -66,9 +68,9 @@ bool Game::handleNextTurn()
 {
 	if (this->_players.size() > 0) // Checks if there are players in the game
 	{
-		if (this->_currentTurnAnswers = this->_players.size()) // Checks if everyone answered the given question yet.
+		if (this->_currentTurnAnswers == this->_players.size()) // Checks if everyone answered the given question yet.
 		{
-			if (this->_currQuestionIndex = this->_question_no) // Checks if its the last question of the game.
+			if (this->_currQuestionIndex == this->_question_no - 1) // Checks if its the last question of the game.
 			{
 				handleFinishGame();
 				return (false);
@@ -76,7 +78,7 @@ bool Game::handleNextTurn()
 			this->_currQuestionIndex++;
 			sendQuestionToAllUsers();
 		}
-		// Do nthing until everyone answers.
+		// Do nothing until everyone answers.
 	}
 	else
 	{
@@ -92,7 +94,7 @@ bool Game::handleAnswerFromUser(User* user, int answerNo, int time)
 	msg << SERVER_ANSWER;
 	bool isCorrect = false;
 	this->_currentTurnAnswers++;
-	if (answerNo = this->_questions[this->_currQuestionIndex]->getCorrectAnswerIndex())
+	if (answerNo == this->_questions[this->_currQuestionIndex]->getCorrectAnswerIndex())
 	{
 		this->_results[user->getUsername()]++;
 		isCorrect = true;
@@ -115,13 +117,14 @@ bool Game::leaveGame(User* currUser)
 	vector<User*>::iterator i;
 	for (i = _players.begin(); i < _players.end() && *i != currUser; i++);
 	_players.erase(i);
+	if (_players.size() == 0) handleFinishGame(); //if last player left, finish game
 	return handleNextTurn();
 }
 
 bool Game::insertGameToDB()
 {
 	this->_ID = this->_db.insertNewGame();
-	return this->_ID != -1;
+	return (this->_ID != -1);
 }
 
 void Game::initQuestionsFromDB()
@@ -132,13 +135,14 @@ void Game::initQuestionsFromDB()
 void Game::sendQuestionToAllUsers()
 {
 	stringstream msg;
-	string que = _questions[_currQuestionIndex]->getQuestion(), *ans = _questions[_currQuestionIndex]->getAnswers();
+	string que = _questions[_currQuestionIndex]->getQuestion();
+	string* ans = _questions[_currQuestionIndex]->getAnswers();
 	this->_currentTurnAnswers = 0;
 
 	if (que.length() > 0)
 	{                   // Building the message:
 		msg << SERVER_SEND_QUESTION << Helper::getPaddedNumber(que.length(), 3) << que << Helper::getPaddedNumber(ans[0].length(), 3) << ans[0] << Helper::getPaddedNumber(ans[1].length(), 3) << ans[1] << Helper::getPaddedNumber(ans[2].length(), 3) << ans[2] << Helper::getPaddedNumber(ans[3].length(), 3) << ans[3];
-		for (int i = 0; i < _players.size(); i++) // Sending the message:
+		for (int i = 0; i < (int)_players.size(); i++) // Sending the message:
 		{
 			try
 			{

@@ -13,6 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{965DA94B-83D8-4128-BE7F-0ABB6C44664F}</ProjectGuid>
     <RootNamespace>finalproject</RootNamespace>
+    <ProjectName>server</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -56,6 +57,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,17 +66,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\client\Protocol.h" />
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Helper.h" />
-    <ClInclude Include="Protocol.h" />
     <ClInclude Include="Question.h" />
+    <ClInclude Include="QuestionList.h" />
     <ClInclude Include="RecievedMessage.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
     <ClInclude Include="TriviaServer.h" />
-    <ClInclude Include="user.h" />
+    <ClInclude Include="User.h" />
     <ClInclude Include="Validator.h" />
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
@@ -89,7 +93,7 @@
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TriviaServer.cpp" />
-    <ClCompile Include="user.cpp" />
+    <ClCompile Include="User.cpp" />
     <ClCompile Include="Validator.cpp" />
     <ClCompile Include="WSAInitializer.cpp" />
   </ItemGroup>

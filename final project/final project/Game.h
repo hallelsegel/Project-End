@@ -5,9 +5,12 @@
 #include <map>
 #include "Protocol.h"
 #include "TriviaServer.h"
+#include "User.h"
+#include "Helper.h"
+#include "Question.h"
 
 using namespace std;
-
+class DataBase;
 class Game
 {
 public:
