@@ -13,5 +13,9 @@ namespace WPFclient
     /// </summary>
     public partial class App : Application
     {
+        public void App_Startup(object sender, StartupEventArgs e)
+        {
+            this.Properties["client"] = new ClientBody();
+        }
     }
 }

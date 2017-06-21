@@ -11,3 +11,38 @@ C:\Users\User\Documents\GitHub\Project-End\final project\WPFclient\obj\Debug\WPF
 C:\Users\User\Documents\GitHub\Project-End\final project\WPFclient\obj\Debug\WPFclient.csproj.GenerateResource.Cache
 C:\Users\User\Documents\GitHub\Project-End\final project\WPFclient\obj\Debug\WPFclient.exe
 C:\Users\User\Documents\GitHub\Project-End\final project\WPFclient\obj\Debug\WPFclient.pdb
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\bin\Debug\WPFclient.exe.config
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\bin\Debug\WPFclient.exe
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\bin\Debug\WPFclient.pdb
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\WPFclient.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\App.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\WPFclient_MarkupCompile.cache
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\WPFclient.g.resources
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\WPFclient.Properties.Resources.resources
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\WPFclient.csproj.GenerateResource.Cache
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\WPFclient.exe
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\WPFclient.pdb
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\mainMenu.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\mainMenu.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\MainWindow.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\MainWindow.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\signUp.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\signUp.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\correctAnswer.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\createRoom.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\game.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\highScores.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\inRoom.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\joinRoom.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\personalStats.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\wrongAnswer.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\correctAnswer.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\createRoom.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\game.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\highScores.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\inRoom.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\joinRoom.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\personalStats.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\wrongAnswer.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\connectedUser.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\connectedUser.g.cs

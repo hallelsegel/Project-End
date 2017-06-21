@@ -31,7 +31,6 @@ Client::~Client()
 	catch (...) {}
 }
 
-
 void Client::Connect(string serverIP, int port)
 {
 	struct sockaddr_in sa = { 0 };

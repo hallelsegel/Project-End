@@ -442,7 +442,6 @@ void TriviaServer::handleRecievedMessages()
 		this->_queRcvMessages.pop();
 		lck.unlock(); //usage of _queRcvMessages ends
 		TRACE("handleRecivedMessages: msg code = %d, client_socket = %d", msg->getMessageCode(), msg->getSock());
-
 		try
 		{
 			if (msg->getMessageCode() == CLIENT_SIGN_IN)

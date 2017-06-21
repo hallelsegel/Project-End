@@ -7,10 +7,6 @@
 #include <Windows.h>
 #include <map>
 #include "Protocol.h"
-<<<<<<< HEAD
-#include "TriviaServer.h"
-=======
->>>>>>> 05a18d39aa58a091191552cdeb8323b27c8ff944
 
 using namespace std;
 struct sqlite3;
@@ -20,20 +16,12 @@ class DataBase
 private:;
 	sqlite3* _sqldb;
 	int _lastId;
-<<<<<<< HEAD
-
-	int callbackCount(void* param, int argc, char** argv, char** azColName);
-	int callbackQuestions(void* param, int argc, char** argv, char** azColName);
-	int callbackBestScores(void* param, int argc, char** argv, char** azColName);
-	int callbackPersonalStatus(void* param, int argc, char** argv, char** azColName);
-=======
 	char* _lastUsername;
 	static int sqlExecCallbackID(void* param, int argc, char** argv, char** azColName);
 	static int sqlExecCallbackUM(void* param, int argc, char** argv, char** azColName);
 	static int callbackUsers(void* param, int argc, char** argv, char** azColName);
 	static int callbackQuestions(void* param, int argc, char** argv, char** azColName);
 	static int callbackCount(void* params, int argc, char** argv, char** azColName);
->>>>>>> 05a18d39aa58a091191552cdeb8323b27c8ff944
 	bool fileExistsOnDisk(const string& filename);
 	bool initDatabase();
 

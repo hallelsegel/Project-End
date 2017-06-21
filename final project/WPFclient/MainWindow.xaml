@@ -1,12 +1,20 @@
 ﻿<Window x:Class="WPFclient.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="700" Width="416">
+        Title="Trivia Pro" Height="700" Width="416" Icon="Icon.ico">
     <Grid>
-        <Label Content="Sign in" Height="60" Width="150" Margin="129,288,129,351"/>
-        <TextBox Height="46" Width="300" TextWrapping="Wrap" Text="UserName" Margin="25,100,25,100"/>
-        <TextBox Height="46" Width="300" TextWrapping="Wrap" Text="Password" Margin="25,176,25,120"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="BG.png"/>
+        </Grid.Background>
+        <Label Content="Trivia Pro" FontSize="50" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" FontWeight="Bold" />
+        <Label Content="Sign in" Width="Auto" Height="Auto" FontSize="31" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,175"/>
+        <TextBox Name="username" Height="46" Width="300" TextWrapping="Wrap" Text="UserName" FontSize="31" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,50" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus_username"/>
+        <TextBox Name="pass" Height="46" Width="300" TextWrapping="Wrap" Text="Password" FontSize="31" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,75,0,0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus_password"/>
+        <Button Width="64" Height="45" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,204,0,0" Click="button_signin" />
+        <Label Content="Not registered yet?" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,475,0,0"/>
+        <Button Width="88" Height="32" Padding="10,0,10,0" FontSize="20" Background="LightSteelBlue" Content="Sign up" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,588,0,38" Click="button_signup" />
         
+
 
     </Grid>
 

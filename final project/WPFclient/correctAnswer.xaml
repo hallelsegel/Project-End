@@ -1,0 +1,11 @@
+﻿<Window x:Class="WPFclient.correctAnswer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="correctAnswer" Height="700" Width="416">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="BG_green.png"/>
+        </Grid.Background>
+        <Label Content="CORRECT!" FontSize="40" HorizontalAlignment="Center" Foreground="GreenYellow" Margin="0,0,0,0" VerticalAlignment="Center" FontWeight="Bold" />
+    </Grid>
+</Window>

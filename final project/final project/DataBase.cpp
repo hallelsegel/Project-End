@@ -1,18 +1,13 @@
-﻿#include "stdafx.h"
+﻿ #include "stdafx.h"
 #include "sqlite3.h"
 #include "DataBase.h"
 #include "Helper.h"
-<<<<<<< HEAD
-#include <ctime>
-#include <iostream>
-=======
 #include "QuestionList.h"
 #include <ctime>
 #include <iostream>
 #include <sstream>
 
 #pragma warning(disable:4996)
->>>>>>> 05a18d39aa58a091191552cdeb8323b27c8ff944
 #define RETURN_IF_INVALID				if (_sqldb == nullptr) return;
 #define RETURN_RES_IF_INVALID(res)		if (_sqldb == nullptr) return res;
 
@@ -95,10 +90,6 @@ vector<Question*> DataBase::initQuestion(int questionNo)
 	char buff[10];
 	sqlStatement = "SELECT * FROM T_QUESTIONS ORDER BY RANDOM() LIMIT " + string(_itoa(questionNo, buff, 10)) + ";";
 	resetLastId();
-<<<<<<< HEAD
-	//sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackQuestions, questionsV, &errMessage);
-=======
->>>>>>> 05a18d39aa58a091191552cdeb8323b27c8ff944
 	
 	sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackQuestions, &questionsV, &errMessage);
 	return questionsV;
@@ -346,22 +337,6 @@ bool DataBase::fileExistsOnDisk(const string& filename)
 
 int DataBase::callbackUsers(void* param, int argc, char** argv, char** azColName)
 {
-<<<<<<< HEAD
-	string sqlStatement;
-	char *errMessage = nullptr;
-	int res;
-	char buff[10];
-
-	sqlStatement = "SELECT COUNT(*) FROM TAGS WHERE USER_ID=" + string(_itoa(this->_lastId, buff, 10)) + ";";
-
-	int albumsCount;
-
-	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlInt, &albumsCount, &errMessage);
-	if (res != SQLITE_OK)
-		return -1;
-
-	return albumsCount;
-=======
 	vector<string>* users = (static_cast<vector<string>*>(param));
 	string question, corrAns, ans2, ans3, ans4;
 	for (int i = 0; i < argc; i++) {
@@ -371,7 +346,6 @@ int DataBase::callbackUsers(void* param, int argc, char** argv, char** azColName
 		return 0;
 	}
 	return 1;
->>>>>>> 05a18d39aa58a091191552cdeb8323b27c8ff944
 }
 
 int DataBase::callbackQuestions(void* param, int argc, char** argv, char** azColName)
@@ -403,37 +377,7 @@ int DataBase::callbackQuestions(void* param, int argc, char** argv, char** azCol
 	return 0;
 }
 
-<<<<<<< HEAD
-vector<string> scores;
-
-int DataBase::callbackBestScores(void* param, int argc, char** argv, char** azColName)
-{
-	string currScore;
-	currScore = Helper::getPaddedNumber(string(argv[0]).length(), 2);
-	currScore += argv[0];
-	currScore += Helper::getPaddedNumber(atoi(argv[1]), 6);
-	scores.push_back(currScore);
-	return 0;
-}
-
-int DataBase::callbackPersonalStatus(void* param, int argc, char** argv, char** azColName)
-{
-	stringstream sstr;
-	if (argv[3] == nullptr)
-		sstr << /*number of games*/"0000" << /*number of right answers*/"000000" << /*number of wrong answers*/"000000" << /*average time for answer*/"0000";
-	else
-	{
-		string s = argv[3];
-		sstr << Helper::getPaddedNumber(atoi(argv[0]), 4) << Helper::getPaddedNumber(atoi(argv[1]), 6) << Helper::getPaddedNumber(atoi(argv[2]), 6) << Helper::getPaddedNumber(atoi(s.substr(0, s.find('.')).c_str()), 2) << Helper::getPaddedNumber(atoi(s.substr(s.find('.') + 1, s.find('.') + 1).c_str()), 2);
-	}
-	scores.push_back(sstr.str());
-	return 0;
-}
-
-static int sqlExecCallback(void* param, int argc, char** argv, char** azColName)
-=======
 int DataBase::sqlExecCallbackID(void* param, int argc, char** argv, char** azColName)
->>>>>>> 05a18d39aa58a091191552cdeb8323b27c8ff944
 {/* The Callback function (for storing information recieved by SELECT in objects, used in the exec that calls SELECET) that
  covers the ID column only, if it are available (true for all callbacks). This will be primarily used to determine if an object 
  exists (because we only need to know if anything is returned)*/
