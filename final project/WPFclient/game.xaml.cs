@@ -19,8 +19,11 @@ namespace WPFclient
     /// </summary>
     public partial class game : Window
     {
+            ClientBody cl; //shared class 
         public game()
         {
+            cl = (ClientBody)WPFclient.App.Current.Properties["client"];
+            this.Closed += new EventHandler(theWindow_Closed);
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/Resources/BG.png")));
@@ -74,6 +77,12 @@ namespace WPFclient
                 window.Show();
                 this.Close();*/
             }
+        }
+        private void theWindow_Closed(object sender, System.EventArgs e)
+        {
+            byte[] buffer = new ASCIIEncoding().GetBytes("299");//when the window is closed, send the exit code
+            cl._clientStream.Write(buffer, 0, buffer.Length);
+            cl._clientStream.Flush();
         }
     }
 }

@@ -19,8 +19,10 @@ namespace WPFclient
     /// </summary>
     public partial class joinRoom : Window
     {
+        ClientBody cl; //shared class 
         public joinRoom()
         {
+            cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }

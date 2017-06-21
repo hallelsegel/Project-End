@@ -18,9 +18,11 @@ namespace WPFclient
     /// Interaction logic for inRoom.xaml
     /// </summary>
     public partial class inRoom : Window
-    {
+    {           
+        ClientBody cl; //shared class 
         public inRoom()
         {
+            cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }

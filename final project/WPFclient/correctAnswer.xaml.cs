@@ -19,8 +19,11 @@ namespace WPFclient
     /// </summary>
     public partial class correctAnswer : Window
     {
+            ClientBody cl; //shared class 
         public correctAnswer()
         {
+            cl = (ClientBody)WPFclient.App.Current.Properties["client"];
+            this.Closed += new EventHandler(theWindow_Closed);
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             waitAndContinue();
@@ -31,6 +34,12 @@ namespace WPFclient
             game window1 = new game();
             window1.Show();
             this.Close();
+        }
+        private void theWindow_Closed(object sender, System.EventArgs e)
+        {
+            byte[] buffer = new ASCIIEncoding().GetBytes("299");//when the window is closed, send the exit code
+            cl._clientStream.Write(buffer, 0, buffer.Length);
+            cl._clientStream.Flush();
         }
     }
 }
