@@ -22,19 +22,20 @@ namespace WPFclient
     /// </summary>
     public partial class MainWindow : Window
     {
-        ClientBody cl; //shared class
+        ClientBody cl;
         public MainWindow()
         {
-            cl = (ClientBody)WPFclient.App.Current.Properties["client"]; 
+            cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             this.Closed += new EventHandler(theWindow_Closed);
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
-        private void button_signin(object sender, RoutedEventArgs e)
+        private void click_mainMenu(object sender, RoutedEventArgs e)
         {
             try
             {
+                int i;
                 string usernameLen = (username.Text.Length).ToString().PadLeft(2, '0'), passLen = (pass.Text.Length).ToString().PadLeft(2, '0');
                 byte[] buffer = new ASCIIEncoding().GetBytes("200" + usernameLen + username.Text + passLen + pass.Text), rcv = new byte[4];
                 cl._clientStream.Write(buffer, 0, buffer.Length);
@@ -42,10 +43,16 @@ namespace WPFclient
                 cl._clientStream.Read(rcv, 0, 4);
                 string answer = System.Text.Encoding.UTF8.GetString(rcv);
                 if (answer == "1020"){ //success
-                    System.Windows.MessageBox.Show(this, "Sign in succesful, you are connected, " + username.Text + "!");       
-                    mainMenu m = new mainMenu();
-                    m.Show();
-                    this.Close();
+                    System.Windows.MessageBox.Show(this, "Sign in succesful, you are connected, " + username.Text + "!");
+                    cl._username = username.Text;
+                    for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.mainMenu") break;
+                    if (i == WPFclient.App.Current.Windows.Count) //if there is mainMenu open already
+                    {
+                        mainMenu m = new mainMenu(); //else create one and open it
+                        m.Show();
+                    }
+                    else WPFclient.App.Current.Windows[i].Show();
+                    this.Hide();
                 }
                 else if (answer == "1021") /*wrong details*/ System.Windows.MessageBox.Show(this, "Sign in unsuccesful, wrong name or password");
                 else if (answer == "1022") /*already connected*/ System.Windows.MessageBox.Show(this, "Sign in unsuccesful, this user is already connected");
@@ -55,11 +62,18 @@ namespace WPFclient
                 System.Windows.MessageBox.Show(this, ex.Message);
             }
         }
-        private void button_signup(object sender, RoutedEventArgs e)
+        private void click_signUp(object sender, RoutedEventArgs e)
         {
-            signUp m = new signUp();
-            m.Show();
-            this.Close();
+            int i;
+            for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.signUp") break;
+            if (i == WPFclient.App.Current.Windows.Count) //if there is signUp open already
+            {
+                signUp m = new signUp(); //else create one and open it
+                m.Show();
+            }
+            else WPFclient.App.Current.Windows[i].Show();
+
+            this.Hide();
         }
         public void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -92,6 +106,7 @@ namespace WPFclient
     {
         public TcpClient _client;
         public NetworkStream _clientStream;
+        public string _username;
 
         public ClientBody()
         {

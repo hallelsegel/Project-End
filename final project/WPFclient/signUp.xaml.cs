@@ -49,9 +49,8 @@ namespace WPFclient
                     System.Windows.MessageBox.Show(this, "Sign up unsuccesful, the username has to be begin with a letter, and include no spaces. ");
                 else if (answer == "1044") /*other*/
                     System.Windows.MessageBox.Show(this, "Sign in unsuccesful, for no known reason");
-                MainWindow m = new MainWindow();
-                m.Show();
-                this.Close();
+                WPFclient.App.Current.Windows[0].Show(); // mainWindow is always the first
+                this.Hide();
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,21 +19,28 @@ namespace WPFclient
     /// </summary>
     public partial class game : Window
     {
-            ClientBody cl; //shared class 
+        ClientBody cl; //shared class 
         public game()
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             this.Closed += new EventHandler(theWindow_Closed);
             InitializeComponent();
+            UserName.Content = cl._username;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/Resources/BG.png")));
+            this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/BG.png")));
             
         }
         private void click_mainMenu(object sender, RoutedEventArgs e)
-        {
-            mainMenu window1 = new mainMenu();
-            window1.Show();
-            this.Close();
+        {//move back to main menu
+            int i;
+            for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.mainMenu") break;
+            if (i == WPFclient.App.Current.Windows.Count) //if there is mainMenu open already
+            {
+                mainMenu m = new mainMenu(); //else create one and open it
+                m.Show();
+            }
+            else WPFclient.App.Current.Windows[i].Show();
+            this.Hide();
         }
         private async void click_checkAnswer(object sender, RoutedEventArgs e)
         {
@@ -56,12 +63,6 @@ namespace WPFclient
                 await Task.Delay(500);
                 imageCorrect.Visibility = Visibility.Hidden;
                 textCorrect.Visibility = Visibility.Hidden;
-                /*this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/Resources/BG_green.png")));
-                await Task.Delay(1000);
-                this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/Resources/BG.png")));*/
-                /*correctAnswer window = new correctAnswer();
-                window.Show();
-                this.Close();*/
             }
             else if (answer == false)
             {
@@ -70,12 +71,6 @@ namespace WPFclient
                 await Task.Delay(500);
                 imageIncorrect.Visibility = Visibility.Hidden;
                 textIncorrect.Visibility = Visibility.Hidden;
-                /*this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/Resources/BG_red.png")));
-                await Task.Delay(1000);
-                this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/Resources/BG.png")));*/
-                /*wrongAnswer window = new wrongAnswer();
-                window.Show();
-                this.Close();*/
             }
         }
         private void theWindow_Closed(object sender, System.EventArgs e)

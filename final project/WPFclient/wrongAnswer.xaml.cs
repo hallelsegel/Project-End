@@ -29,11 +29,17 @@ namespace WPFclient
             waitAndContinue();
         }
         public async Task waitAndContinue()
-        {
+        {//move back to the game
             await Task.Delay(500);
-            game window1 = new game();
-            window1.Show();
-            this.Close();
+            int i;
+            for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.game") break;
+            if (i == WPFclient.App.Current.Windows.Count) //if there is mainMenu open already
+            {
+                game g = new game(); //else create one and open it
+                g.Show();
+            }
+            else WPFclient.App.Current.Windows[i].Show();
+            this.Hide();
         }
         private void theWindow_Closed(object sender, System.EventArgs e)
         {

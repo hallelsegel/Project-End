@@ -304,9 +304,10 @@ void TriviaServer::handleGetRooms(RecievedMessage* msg) //205
 	sendMsg += Helper::getPaddedNumber(_roomIdSequence, 4);
 	for (int i = 0; i < _roomIdSequence; i++)
 	{
-		sendMsg += Helper::getPaddedNumber(i+1, 4);	//room id
-		sendMsg += Helper::getPaddedNumber(_roomsList.find(i+1)->second->getName().length(), 2); //room name length
-		sendMsg += _roomsList.find(i+1)->second->getName();
+		int id = _roomsList[i+1]->getId();
+		sendMsg += Helper::getPaddedNumber(id, 4);	//room id
+		sendMsg += Helper::getPaddedNumber(_roomsList.find(id)->second->getName().length(), 2); //room name length
+		sendMsg += _roomsList.find(id)->second->getName();
 	}
 	msg->getUser()->send(sendMsg);
 }
@@ -319,23 +320,23 @@ void TriviaServer::handleGetBestScores(RecievedMessage* msg) //223
 	if (bestScores.size() == 0) sendMsg += "00"; //size 0 = no more users (none)
 	else if (bestScores.size() == 1)
 	{
-		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 6);
+		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 3);
 		sendMsg += "00"; //size 0 = no more users 
 	}
 	else if (bestScores.size() == 2)
 	{
-		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 6); 
+		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 3); 
 		it++; //move 'it' forward once
-		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 6);
+		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 3);
 		sendMsg += "00"; //size 0 = no more users 
 	}
 	else
 	{
-		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 6);
+		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 3);
 		it++; //move 'it' forward once
-		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 6);
+		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 3);
 		it++; //move 'it' forward once
-		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 6);
+		sendMsg = sendMsg + Helper::getPaddedNumber(it->second.size(), 2) + it->second + Helper::getPaddedNumber(it->first, 3);
 	}
 	msg->getUser()->send(sendMsg);
 }

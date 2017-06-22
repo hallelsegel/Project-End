@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WPFclient.signUp"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Trivia Pro" Height="700" Width="416">
+        Title="Trivia Pro" Height="700" Width="416" ResizeMode="CanMinimize">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="BG.png"/>

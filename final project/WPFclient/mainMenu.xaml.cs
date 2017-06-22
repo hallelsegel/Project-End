@@ -21,33 +21,75 @@ namespace WPFclient
     /// </summary>
     public partial class mainMenu : Window
     {
-        ClientBody cl; //shared class
+        ClientBody cl;
         public mainMenu()
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
+            UserName.Content = cl._username;
             this.Closed += new EventHandler(theWindow_Closed);
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
-        private void button_logout(object sender, RoutedEventArgs e)
+        private void click_logOut(object sender, RoutedEventArgs e)
         {
-            MainWindow m = new MainWindow();
-            m.Show();
-            
-            this.Close();
+            byte[] buffer = new ASCIIEncoding().GetBytes("201");//when the window is closed, send the exit code
+            cl._clientStream.Write(buffer, 0, buffer.Length);
+            cl._clientStream.Flush();
+            WPFclient.App.Current.Windows[0].Show(); // mainWindow is always the first
+            this.Hide();
+        }
+                
+        private void click_createRoom(object sender, RoutedEventArgs e)
+        {
+            int i;
+            for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.createRoom") break;
+            if (i == WPFclient.App.Current.Windows.Count) //if there is createRoom open already
+            {
+                createRoom c = new createRoom(); //else create one and open it
+                c.Show();
+            }
+            else WPFclient.App.Current.Windows[i].Show();
+            this.Hide();
         }
 
-        private void button_highScores(object sender, RoutedEventArgs e)
+        private void click_joinRoom(object sender, RoutedEventArgs e)
         {
-            ClientBody c = new ClientBody();
-            TextBox output = new TextBox();
-            output.HorizontalAlignment=HorizontalAlignment.Stretch;
-            output.Height=46;
-            output.TextWrapping=TextWrapping.Wrap;
-            output.VerticalAlignment=VerticalAlignment.Top;
-            output.Width=300;
-            //output.Text = c.getBestScores();
+            int i;
+            for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.joinRoom") break;
+            if (i == WPFclient.App.Current.Windows.Count) //if there is createRoom open already
+            {
+                joinRoom j = new joinRoom(); //else create one and open it
+                j.Show();
+            }
+            else WPFclient.App.Current.Windows[i].Show();
+            this.Hide();
+        }
+
+        private void click_highScores(object sender, RoutedEventArgs e)
+        {
+            int i;
+            for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.highScores") break;
+            if (i == WPFclient.App.Current.Windows.Count) //if there is createRoom open already
+            {
+                highScores h = new highScores(); //else create one and open it
+                h.Show();
+            }
+            else WPFclient.App.Current.Windows[i].Show();
+            this.Hide();
+        }
+
+        private void click_personalStats(object sender, RoutedEventArgs e)
+        {
+            int i;
+            for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.personalStats") break;
+            if (i == WPFclient.App.Current.Windows.Count) //if there is createRoom open already
+            {
+                personalStats p = new personalStats(); //else create one and open it
+                p.Show();
+            }
+            else WPFclient.App.Current.Windows[i].Show();
+            this.Hide();
         }
 
         private void theWindow_Closed(object sender, System.EventArgs e)
@@ -57,39 +99,4 @@ namespace WPFclient
             cl._clientStream.Flush();
         }
     }
-
-    /*class ClientBody
-    {
-        /*}
-        public string getBestScores()
-        {
-            string line="";
-            byte[] buffer = new ASCIIEncoding().GetBytes("223"), rcv = new byte[3];
-            _clientStream.Write(buffer, 0, buffer.Length);
-            _clientStream.Flush();
-            _clientStream.Read(rcv, 0, 3);
-            if (!rcv.Equals("124"))
-            {
-                line = "Error in getting highscores. please try again";
-            }
-            else
-            {
-                line = "Highest scores: \n";
-                for (int i = 0; i < 3; i++)
-                {
-                    rcv = new byte[2];
-                    _clientSocket.Receive(rcv, rcv.Length, 0);
-                    int usernameLen = 0;
-                    BitConverter.ToInt32(rcv, usernameLen);
-                    if (usernameLen == 0) break;
-                    _clientSocket.Receive(rcv, usernameLen, 0);
-                    line = line + "User " + rcv;
-                    _clientSocket.Receive(rcv, rcv.Length, 0);
-                    line = line + " has answered correctly " + rcv + "% of the time";
-                }
-            }
-            Console.ReadKey();
-            return line;
-        }
-    */
 }

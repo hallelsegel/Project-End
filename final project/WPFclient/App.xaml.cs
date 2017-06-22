@@ -15,6 +15,7 @@ namespace WPFclient
     {
         public void App_Startup(object sender, StartupEventArgs e)
         {
+            //https://stackoverflow.com/questions/15657637/condition-variables-c-net //read on CV
             this.Properties["client"] = new ClientBody();
         }
     }

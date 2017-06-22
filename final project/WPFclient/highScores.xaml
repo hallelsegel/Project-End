@@ -1,18 +1,18 @@
 ﻿<Window x:Class="WPFclient.highScores"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Icon="logo.ico"
-        Title="highScores" Height="700" Width="416">
+        Icon="icon.ico"
+        Title="highScores" Height="700" Width="416" ResizeMode="CanMinimize">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="BG.png"/>
         </Grid.Background>
-        <Label Content="UserName" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="top" Margin="0,0,0,0"/>
+        <Label Name="UserName" Content="UserName" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="top" Margin="0,0,0,0"/>
         <Label Content="Trivia Pro" FontSize="40" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontWeight="Bold" />
         <Label Content="High Scores" FontSize="30" HorizontalAlignment="Center" Margin="0,140,0,0" VerticalAlignment="Top" />
-        <Label Content="user1 - 10" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" />
-        <Label Content="user2 - 5" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
-        <Label Content="user3 - 7" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,150,0,0" />
+        <Label Name="first" Content="" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" />
+        <Label Name="second" Content="" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+        <Label Name="third" Content="" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,150,0,0" />
         <Button Width="50" Height="45" Padding="0,0,0,0" FontSize="31" Background="LightSteelBlue" HorizontalAlignment="left" VerticalAlignment="Bottom" Margin="20,0,0,20" Click="click_mainMenu">
             <Image Source="Resources\HomeIcon.png" Width="20" Height="20"/>
         </Button>

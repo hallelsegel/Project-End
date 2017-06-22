@@ -8,6 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icon2.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/bg.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/bg_green.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/bg_red.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/homeicon.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icon.ico")]
 
 
