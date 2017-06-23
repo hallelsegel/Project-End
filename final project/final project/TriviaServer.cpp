@@ -228,10 +228,8 @@ bool TriviaServer::handleCreateRoom(RecievedMessage* msg) //213
 	if (user->createRoom(++_roomIdSequence, roomName, maxUsers, questionsNo, questionTime))
 	{
 		_roomsList.insert(pair<int, Room*>(_roomIdSequence, user->getRoom()));
-		user->send(SERVER_CREATE_ROOM_SUCCESS);
-		return true; //success
+		return true; //success, the code was already sent in user->createRoom();
 	}
-	user->send(SERVER_CREATE_ROOM_FAIL);
 	return false;
 }
 

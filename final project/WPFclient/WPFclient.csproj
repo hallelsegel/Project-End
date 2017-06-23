@@ -54,7 +54,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="connectedUser.xaml.cs" />
-    <Compile Include="correctAnswer.xaml.cs" />
     <Compile Include="createRoom.xaml.cs" />
     <Compile Include="game.xaml.cs" />
     <Compile Include="highScores.xaml.cs" />
@@ -67,12 +66,7 @@
     <Compile Include="signUp.xaml.cs">
       <DependentUpon>signUp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="wrongAnswer.xaml.cs" />
     <Page Include="connectedUser.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="correctAnswer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -119,10 +113,6 @@
     <Page Include="signUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="wrongAnswer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

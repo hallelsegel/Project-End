@@ -1,30 +1,24 @@
-﻿<Window x:Class="WPFclient.inRoom"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="WPFclient.inRoom"
         Icon="icon.ico"
         Title="inRoom" Height="700" Width="416" ResizeMode="CanMinimize">
     <Grid>
-        <Label Name="UserName" Content="UserName" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="top" Margin="0,0,0,425"/>
+        <Label x:Name="UserName" Content="UserName" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="top" Margin="0,0,0,425"/>
         <Label Content="Trivia Pro" FontSize="40" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontWeight="Bold" />
-        <Label Content="roomName" Width="Auto" Height="Auto" FontSize="31" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,400"/>
+        <Label x:Name="room" Content="room name: " Width="Auto" Height="Auto" FontSize="31" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,400"/>
         <Label Content="Connected Users" Width="Auto" Height="Auto" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,90" FontWeight="Bold"/>
-        <ListBox HorizontalAlignment="Center" Width="300" Height="200" Margin="0,150,0,0" FontSize="23" HorizontalContentAlignment="Center" VerticalAlignment="Center">
-            <ListBoxItem>User1</ListBoxItem>
-            <ListBoxItem>User2</ListBoxItem>
-            <ListBoxItem>User3</ListBoxItem>
-        </ListBox>
+        <ListBox x:Name="usersList" HorizontalAlignment="Center" Width="300" Height="200" Margin="0,150,0,0" FontSize="23" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
         <!--Test for when admin exits-->
-        <!-- FOR CREATOR -->
-        <Button Name="creatorStrartButton" Width="200" Height="45" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Visibility="Visible" Content="Start Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,460,0,0" Click="click_game" />
-        <Button Name="creatorExitButton" Width="200" Height="45" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Visibility="Visible" Content="Close Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,585,0,0" Click="click_mainMenu" />
-        <Label Content="Number of questions - 10" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible" Margin="0,0,0,300"/>
-        <Label Content="Time per question - 5" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible" Margin="0,0,0,250"/>
-        <Label Content="Max number of players - 5" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible" Margin="0,0,0,200"/>
+        <Label x:Name="questionNum" Content="Number of questions - " Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible" Margin="0,0,0,300"/>
+        <Label x:Name="time" Content="Time per question - " Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible" Margin="0,0,0,250"/>
+        <!-- FOR ADMIN -->
+        <Label x:Name="players" Content="Max number of players - " Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible" Margin="0,0,0,200"/>
+        <Button x:Name="adminStartButton" Width="200" Height="45" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Visibility="Visible" Content="Start Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,460,0,0" Click="click_game" />
+        <Button x:Name="adminExitButton" Width="200" Height="45" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Visibility="Visible" Content="Close Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,585,0,0" Click="click_mainMenu" />
         <!-- FOR JOINER -->
-        <Label Content="Number of questions - 10" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden" Margin="0,0,0,275"/>
-        <Label Content="Time per question - 5" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden" Margin="0,0,0,200"/>
-        <Button Name="joinerExit" Width="200" Height="45" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Visibility="Hidden" Content="Leave Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,520,0,0" Click="click_mainMenu" />
+        <Button x:Name="joinerExit" Width="200" Height="45" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Visibility="Hidden" Content="Leave Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,520,0,0" Click="click_mainMenu" />
         <!--For when creator closes the room-->
-        <Label Name="textExit" Content="The creator of the room has left, please EXIT" Width="Auto" Height="Auto" FontSize="17" Foreground="Red" FontWeight="Bold" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden" VerticalAlignment="Center"  Margin="0,425,0,0"/>
     </Grid>
 </Window>

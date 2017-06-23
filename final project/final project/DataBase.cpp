@@ -124,6 +124,12 @@ vector<string> DataBase::getPersonalStatus(string username)
 	sqlStatement = "select count(distinct game_id) from t_players_answers where username = '" + username + "';";
 	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackCount, &numOfGames, &errMessage);
 	stats.push_back(Helper::getPaddedNumber(numOfGames, 4));
+	if (numOfGames == 0) {
+		stats.push_back(Helper::getPaddedNumber(numOfGames, 6)); //fill with 0's, no games
+		stats.push_back(Helper::getPaddedNumber(numOfGames, 6)); //fill with 0's, no games
+		stats.push_back(Helper::getPaddedNumber(numOfGames, 4)); //fill with 0's, no games
+		return stats;
+	}
 
 	sqlStatement = "select count() from t_players_answers where username = '" + username + "' AND IS_CORRECT = 1;";
 	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackCount, &numOfCorrect, &errMessage);

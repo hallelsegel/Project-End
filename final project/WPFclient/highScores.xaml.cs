@@ -23,7 +23,6 @@ namespace WPFclient
         public highScores()
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
-            this.Closed += new EventHandler(theWindow_Closed);
             InitializeComponent();
             UserName.Content = cl._username;
             getBestScores();
@@ -39,13 +38,7 @@ namespace WPFclient
                 m.Show();
             }
             else WPFclient.App.Current.Windows[i].Show();
-            this.Hide();
-        }
-        private void theWindow_Closed(object sender, System.EventArgs e)
-        {
-            byte[] buffer = new ASCIIEncoding().GetBytes("299");//when the window is closed, send the exit code
-            cl._clientStream.Write(buffer, 0, buffer.Length);
-            cl._clientStream.Flush();
+            this.Close();
         }
 
         public void getBestScores()

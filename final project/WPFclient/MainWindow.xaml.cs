@@ -26,7 +26,7 @@ namespace WPFclient
         public MainWindow()
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
-            this.Closed += new EventHandler(theWindow_Closed);
+            //https://stackoverflow.com/questions/15657637/condition-variables-c-net //read on CV
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
@@ -52,7 +52,7 @@ namespace WPFclient
                         m.Show();
                     }
                     else WPFclient.App.Current.Windows[i].Show();
-                    this.Hide();
+                    this.Close();
                 }
                 else if (answer == "1021") /*wrong details*/ System.Windows.MessageBox.Show(this, "Sign in unsuccesful, wrong name or password");
                 else if (answer == "1022") /*already connected*/ System.Windows.MessageBox.Show(this, "Sign in unsuccesful, this user is already connected");
@@ -72,8 +72,7 @@ namespace WPFclient
                 m.Show();
             }
             else WPFclient.App.Current.Windows[i].Show();
-
-            this.Hide();
+            this.Close();
         }
         public void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -95,19 +94,13 @@ namespace WPFclient
             string defaultText = "Password";
             tb.Text = tb.Text == string.Empty ? defaultText : tb.Text;
         }
-        private void theWindow_Closed(object sender, System.EventArgs e)
-        {
-            byte[] buffer = new ASCIIEncoding().GetBytes("299");//when the window is closed, send the exit code
-            cl._clientStream.Write(buffer, 0, buffer.Length);
-            cl._clientStream.Flush();
-        }
     }
     public class ClientBody
     {
         public TcpClient _client;
         public NetworkStream _clientStream;
         public string _username;
-
+        public bool _isConnected;
         public ClientBody()
         {
             _client = new TcpClient();
@@ -115,6 +108,7 @@ namespace WPFclient
             {
                 _client.Connect("127.0.0.1", 8820);
                 _clientStream = _client.GetStream();
+                _isConnected = true;
             }
             catch (Exception ex)
             {

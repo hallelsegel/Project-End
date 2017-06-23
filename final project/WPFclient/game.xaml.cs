@@ -19,16 +19,30 @@ namespace WPFclient
     /// </summary>
     public partial class game : Window
     {
+        int timeLeft, currQuestion, questionNum, time;
         ClientBody cl; //shared class 
-        public game()
+        public game(int _time, int _questionNum)
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
-            this.Closed += new EventHandler(theWindow_Closed);
             InitializeComponent();
+            time = _time;
+            questionNum = _questionNum;
             UserName.Content = cl._username;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/BG.png")));
             
+        }
+        private void rcvQuestion()
+        {
+
+        }
+        private void timer()
+        {
+            while (timeLeft > 0)
+            {
+                timerLabel.Content = "Time left: " + timeLeft;
+                
+            }
         }
         private void click_mainMenu(object sender, RoutedEventArgs e)
         {//move back to main menu
@@ -40,11 +54,11 @@ namespace WPFclient
                 m.Show();
             }
             else WPFclient.App.Current.Windows[i].Show();
-            this.Hide();
+            this.Close();
         }
         private async void click_checkAnswer(object sender, RoutedEventArgs e)
         {
-            bool answer = true;// send to function that checks answer. answer = function return
+            bool answer = sendAnswer(((Button)sender).Content.ToString());// send to function that checks answer. answer = function return
             Random gen = new Random();
             int prob = gen.Next(100);
             if (prob < 50)
@@ -73,11 +87,12 @@ namespace WPFclient
                 textIncorrect.Visibility = Visibility.Hidden;
             }
         }
-        private void theWindow_Closed(object sender, System.EventArgs e)
+        private bool sendAnswer(string name)
         {
-            byte[] buffer = new ASCIIEncoding().GetBytes("299");//when the window is closed, send the exit code
-            cl._clientStream.Write(buffer, 0, buffer.Length);
+            byte[] buffer = new ASCIIEncoding().GetBytes("217" + name[6]); //217 == start game, name[6] == answer number ("button1")
+            cl._clientStream.Write(buffer, 0, buffer.Length); //send message code to server
             cl._clientStream.Flush();
+            return false;
         }
     }
 }

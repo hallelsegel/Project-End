@@ -27,7 +27,6 @@ namespace WPFclient
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
             UserName.Content = cl._username;
-            this.Closed += new EventHandler(theWindow_Closed);
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
@@ -36,8 +35,9 @@ namespace WPFclient
             byte[] buffer = new ASCIIEncoding().GetBytes("201");//when the window is closed, send the exit code
             cl._clientStream.Write(buffer, 0, buffer.Length);
             cl._clientStream.Flush();
-            WPFclient.App.Current.Windows[0].Show(); // mainWindow is always the first
-            this.Hide();
+            MainWindow m = new MainWindow();
+            m.Show();
+            this.Close();
         }
                 
         private void click_createRoom(object sender, RoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace WPFclient
                 c.Show();
             }
             else WPFclient.App.Current.Windows[i].Show();
-            this.Hide();
+            this.Close();
         }
 
         private void click_joinRoom(object sender, RoutedEventArgs e)
@@ -63,7 +63,7 @@ namespace WPFclient
                 j.Show();
             }
             else WPFclient.App.Current.Windows[i].Show();
-            this.Hide();
+            this.Close();
         }
 
         private void click_highScores(object sender, RoutedEventArgs e)
@@ -76,7 +76,7 @@ namespace WPFclient
                 h.Show();
             }
             else WPFclient.App.Current.Windows[i].Show();
-            this.Hide();
+            this.Close();
         }
 
         private void click_personalStats(object sender, RoutedEventArgs e)
@@ -89,14 +89,7 @@ namespace WPFclient
                 p.Show();
             }
             else WPFclient.App.Current.Windows[i].Show();
-            this.Hide();
-        }
-
-        private void theWindow_Closed(object sender, System.EventArgs e)
-        {
-            byte[] buffer = new ASCIIEncoding().GetBytes("299");//when the window is closed, send the exit code
-            cl._clientStream.Write(buffer, 0, buffer.Length);
-            cl._clientStream.Flush();
+            this.Close();
         }
     }
 }

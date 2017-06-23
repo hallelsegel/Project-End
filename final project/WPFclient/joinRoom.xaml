@@ -14,6 +14,7 @@
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <EventSetter Event="PreviewMouseDoubleClick" Handler="click_connectedUsers" />
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="click_room" />
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>

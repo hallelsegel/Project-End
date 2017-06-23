@@ -25,7 +25,6 @@ namespace WPFclient
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
             UserName.Content = cl._username;
-            this.Closed += new EventHandler(theWindow_Closed);
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
         private void click_mainMenu(object sender, RoutedEventArgs e)
@@ -38,7 +37,7 @@ namespace WPFclient
                 m.Show();
             }
             else WPFclient.App.Current.Windows[i].Show();
-            this.Hide();
+            this.Close();
         }
         private void click_inRoom(object sender, RoutedEventArgs e)
         {
@@ -48,11 +47,11 @@ namespace WPFclient
                 for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.inRoom") break;
                 if (i == WPFclient.App.Current.Windows.Count) //if there is mainMenu open already
                 {
-                    inRoom m = new inRoom(); //else create one and open it
+                    inRoom m = new inRoom(true, Int32.Parse(questions.Text), Int32.Parse(time.Text), Int32.Parse(players.Text), name.Text); //else create one and open it
                     m.Show();
                 }
                 else WPFclient.App.Current.Windows[i].Show();
-                this.Hide();
+                this.Close();
             }
         }
         public void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -87,12 +86,6 @@ namespace WPFclient
             string defaultText = "Time For Question";
             tb.Text = tb.Text == string.Empty ? defaultText : tb.Text;
         }
-        private void theWindow_Closed(object sender, System.EventArgs e)
-        {
-            byte[] buffer = new ASCIIEncoding().GetBytes("299");//when the window is closed, send the exit code
-            cl._clientStream.Write(buffer, 0, buffer.Length);
-            cl._clientStream.Flush();
-        }
         private bool sendCreateRoom()
         {
             int p = 0, q=0, t =0;
@@ -109,7 +102,7 @@ namespace WPFclient
             else if (q < 1) System.Windows.MessageBox.Show(this, "You can't have 0 questions!");
             else if (q > 10) System.Windows.MessageBox.Show(this, "You can only have up to 10 questions!"); //our current number of available questions...
             else if (t < 1) System.Windows.MessageBox.Show(this, "You can't have 0 seconds to answer!");
-            else if (t > 9) System.Windows.MessageBox.Show(this, "You can only have up to 99 seconds!");
+            else if (t > 99) System.Windows.MessageBox.Show(this, "You can only have up to 99 seconds!");
             else
             {
                 string nameLen = (name.Text.Length).ToString().PadLeft(2, '0');

@@ -20,6 +20,7 @@ namespace WPFclient
     public partial class joinRoom : Window
     {
         ClientBody cl; //shared class 
+        string room = ""; //for the joinRoom button to know which room is selected
         public joinRoom()
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
@@ -27,12 +28,31 @@ namespace WPFclient
             UserName.Content = cl._username;
             getRooms(); //initial room list request
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-
             System.Windows.MessageBox.Show(this, "Double-click on any room to see which players are in it right now!");
         }
         private void click_joinRoom(object sender, RoutedEventArgs e)
         {
-            
+            if (room == "") System.Windows.MessageBox.Show(this, "You have not selected a room");
+            else
+            {
+                if (sendJoinRoom())
+                {
+                    int i;
+                    byte[] rcv = new byte[2];
+                    cl._clientStream.Read(rcv, 0, 2);
+                    int questionNum = Int32.Parse(System.Text.Encoding.UTF8.GetString(rcv, 0, 2));
+                    cl._clientStream.Read(rcv, 0, 2);
+                    int questionTime = Int32.Parse(System.Text.Encoding.UTF8.GetString(rcv, 0, 2));
+                    for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.inRoom") break;
+                    if (i == WPFclient.App.Current.Windows.Count) //if there is mainMenu open already
+                    {
+                        inRoom r = new inRoom(false, questionNum, questionTime, 0 ,room.Substring(11,room.Length-11)); //else create one and open it
+                        r.Show();
+                    }
+                    else WPFclient.App.Current.Windows[i].Show();
+                    this.Close();
+                }
+            }
         }
         private void click_refresh(object sender, RoutedEventArgs e)
         {
@@ -48,7 +68,21 @@ namespace WPFclient
                 m.Show();
             }
             else WPFclient.App.Current.Windows[i].Show();
-            this.Hide();
+            this.Close();
+        }
+        private bool sendJoinRoom()
+        {
+            byte[] buffer = new ASCIIEncoding().GetBytes("209" + room.Substring(5, 4)); //extract the id from the string inserted to the room's listBoxItem
+            byte[] rcv = new byte[4];
+            cl._clientStream.Write(buffer, 0, buffer.Length);//send message code to server
+            cl._clientStream.Flush();
+            cl._clientStream.Read(rcv, 0, 4);
+            string answer = System.Text.Encoding.UTF8.GetString(rcv, 0, 4);
+            if (answer == "1100") //1100 == join room correct answer code from server (success)
+                return true;
+            else if (answer == "1101") {System.Windows.MessageBox.Show(this, "Room doesn't exist or a bug, please try again"); return false; }//failure
+            else if (answer == "1102") { System.Windows.MessageBox.Show(this, "Room was filled before you could join..."); return false; } //failure
+            else { System.Windows.MessageBox.Show(this, "Unknown bug, please file a bug report..."); return false; } //failure
         }
         private void getRooms()
         {
@@ -72,8 +106,8 @@ namespace WPFclient
                 }
                 else
                 {
-                    int questionNum = Int32.Parse(System.Text.Encoding.UTF8.GetString(rcv));
-                    for (int i = 0; i < questionNum; i++)
+                    int roomNum = Int32.Parse(System.Text.Encoding.UTF8.GetString(rcv));
+                    for (int i = 0; i < roomNum; i++)
                     {
                         ListBoxItem item = new ListBoxItem();
                         rcv = new byte[4];
@@ -92,7 +126,7 @@ namespace WPFclient
         }
         private void click_room(object sender, MouseButtonEventArgs e)
         {
-            System.Windows.MessageBox.Show(this, "works");
+            room = (string)((ListBoxItem)sender).Content;
         }
         connectedUser secondForm;
 

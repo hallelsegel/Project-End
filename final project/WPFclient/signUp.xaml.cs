@@ -24,7 +24,6 @@ namespace WPFclient
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
-            this.Closed += new EventHandler(theWindow_Closed);
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
         private void button_send(object sender, RoutedEventArgs e)
@@ -49,8 +48,9 @@ namespace WPFclient
                     System.Windows.MessageBox.Show(this, "Sign up unsuccesful, the username has to be begin with a letter, and include no spaces. ");
                 else if (answer == "1044") /*other*/
                     System.Windows.MessageBox.Show(this, "Sign in unsuccesful, for no known reason");
-                WPFclient.App.Current.Windows[0].Show(); // mainWindow is always the first
-                this.Hide();
+                MainWindow m = new MainWindow();
+                m.Show();
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -85,13 +85,6 @@ namespace WPFclient
             TextBox tb = (TextBox)sender;
             string defaultText = "Email";
             tb.Text = tb.Text == string.Empty ? defaultText : tb.Text;
-        }
-
-        private void theWindow_Closed(object sender, System.EventArgs e)
-        {
-            byte[] buffer = new ASCIIEncoding().GetBytes("299");//when the window is closed, send the exit code
-            cl._clientStream.Write(buffer, 0, buffer.Length);
-            cl._clientStream.Flush();
         }
     }
 }
