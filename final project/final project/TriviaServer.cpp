@@ -414,6 +414,9 @@ RecievedMessage* TriviaServer::buildRecieveMessage(SOCKET client_socket, int msg
 	}
 	RecievedMessage* msg = new RecievedMessage(client_socket, msgCode, values);
 	if (msgCode != CLIENT_SIGN_IN && msgCode != CLIENT_SIGN_UP) msg->setUser(user); //these two get the user in 'values'.
+	cout << "Recieved: " << msg->getSock();
+	for (int i = 0; i < msg->getValues().size(); i++) cout << " " << msg->getValues()[i];
+	cout << endl;
 	return msg;
 }
 
@@ -440,7 +443,6 @@ void TriviaServer::handleRecievedMessages()
 		msg = this->_queRcvMessages.front();
 		this->_queRcvMessages.pop();
 		lck.unlock(); //usage of _queRcvMessages ends
-		TRACE("handleRecivedMessages: msg code = %d, client_socket = %d", msg->getMessageCode(), msg->getSock());
 		try
 		{
 			if (msg->getMessageCode() == CLIENT_SIGN_IN)

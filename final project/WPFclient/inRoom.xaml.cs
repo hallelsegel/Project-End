@@ -148,8 +148,8 @@ namespace WPFclient
                 for (i = 0; i < windows.Count; i++) if (windows[i].ToString() == "WPFclient.game") break;
                 if (i == windows.Count) //if there is mainMenu open already
                 {
-                    int timeParam = Int32.Parse(time.Content.ToString().Substring(20,1));
-                    int questionParam = Int32.Parse(questionNum.Content.ToString().Substring(22,1));
+                    int timeParam = Int32.Parse(time.Content.ToString().Substring(20, time.Content.ToString().Length-20));
+                    int questionParam = Int32.Parse(questionNum.Content.ToString().Substring(22, questionNum.Content.ToString().Length - 22));
                     game g = new game(timeParam, questionParam); //else create one and open it
                     g.Show();
                 }

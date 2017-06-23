@@ -34,7 +34,7 @@ namespace WPFclient
             this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/BG.png")));
             rcvQuestion();
         }
-        private void rcvQuestion()
+        private async void rcvQuestion()
         {
             byte[] rcv = new byte[3];
             cl._clientStream.Read(rcv, 0, rcv.Length);
@@ -44,7 +44,7 @@ namespace WPFclient
             {
                 rcv = new byte[qLength];
                 cl._clientStream.Read(rcv, 0, rcv.Length);
-                questionLabel.Content = Encoding.UTF8.GetString(rcv, 0, rcv.Length);
+                questionLabel.Text = Encoding.UTF8.GetString(rcv, 0, rcv.Length);
                 answers.Clear();
                 for (int i =0; i<4;i++)
                 {
@@ -61,7 +61,7 @@ namespace WPFclient
                 button4.Content = answers[3];
                 timeLeft = timePerQuestion;
                 timerLabel.Content = "Time left: " + timeLeft;
-                currQLabel.Content = currQuestion + " / " + questionNum;
+                currQLabel.Content = ++currQuestion + " / " + questionNum;
             }
             startTimer();
         }
@@ -70,14 +70,18 @@ namespace WPFclient
             while (timeLeft > 0)
             {
                 timerLabel.Content = "Time left: " + timeLeft;
-                await Task.Delay(1000);
                 timeLeft--;
+                await Task.Delay(1000);
                 timerLabel.Content = "Time left: " + timeLeft;
             }
-            byte[] buffer = new ASCIIEncoding().GetBytes("2195" + timePerQuestion.ToString().PadLeft(2,'0'));
-            cl._clientStream.Write(buffer, 0, buffer.Length);
-            cl._clientStream.Flush();
-            isCorrectScreen();
+            if (timeLeft == 0)
+            {
+                byte[] buffer = new ASCIIEncoding().GetBytes("2195" + timePerQuestion.ToString().PadLeft(2, '0'));
+                cl._clientStream.Write(buffer, 0, buffer.Length);
+                cl._clientStream.Flush();
+                isCorrectScreen();
+                rcvQuestion();
+            }
         }
         private async void isCorrectScreen()
         {
@@ -117,7 +121,10 @@ namespace WPFclient
         private void click_checkAnswer(object sender, RoutedEventArgs e)
         {
             if (timeLeft > 0)
-            sendAnswer(((Button)sender).Content.ToString()); //use sendAnswer to send to the server the answer from the button to 
+            {
+                sendAnswer(((Button)sender).Name); //use sendAnswer to send to the server the answer from the button to 
+                timeLeft = -1;
+            }
         }
         private async void sendAnswer(string name)
         {
@@ -139,7 +146,14 @@ namespace WPFclient
                 rcvMsg = System.Text.Encoding.UTF8.GetString(rcv);
                 if (rcvMsg == "118") //118 = server send question
                 {
-                    rcvQuestion(); // doesnt exsist
+                    await Task.Delay(200);
+                    timeLeft = timePerQuestion;
+                    rcvQuestion(); //recieve next question
+                }
+                else if (rcvMsg == "121") //end game and results
+                {
+                    gameResults r = new gameResults(questionNum);
+                    r.Show();
                 }
             }
         }

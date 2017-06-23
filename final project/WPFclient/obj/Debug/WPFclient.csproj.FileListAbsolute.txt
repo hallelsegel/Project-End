@@ -42,3 +42,5 @@ C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט ס�
 C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\personalStats.g.cs
 C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\connectedUser.baml
 C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\connectedUser.g.cs
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\gameResults.baml
+C:\Users\User\Documents\magshimim\עקרונות מתקדמים\פרויקט סוף\Project-End\final project\WPFclient\obj\Debug\gameResults.g.cs

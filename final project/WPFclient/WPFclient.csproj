@@ -56,6 +56,7 @@
     <Compile Include="connectedUser.xaml.cs" />
     <Compile Include="createRoom.xaml.cs" />
     <Compile Include="game.xaml.cs" />
+    <Compile Include="gameResults.xaml.cs" />
     <Compile Include="highScores.xaml.cs" />
     <Compile Include="inRoom.xaml.cs" />
     <Compile Include="joinRoom.xaml.cs" />
@@ -75,6 +76,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="game.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="gameResults.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
