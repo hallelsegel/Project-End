@@ -24,7 +24,7 @@ namespace WPFclient
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
         private void button_send(object sender, RoutedEventArgs e)
         {
@@ -39,22 +39,22 @@ namespace WPFclient
                 cl._clientStream.Flush();
                 cl._clientStream.Read(rcv, 0, 4);
                 string answer = System.Text.Encoding.UTF8.GetString(rcv);
-                if (answer == "1040") /*success*/ System.Windows.MessageBox.Show(this, "Sign up succesful, you are can now sign in, " + username.Text + "!");
+                if (answer == "1040") /*success*/ MessageBox.Show(this, "Sign up succesful, you are can now sign in, " + username.Text + "!");
                 else if (answer == "1041") /*illegal password*/ 
-                    System.Windows.MessageBox.Show(this, "Sign up unsuccesful, the password has to be longer than 4 characters, include at least: 1 lowercase letter, 1 uppercase letter, 1 number and no spaces");
+                    MessageBox.Show(this, "Sign up unsuccesful, the password has to be longer than 4 characters, include at least: 1 lowercase letter, 1 uppercase letter, 1 number and no spaces");
                 else if (answer == "1042") /*username taken*/
-                    System.Windows.MessageBox.Show(this, "Sign up unsuccesful, username is already taken");
+                    MessageBox.Show(this, "Sign up unsuccesful, username is already taken");
                 else if (answer == "1043") /*illegal username*/ 
-                    System.Windows.MessageBox.Show(this, "Sign up unsuccesful, the username has to be begin with a letter, and include no spaces. ");
+                    MessageBox.Show(this, "Sign up unsuccesful, the username has to be begin with a letter, and include no spaces. ");
                 else if (answer == "1044") /*other*/
-                    System.Windows.MessageBox.Show(this, "Sign in unsuccesful, for no known reason");
+                    MessageBox.Show(this, "Sign in unsuccesful, for no known reason");
                 MainWindow m = new MainWindow();
                 m.Show();
                 this.Close();
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(this, ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
         }
         public void TextBox_GotFocus(object sender, RoutedEventArgs e)

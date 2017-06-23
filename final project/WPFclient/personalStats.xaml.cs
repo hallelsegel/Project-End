@@ -26,7 +26,7 @@ namespace WPFclient
             InitializeComponent();
             UserName.Content = cl._username;
             getPersonalStats();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
         private void click_mainMenu(object sender, RoutedEventArgs e)
         {//move back to main menu
@@ -50,7 +50,7 @@ namespace WPFclient
             string answer = System.Text.Encoding.UTF8.GetString(rcv, 0, 3);
             if (answer != "126") //126 == personal stats correct answer code from server
             {
-                System.Windows.MessageBox.Show(this, "Error in getting personal stats. please try again");
+                MessageBox.Show(this, "Error in getting personal stats. please try again");
             }
             else
             {

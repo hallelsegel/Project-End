@@ -7,12 +7,12 @@
     <Grid>
         <Label Content="Trivia Pro" FontSize="40" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontWeight="Bold" />
         <Label Content="roomName" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,425"/>
-        <Label Content="question: 1/5" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,360"/>
-        <Label Content="kvjfesnkjb fdsbjnds bfdjsnbfds bdjsbnfd?" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,225"/>
-        <Button x:Name="button1" Width="300" Height="46" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Content="answer 1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,50" Click="click_checkAnswer" />
-        <Button x:Name="button2" Width="300" Height="46" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Content="answer 2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,70,0,0" Click="click_checkAnswer" />
-        <Button x:Name="button3" Width="300" Height="46" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Content="answer 3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,190,0,0" Click="click_checkAnswer" />
-        <Button x:Name="button4" Width="300" Height="46" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Content="answer 4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,310,0,0" Click="click_checkAnswer" />
+        <Label Name="currQLabel" Content="question: 1/5" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,360"/>
+        <Label Name="questionLabel" Content="kvjfesnkjb fdsbjnds bfdjsnbfds bdjsbnfd?" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,225"/>
+        <Button x:Name="button1" Width="300" Height="46" Padding="10,0,10,0" FontSize="20" Background="LightSteelBlue" Content="answer 1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,50" Click="click_checkAnswer" />
+        <Button x:Name="button2" Width="300" Height="46" Padding="10,0,10,0" FontSize="20" Background="LightSteelBlue" Content="answer 2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,70,0,0" Click="click_checkAnswer" />
+        <Button x:Name="button3" Width="300" Height="46" Padding="10,0,10,0" FontSize="20" Background="LightSteelBlue" Content="answer 3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,190,0,0" Click="click_checkAnswer" />
+        <Button x:Name="button4" Width="300" Height="46" Padding="10,0,10,0" FontSize="20" Background="LightSteelBlue" Content="answer 4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,310,0,0" Click="click_checkAnswer" />
         <Label x:Name="timerLabel" Content="5" Width="Auto" Height="Auto" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,460,0,0"/>
         <Label Content="score: " Width="Auto" Height="Auto" FontSize="25" FontWeight="Bold" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,550,0,0"/>
         <Label x:Name="UserName" Content="UserName" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="top" Margin="0,0,0,425"/>

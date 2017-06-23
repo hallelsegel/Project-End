@@ -27,12 +27,11 @@ namespace WPFclient
             InitializeComponent();
             UserName.Content = cl._username;
             getRooms(); //initial room list request
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            System.Windows.MessageBox.Show(this, "Double-click on any room to see which players are in it right now!");
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
         private void click_joinRoom(object sender, RoutedEventArgs e)
         {
-            if (room == "") System.Windows.MessageBox.Show(this, "You have not selected a room");
+            if (room == "") MessageBox.Show(this, "You have not selected a room");
             else
             {
                 if (sendJoinRoom())
@@ -80,9 +79,9 @@ namespace WPFclient
             string answer = System.Text.Encoding.UTF8.GetString(rcv, 0, 4);
             if (answer == "1100") //1100 == join room correct answer code from server (success)
                 return true;
-            else if (answer == "1101") {System.Windows.MessageBox.Show(this, "Room doesn't exist or a bug, please try again"); return false; }//failure
-            else if (answer == "1102") { System.Windows.MessageBox.Show(this, "Room was filled before you could join..."); return false; } //failure
-            else { System.Windows.MessageBox.Show(this, "Unknown bug, please file a bug report..."); return false; } //failure
+            else if (answer == "1101") {MessageBox.Show(this, "Room doesn't exist or a bug, please try again"); return false; }//failure
+            else if (answer == "1102") { MessageBox.Show(this, "Room was filled before you could join..."); return false; } //failure
+            else { MessageBox.Show(this, "Unknown bug, please file a bug report..."); return false; } //failure
         }
         private void getRooms()
         {
@@ -93,17 +92,12 @@ namespace WPFclient
             cl._clientStream.Flush();
             cl._clientStream.Read(rcv, 0, 3);
             string answer = System.Text.Encoding.UTF8.GetString(rcv);
-            if (answer != "106") /*failure*/ System.Windows.MessageBox.Show(this, "Error on getting the list of available rooms");
+            if (answer != "106") /*failure*/ MessageBox.Show(this, "Error on getting the list of available rooms");
             else
             {
                 rcv = new byte[4];
                 cl._clientStream.Read(rcv, 0, 4);
-                if (System.Text.Encoding.UTF8.GetString(rcv) == "0000")
-                {
-                    ListBoxItem item = new ListBoxItem();
-                    item.Content = "There are no rooms available at the moment.";
-                    roomsList.Items.Add(item);
-                }
+                if (System.Text.Encoding.UTF8.GetString(rcv) == "0000") MessageBox.Show(this, "There are no rooms available at the moment. ");
                 else
                 {
                     int roomNum = Int32.Parse(System.Text.Encoding.UTF8.GetString(rcv));
@@ -121,6 +115,7 @@ namespace WPFclient
                         item.Content += System.Text.Encoding.UTF8.GetString(rcv);
                         roomsList.Items.Add(item);
                     }
+                    MessageBox.Show(this, "Double-click on any room to see which players are in it right now!");
                 }
             }
         }

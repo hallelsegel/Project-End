@@ -26,7 +26,7 @@ namespace WPFclient
             InitializeComponent();
             UserName.Content = cl._username;
             getBestScores();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;            
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;            
         }
         private void click_mainMenu(object sender, RoutedEventArgs e)
         {//move back to main menu
@@ -51,7 +51,7 @@ namespace WPFclient
             string answer = System.Text.Encoding.UTF8.GetString(rcv, 0, 3);
             if (answer != "124") //124 == correct answer code to the best scores request from the server
             {
-                System.Windows.MessageBox.Show(this, "Error in getting highscores. please try again");
+                MessageBox.Show(this, "Error in getting highscores. please try again");
             }
             else
             {

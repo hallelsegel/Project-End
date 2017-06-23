@@ -32,7 +32,7 @@ namespace WPFclient
             cl._clientStream.Flush();
             cl._clientStream.Read(rcv, 0, 3);
             string answer = System.Text.Encoding.UTF8.GetString(rcv);
-            if (answer != "108") /*failure*/ System.Windows.MessageBox.Show(this, "Error in getting users from room");
+            if (answer != "108") /*failure*/ MessageBox.Show(this, "Error in getting users from room");
             else
             {
                 rcv = new byte[1];

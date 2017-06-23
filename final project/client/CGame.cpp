@@ -93,7 +93,7 @@ void CGame::questionDisplay()
 	TRLock.unlock();
 }	
 
-void CGame::sendAnswer(string msg)		//219
+void CGame::sendAnswer(string msg)	//219
 {
 	send(_clientSock, msg.c_str(), msg.size(), 0);
 	string rcvMsg = Helper::getPartFromSocket(_clientSock, 3, 0);

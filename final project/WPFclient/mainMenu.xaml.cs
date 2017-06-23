@@ -27,7 +27,7 @@ namespace WPFclient
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
             UserName.Content = cl._username;
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void click_logOut(object sender, RoutedEventArgs e)

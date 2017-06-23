@@ -19,29 +19,86 @@ namespace WPFclient
     /// </summary>
     public partial class game : Window
     {
-        int timeLeft, currQuestion, questionNum, time;
+        int timeLeft, currQuestion, questionNum, timePerQuestion;
+        List<string> answers = new List<string>();
         ClientBody cl; //shared class 
-        public game(int _time, int _questionNum)
+        public game(int _timePerQ, int _questionNum)
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
-            time = _time;
+            timePerQuestion = _timePerQ;
             questionNum = _questionNum;
+            currQuestion = 0;
             UserName.Content = cl._username;
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/BG.png")));
-            
+            rcvQuestion();
         }
         private void rcvQuestion()
         {
-
+            byte[] rcv = new byte[3];
+            cl._clientStream.Read(rcv, 0, rcv.Length);
+            int qLength = Int32.Parse(Encoding.UTF8.GetString(rcv, 0, rcv.Length));
+            if (qLength == 0) MessageBox.Show(this, "Error in recieving question");
+            else
+            {
+                rcv = new byte[qLength];
+                cl._clientStream.Read(rcv, 0, rcv.Length);
+                questionLabel.Content = Encoding.UTF8.GetString(rcv, 0, rcv.Length);
+                answers.Clear();
+                for (int i =0; i<4;i++)
+                {
+                    rcv = new byte[3];
+                    cl._clientStream.Read(rcv, 0, rcv.Length);
+                    int aLength = Int32.Parse(Encoding.UTF8.GetString(rcv, 0, rcv.Length));
+                    rcv = new byte[aLength];
+                    cl._clientStream.Read(rcv, 0, rcv.Length);
+                    answers.Add(Encoding.UTF8.GetString(rcv, 0, rcv.Length));
+                }
+                button1.Content = answers[0];
+                button2.Content = answers[1];
+                button3.Content = answers[2];
+                button4.Content = answers[3];
+                timeLeft = timePerQuestion;
+                timerLabel.Content = "Time left: " + timeLeft;
+                currQLabel.Content = currQuestion + " / " + questionNum;
+            }
+            startTimer();
         }
-        private void timer()
+        private async void startTimer()
         {
             while (timeLeft > 0)
             {
                 timerLabel.Content = "Time left: " + timeLeft;
-                
+                await Task.Delay(1000);
+                timeLeft--;
+                timerLabel.Content = "Time left: " + timeLeft;
+            }
+            byte[] buffer = new ASCIIEncoding().GetBytes("2195" + timePerQuestion.ToString().PadLeft(2,'0'));
+            cl._clientStream.Write(buffer, 0, buffer.Length);
+            cl._clientStream.Flush();
+            isCorrectScreen();
+        }
+        private async void isCorrectScreen()
+        {
+            byte[] rcv = new byte[1]; // resize to recieve only one byte
+            cl._clientStream.Read(rcv, 0, 1);
+            string correct = System.Text.Encoding.UTF8.GetString(rcv);    
+            if (correct == "1")
+            { // If correct shows the correct pic 
+                imageCorrect.Visibility = Visibility.Visible;
+                textCorrect.Visibility = Visibility.Visible;
+                await Task.Delay(500);
+                imageCorrect.Visibility = Visibility.Hidden;
+                textCorrect.Visibility = Visibility.Hidden;
+            }
+            else
+            { // If incorrect shows the incorrect pic 
+                imageIncorrect.Visibility = Visibility.Visible;
+                textIncorrect.Visibility = Visibility.Visible;
+                await Task.Delay(500);
+                imageIncorrect.Visibility = Visibility.Hidden;
+                textIncorrect.Visibility = Visibility.Hidden;
             }
         }
         private void click_mainMenu(object sender, RoutedEventArgs e)
@@ -55,44 +112,36 @@ namespace WPFclient
             }
             else WPFclient.App.Current.Windows[i].Show();
             this.Close();
+
         }
-        private async void click_checkAnswer(object sender, RoutedEventArgs e)
+        private void click_checkAnswer(object sender, RoutedEventArgs e)
         {
-            bool answer = sendAnswer(((Button)sender).Content.ToString());// send to function that checks answer. answer = function return
-            Random gen = new Random();
-            int prob = gen.Next(100);
-            if (prob < 50)
-            {
-                answer = true;
+            if (timeLeft > 0)
+            sendAnswer(((Button)sender).Content.ToString()); //use sendAnswer to send to the server the answer from the button to 
+        }
+        private async void sendAnswer(string name)
+        {
+            byte[] buffer = new ASCIIEncoding().GetBytes("219" + name[6] + (timePerQuestion - timeLeft).ToString().PadLeft(2, '0')), rcv = new byte[3];
+            //219 == send answer, name[6] == answer number (ex: "button1"), last bit == time taken to answer;
+            cl._clientStream.Write(buffer, 0, buffer.Length); //send message code to server
+            cl._clientStream.Flush();
+            cl._clientStream.Read(rcv, 0, 3);
+            string rcvMsg = System.Text.Encoding.UTF8.GetString(rcv);
+            if (rcvMsg != "120") //120 = server answer
+            { // Checks if recieved the correct message 
+                MessageBox.Show(this, "Error in communication");
             }
             else
             {
-                answer = false;
+                isCorrectScreen();
+                rcv = new byte[3]; // resize to recieve only one byte
+                cl._clientStream.Read(rcv, 0, 3);
+                rcvMsg = System.Text.Encoding.UTF8.GetString(rcv);
+                if (rcvMsg == "118") //118 = server send question
+                {
+                    rcvQuestion(); // doesnt exsist
+                }
             }
-            Button b = (Button)sender;
-            if (answer == true)
-            {
-                imageCorrect.Visibility = Visibility.Visible;
-                textCorrect.Visibility = Visibility.Visible;
-                await Task.Delay(500);
-                imageCorrect.Visibility = Visibility.Hidden;
-                textCorrect.Visibility = Visibility.Hidden;
-            }
-            else if (answer == false)
-            {
-                imageIncorrect.Visibility = Visibility.Visible;
-                textIncorrect.Visibility = Visibility.Visible;
-                await Task.Delay(500);
-                imageIncorrect.Visibility = Visibility.Hidden;
-                textIncorrect.Visibility = Visibility.Hidden;
-            }
-        }
-        private bool sendAnswer(string name)
-        {
-            byte[] buffer = new ASCIIEncoding().GetBytes("217" + name[6]); //217 == start game, name[6] == answer number ("button1")
-            cl._clientStream.Write(buffer, 0, buffer.Length); //send message code to server
-            cl._clientStream.Flush();
-            return false;
         }
     }
 }

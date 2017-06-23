@@ -20,7 +20,6 @@ namespace WPFclient
         }
         protected override void OnExit(ExitEventArgs e)
         {
-            //do your things
             byte[] buffer = new ASCIIEncoding().GetBytes("299");//when the window is closed, send the exit code
             ((ClientBody)this.Properties["client"])._clientStream.Write(buffer, 0, buffer.Length);
             ((ClientBody)this.Properties["client"])._clientStream.Flush();

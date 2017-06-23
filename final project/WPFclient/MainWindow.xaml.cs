@@ -28,7 +28,7 @@ namespace WPFclient
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             //https://stackoverflow.com/questions/15657637/condition-variables-c-net //read on CV
             InitializeComponent();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void click_mainMenu(object sender, RoutedEventArgs e)
@@ -43,7 +43,7 @@ namespace WPFclient
                 cl._clientStream.Read(rcv, 0, 4);
                 string answer = System.Text.Encoding.UTF8.GetString(rcv);
                 if (answer == "1020"){ //success
-                    System.Windows.MessageBox.Show(this, "Sign in succesful, you are connected, " + username.Text + "!");
+                    MessageBox.Show(this, "Sign in succesful, you are connected, " + username.Text + "!");
                     cl._username = username.Text;
                     for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.mainMenu") break;
                     if (i == WPFclient.App.Current.Windows.Count) //if there is mainMenu open already
@@ -54,12 +54,12 @@ namespace WPFclient
                     else WPFclient.App.Current.Windows[i].Show();
                     this.Close();
                 }
-                else if (answer == "1021") /*wrong details*/ System.Windows.MessageBox.Show(this, "Sign in unsuccesful, wrong name or password");
-                else if (answer == "1022") /*already connected*/ System.Windows.MessageBox.Show(this, "Sign in unsuccesful, this user is already connected");
+                else if (answer == "1021") /*wrong details*/ MessageBox.Show(this, "Sign in unsuccesful, wrong name or password");
+                else if (answer == "1022") /*already connected*/ MessageBox.Show(this, "Sign in unsuccesful, this user is already connected");
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(this, ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
         }
         private void click_signUp(object sender, RoutedEventArgs e)
@@ -112,7 +112,7 @@ namespace WPFclient
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
     }

@@ -36,7 +36,11 @@ namespace WPFclient
             time.Content = time.Content.ToString() + _time;
             players.Content = players.Content.ToString() + _playersNum;
             room.Content = room.Content.ToString() + _roomName;
+            UserName.Content = cl._username;
 
+            ListBoxItem user = new ListBoxItem();
+            user.Content = cl._username;
+            usersList.Items.Add(user);
             if (!isAdmin)
             {//hide the start game and close game buttons, as they aren't allowed for a non admin, and show the leave game button, and instructions
                 //instead of the number of players, that is intended only for admins.
@@ -45,8 +49,7 @@ namespace WPFclient
                 adminStartButton.Visibility = Visibility.Collapsed;
                 joinerExit.Visibility = Visibility.Visible;
             }
-            UserName.Content = cl._username;
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             background_worker.WorkerSupportsCancellation = true;
             background_worker.WorkerReportsProgress = true;
@@ -83,8 +86,8 @@ namespace WPFclient
                 else if ((answer == "112" && !isAdmin) || answer == "116") //112 == answer to leaveRoom from server, 116 == admin has closed the room
                 {
                     if (answer == "112") cl._clientStream.Read(rcv, 0, 1); //another byte is send to indicate success or failure of leave room
-                    bool success = BitConverter.ToBoolean(rcv, 0);
-                    if (answer == "116" || success) //only leave room needs a success flag
+                    string success = Encoding.UTF8.GetString(rcv, 0, 1);
+                    if (answer == "116" || success == "0") //only leave room needs a success flag (0 is success)
                     {
                         background_worker.ReportProgress(116, sender); //open main menu in a thread that can
                         Thread.Sleep(500);
@@ -101,6 +104,7 @@ namespace WPFclient
         {/* Same code as in connectedUser, but doesn't send for it, beacuse it is sent automatically when someone joins*/
             if (e.ProgressPercentage.CompareTo(108) == 0)
             {
+                usersList.Items.Clear();
                 byte[] rcv = new byte[1]; //0 if failed, otherwise number of users
                 cl._clientStream.Read(rcv, 0, 1);
                 if (System.Text.Encoding.UTF8.GetString(rcv) == "0")

@@ -20,5 +20,8 @@
         <!-- FOR JOINER -->
         <Button x:Name="joinerExit" Width="200" Height="45" Padding="10,0,10,0" FontSize="31" Background="LightSteelBlue" Visibility="Hidden" Content="Leave Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,520,0,0" Click="click_mainMenu" />
         <!--For when creator closes the room-->
+        <Grid.Background>
+            <ImageBrush ImageSource="BG.png"/>
+        </Grid.Background>
     </Grid>
 </Window>
