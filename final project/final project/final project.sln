@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "server", "final project.vcxproj", "{965DA94B-83D8-4128-BE7F-0ABB6C44664F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "client", "..\client\client.vcxproj", "{282FDD7C-5204-49D2-B3A3-229A0374491A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFclient", "..\WPFclient\WPFclient.csproj", "{BA5C9005-CCF4-45B5-B2D0-5B3C07A0E877}"
 EndProject
 Global
@@ -29,16 +27,6 @@ Global
 		{965DA94B-83D8-4128-BE7F-0ABB6C44664F}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{965DA94B-83D8-4128-BE7F-0ABB6C44664F}.Release|Win32.ActiveCfg = Release|Win32
 		{965DA94B-83D8-4128-BE7F-0ABB6C44664F}.Release|Win32.Build.0 = Release|Win32
-		{282FDD7C-5204-49D2-B3A3-229A0374491A}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{282FDD7C-5204-49D2-B3A3-229A0374491A}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{282FDD7C-5204-49D2-B3A3-229A0374491A}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{282FDD7C-5204-49D2-B3A3-229A0374491A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{282FDD7C-5204-49D2-B3A3-229A0374491A}.Debug|Win32.Build.0 = Debug|Win32
-		{282FDD7C-5204-49D2-B3A3-229A0374491A}.Release|Any CPU.ActiveCfg = Release|Win32
-		{282FDD7C-5204-49D2-B3A3-229A0374491A}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{282FDD7C-5204-49D2-B3A3-229A0374491A}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{282FDD7C-5204-49D2-B3A3-229A0374491A}.Release|Win32.ActiveCfg = Release|Win32
-		{282FDD7C-5204-49D2-B3A3-229A0374491A}.Release|Win32.Build.0 = Release|Win32
 		{BA5C9005-CCF4-45B5-B2D0-5B3C07A0E877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA5C9005-CCF4-45B5-B2D0-5B3C07A0E877}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA5C9005-CCF4-45B5-B2D0-5B3C07A0E877}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
