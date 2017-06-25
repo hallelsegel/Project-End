@@ -19,7 +19,7 @@ namespace WPFclient
     /// </summary>
     public partial class game : Window
     {
-        int timeLeft, currQuestion, questionNum, timePerQuestion;
+        int timeLeft, currQuestion, questionNum, timePerQuestion, corrects;
         List<string> answers = new List<string>();
         ClientBody cl; //shared class 
         public game(int _timePerQ, int _questionNum)
@@ -28,7 +28,7 @@ namespace WPFclient
             InitializeComponent();
             timePerQuestion = _timePerQ;
             questionNum = _questionNum;
-            currQuestion = 0;
+            currQuestion = 0; corrects = 0;
             UserName.Content = cl._username;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/BG.png")));
@@ -37,6 +37,7 @@ namespace WPFclient
         private async void rcvQuestion()
         {
             byte[] rcv = new byte[3];
+            score.Content = "Score: " + corrects + " / " + currQuestion;
             cl._clientStream.Read(rcv, 0, rcv.Length);
             int qLength = Int32.Parse(Encoding.UTF8.GetString(rcv, 0, rcv.Length));
             if (qLength == 0) MessageBox.Show(this, "Error in recieving question");
@@ -86,6 +87,7 @@ namespace WPFclient
             string correct = System.Text.Encoding.UTF8.GetString(rcv);    
             if (correct == "1")
             { // If correct shows the correct pic 
+                corrects++;
                 imageCorrect.Visibility = Visibility.Visible;
                 textCorrect.Visibility = Visibility.Visible;
                 await Task.Delay(700);
