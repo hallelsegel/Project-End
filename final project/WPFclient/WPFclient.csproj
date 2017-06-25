@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="addQuestion.xaml.cs" />
     <Compile Include="connectedUser.xaml.cs" />
     <Compile Include="createRoom.xaml.cs" />
     <Compile Include="game.xaml.cs" />
@@ -67,6 +68,10 @@
     <Compile Include="signUp.xaml.cs">
       <DependentUpon>signUp.xaml</DependentUpon>
     </Compile>
+    <Page Include="addQuestion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="connectedUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

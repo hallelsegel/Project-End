@@ -56,6 +56,8 @@ private:
 	void handleGetRooms(RecievedMessage* msg); //205
 	void handleGetBestScores(RecievedMessage* msg); //223
 	void handleGetPersonalStatus(RecievedMessage* msg); //225
+	void handleQuestionCount(RecievedMessage* msg); //240 (our idea)
+	void handleAddQuestion(RecievedMessage* msg); //230 (our idea)
 	void addRecievedMessage(RecievedMessage* msg); //225
 	RecievedMessage* buildRecieveMessage(SOCKET client_socket, int msgCode); //225
 

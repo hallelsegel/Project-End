@@ -26,6 +26,10 @@ namespace WPFclient
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
+            if ((bool)WPFclient.App.Current.Properties["isAdmin"])
+            {
+                addQuestions.Visibility = Visibility.Visible;
+            }
             UserName.Content = cl._username;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
@@ -91,5 +95,19 @@ namespace WPFclient
             else WPFclient.App.Current.Windows[i].Show();
             this.Close();
         }
+
+        private void click_addQuestions(object sender, RoutedEventArgs e)
+        {
+            int i;
+            for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.addQuestion") break;
+            if (i == WPFclient.App.Current.Windows.Count) //if there is createRoom open already
+            {
+                addQuestion q = new addQuestion(); //else create one and open it
+                q.Show();
+            }
+            else WPFclient.App.Current.Windows[i].Show();
+            this.Close();
+        }
+
     }
 }

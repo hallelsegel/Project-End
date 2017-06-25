@@ -144,7 +144,10 @@ User* TriviaServer::handleSignin(RecievedMessage* msg) //200
 	}
 	User* u = new User(username, socket);
 	_connectedUsers.insert(pair<SOCKET, User*>(socket, u));
-	u->send(SERVER_SIGN_IN_SUCCESS);
+	if (username == "Admin" && password == "A1d2m3i4n5")
+		u->send(SERVER_SIGN_IN_SUCCESS_ADMIN);
+	else
+		u->send(SERVER_SIGN_IN_SUCCESS);
 	return u;
 }
 
@@ -346,6 +349,22 @@ void TriviaServer::handleGetPersonalStatus(RecievedMessage* msg) //225
 	msg->getUser()->send(sendMsg);
 }
 
+void TriviaServer::handleAddQuestion(RecievedMessage* msg) //225
+{
+	string sendMsg;
+	if (_db.insertQuestion(msg->getValues()[0], msg->getValues()[1], msg->getValues()[2], msg->getValues()[3], msg->getValues()[4]))
+		sendMsg = SERVER_ADD_QUESTION_SUCCESS;
+	else
+		sendMsg = SERVER_ADD_QUESTION_FAIL;
+	msg->getUser()->send(sendMsg);
+}
+
+void TriviaServer::handleQuestionCount(RecievedMessage* msg)
+{
+	int numOfQuestions = _db.questionCount();
+	msg->getUser()->send(SERVER_QUESTION_COUNT + Helper::getPaddedNumber(numOfQuestions, 2)); //will be -1 if it fails
+}
+
 void TriviaServer::handlePlayerAnswer(RecievedMessage* msg) //219
 {
 	User* user = msg->getUser();
@@ -410,6 +429,14 @@ RecievedMessage* TriviaServer::buildRecieveMessage(SOCKET client_socket, int msg
 		{
 			values.push_back(Helper::getStringPartFromSocket(client_socket, 1)); //answer number
 			values.push_back(Helper::getStringPartFromSocket(client_socket, 2)); //time taken
+		}
+		else if (msgCode == CLIENT_ADD_QUESTION)
+		{
+			values.push_back(Helper::getStringPartFromSocket(client_socket, Helper::getIntPartFromSocket(client_socket, 2))); //question
+			values.push_back(Helper::getStringPartFromSocket(client_socket, Helper::getIntPartFromSocket(client_socket, 2))); //answer 1
+			values.push_back(Helper::getStringPartFromSocket(client_socket, Helper::getIntPartFromSocket(client_socket, 2))); //answer 2
+			values.push_back(Helper::getStringPartFromSocket(client_socket, Helper::getIntPartFromSocket(client_socket, 2))); //answer 3
+			values.push_back(Helper::getStringPartFromSocket(client_socket, Helper::getIntPartFromSocket(client_socket, 2))); //answer 4
 		}
 	}
 	RecievedMessage* msg = new RecievedMessage(client_socket, msgCode, values);
@@ -500,6 +527,14 @@ void TriviaServer::handleRecievedMessages()
 			else if (msg->getMessageCode() == CLIENT_STATUS)
 			{
 				handleGetPersonalStatus(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_ADD_QUESTION)
+			{
+				handleAddQuestion(msg);
+			}
+			else if (msg->getMessageCode() == CLIENT_GET_QUESTION_COUNT)
+			{
+				handleQuestionCount(msg);
 			}
 			else if (msg->getMessageCode() == CLIENT_EXIT)
 			{

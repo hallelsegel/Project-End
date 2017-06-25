@@ -26,6 +26,7 @@ namespace WPFclient
             qNum = questionNum;
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
+            this.Closed += new EventHandler(theWindow_Closed);
             getResults();
         }
         private void click_mainMenu(object sender, RoutedEventArgs e)
@@ -63,6 +64,12 @@ namespace WPFclient
                 score.Content = Int32.Parse(Encoding.UTF8.GetString(rcv, 0, rcv.Length)) + " / " + qNum;
                 userScoreList.Items.Add(score);
             }
+        }
+        private void theWindow_Closed(object sender, System.EventArgs e)
+        {//After closing this (as it is somewhat an information pop up and not the
+         //body of the program, mainMenu will reopen instead
+            mainMenu m = new mainMenu();
+            m.Show();
         }
 
     }

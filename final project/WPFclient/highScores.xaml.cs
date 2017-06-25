@@ -70,7 +70,7 @@ namespace WPFclient
                     answer = System.Text.Encoding.UTF8.GetString(rcv);
                     lines[i] = lines[i] + " has answered\n correctly " + Int32.Parse(answer) + "% of the time";
                 }
-                first.Content = lines[0]; second.Content = lines[1]; third.Content = lines[2];
+                first.Content = lines[2]; second.Content = lines[1]; third.Content = lines[0];
             }
         }
     }

@@ -76,11 +76,7 @@ namespace WPFclient
             }
             if (timeLeft == 0)
             {
-                byte[] buffer = new ASCIIEncoding().GetBytes("2195" + timePerQuestion.ToString().PadLeft(2, '0'));
-                cl._clientStream.Write(buffer, 0, buffer.Length);
-                cl._clientStream.Flush();
-                isCorrectScreen();
-                rcvQuestion();
+                sendAnswer("2195" + timePerQuestion.ToString().PadLeft(2, '0'));
             }
         }
         private async void isCorrectScreen()
@@ -92,7 +88,7 @@ namespace WPFclient
             { // If correct shows the correct pic 
                 imageCorrect.Visibility = Visibility.Visible;
                 textCorrect.Visibility = Visibility.Visible;
-                await Task.Delay(500);
+                await Task.Delay(700);
                 imageCorrect.Visibility = Visibility.Hidden;
                 textCorrect.Visibility = Visibility.Hidden;
             }
@@ -100,7 +96,7 @@ namespace WPFclient
             { // If incorrect shows the incorrect pic 
                 imageIncorrect.Visibility = Visibility.Visible;
                 textIncorrect.Visibility = Visibility.Visible;
-                await Task.Delay(500);
+                await Task.Delay(700);
                 imageIncorrect.Visibility = Visibility.Hidden;
                 textIncorrect.Visibility = Visibility.Hidden;
             }
@@ -122,13 +118,14 @@ namespace WPFclient
         {
             if (timeLeft > 0)
             {
-                sendAnswer(((Button)sender).Name); //use sendAnswer to send to the server the answer from the button to 
+                string name = ((Button)sender).Name;
+                sendAnswer("219" + name[6] + (timePerQuestion - timeLeft).ToString().PadLeft(2, '0')); //use sendAnswer to send to the server the answer from the button to 
                 timeLeft = -1;
             }
         }
-        private async void sendAnswer(string name)
+        private async void sendAnswer(string answer)
         {
-            byte[] buffer = new ASCIIEncoding().GetBytes("219" + name[6] + (timePerQuestion - timeLeft).ToString().PadLeft(2, '0')), rcv = new byte[3];
+            byte[] buffer = new ASCIIEncoding().GetBytes(answer), rcv = new byte[3];
             //219 == send answer, name[6] == answer number (ex: "button1"), last bit == time taken to answer;
             cl._clientStream.Write(buffer, 0, buffer.Length); //send message code to server
             cl._clientStream.Flush();
@@ -141,12 +138,12 @@ namespace WPFclient
             else
             {
                 isCorrectScreen();
+                await Task.Delay(300);
                 rcv = new byte[3]; // resize to recieve only one byte
                 cl._clientStream.Read(rcv, 0, 3);
                 rcvMsg = System.Text.Encoding.UTF8.GetString(rcv);
                 if (rcvMsg == "118") //118 = server send question
                 {
-                    await Task.Delay(200);
                     timeLeft = timePerQuestion;
                     rcvQuestion(); //recieve next question
                 }
@@ -154,6 +151,7 @@ namespace WPFclient
                 {
                     gameResults r = new gameResults(questionNum);
                     r.Show();
+                    this.Close();
                 }
             }
         }

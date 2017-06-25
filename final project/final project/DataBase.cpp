@@ -146,6 +146,39 @@ vector<string> DataBase::getPersonalStatus(string username)
 	return stats;
 }
 
+int DataBase::questionCount()
+{
+	string sqlStatement;
+	char *errMessage = nullptr;
+	int res, numOfQuestions;
+	sqlStatement = "select count(*) from t_questions;";
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), callbackCount, &numOfQuestions, &errMessage);
+	if (res != SQLITE_OK)
+		return -1;
+	return numOfQuestions;
+}
+
+bool DataBase::insertQuestion(string question, string answer1, string answer2, string answer3, string answer4)
+{
+	RETURN_RES_IF_INVALID(false);
+
+	string sqlStatement;
+	char *errMessage = nullptr;
+	int res;
+
+	sqlStatement = "INSERT INTO T_QUESTIONS (QUESTION, CORRECT_ANS, ANS2, ANS3, ANS4) VALUES ('" + question + "', '" + answer1 +
+		"', '" + answer2 + "', '" + answer3 + "', '" + answer4 + "'); SELECT * FROM T_QUESTIONS WHERE QUESTION='" + question + "';"; //to check if worked
+
+	resetLastId();
+	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallbackID, this, &errMessage);
+	if (res != SQLITE_OK)
+	{
+		throw exception(errMessage);
+		return false;
+	}
+	return (_lastId != -1);
+}
+
 int DataBase::insertNewGame()
 {
 	RETURN_RES_IF_INVALID(false);

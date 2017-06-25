@@ -42,16 +42,13 @@ namespace WPFclient
                 cl._clientStream.Flush();
                 cl._clientStream.Read(rcv, 0, 4);
                 string answer = System.Text.Encoding.UTF8.GetString(rcv);
-                if (answer == "1020"){ //success
+                if (answer == "1020" || answer == "1023"){ //success
+                    if (answer == "1023") /*Successfuly signed in as admin*/ WPFclient.App.Current.Properties["isAdmin"] = true;
+                    else WPFclient.App.Current.Properties["isAdmin"] = false;
                     MessageBox.Show(this, "Sign in succesful, you are connected, " + username.Text + "!");
                     cl._username = username.Text;
-                    for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.mainMenu") break;
-                    if (i == WPFclient.App.Current.Windows.Count) //if there is mainMenu open already
-                    {
-                        mainMenu m = new mainMenu(); //else create one and open it
-                        m.Show();
-                    }
-                    else WPFclient.App.Current.Windows[i].Show();
+                    mainMenu m = new mainMenu(); //create mainMenu and open it
+                    m.Show();
                     this.Close();
                 }
                 else if (answer == "1021") /*wrong details*/ MessageBox.Show(this, "Sign in unsuccesful, wrong name or password");

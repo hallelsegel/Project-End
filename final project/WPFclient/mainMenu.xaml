@@ -13,6 +13,7 @@
         <Button Content="Highscores" HorizontalAlignment="Center" Background="LightSteelBlue" Margin="0,373,0,0" FontSize="31" VerticalAlignment="Top" Width="276" Height="48" RenderTransformOrigin="-0.58,0.33" Click="click_highScores"/>
         <Button Content="Personal stats" HorizontalAlignment="Center" Background="LightSteelBlue" Margin="0,443,0,0" FontSize="31" VerticalAlignment="Top" Width="276" Height="48" RenderTransformOrigin="-0.58,0.33" Click="click_personalStats"/>
         <Button Content="Log out" HorizontalAlignment="Center"  Background="LightSteelBlue" Margin="0,583,0,0" FontSize="31" VerticalAlignment="Top" Width="150" Height="57" RenderTransformOrigin="-0.58,0.33" Click="click_logOut"/>
+        <Button Name="addQuestions" Content="Add questions" HorizontalAlignment="Center" Background="LightSteelBlue" Margin="0,513,0,0" FontSize="31" VerticalAlignment="Top" Width="276" Height="48" RenderTransformOrigin="-0.58,0.33" Click="click_addQuestions" Visibility="Hidden"/>
         <Label Name="UserName" Content="UserName" Width="Auto" Height="Auto" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="top" Margin="0,0,0,0"/>
     </Grid>
 </Window>

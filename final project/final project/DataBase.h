@@ -37,12 +37,14 @@ public:
 	void close();
 	void clear();
 
+	bool insertQuestion(string question, string answer1, string answer2, string answer3, string answer4);
 	bool isUserExists(string username);
 	bool addNewUser(string username, string password, string email);
 	bool isUserAndPassMatch(string username, string password);
 	vector<Question*> initQuestion(int questionNo);
 	map<int, string> getBestScores();
 	vector<string> getPersonalStatus(string username);
+	int questionCount();
 	int insertNewGame();
 	bool updateGameStatus(int gameId);
 	bool addAnswerToPlayer(int gameId, string username, int questionId, string answer, bool isCorrect, int answerTime);

@@ -16,7 +16,8 @@ namespace WPFclient
     {
         public void App_Startup(object sender, StartupEventArgs e)
         {
-            this.Properties["client"] = new ClientBody();       
+            this.Properties["client"] = new ClientBody();
+            this.Properties["isAdmin"] = new bool();       
         }
         protected override void OnExit(ExitEventArgs e)
         {

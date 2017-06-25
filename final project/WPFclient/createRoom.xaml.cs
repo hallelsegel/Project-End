@@ -88,7 +88,7 @@ namespace WPFclient
         }
         private bool sendCreateRoom()
         {
-            int p = 0, q=0, t =0;
+            int p = 0, q = 0, t = 0, questionCount = sendGetQuestionCount();;
             if (name.Text == "Room Name" || players.Text == "Num Of Players" || questions.Text == "Num Of Questions" || time.Text == "Time For Question")
                 MessageBox.Show(this, "You must fill all of the fields!");
             else if (!Int32.TryParse(players.Text, out p) ||
@@ -100,7 +100,7 @@ namespace WPFclient
             else if (p < 1) MessageBox.Show(this, "You can't have 0 players playing!");
             else if (p > 9) MessageBox.Show(this, "You can only have up to 9 players!");
             else if (q < 1) MessageBox.Show(this, "You can't have 0 questions!");
-            else if (q > 10) MessageBox.Show(this, "You can only have up to 10 questions!"); //our current number of available questions...
+            else if (q > questionCount) MessageBox.Show(this, "You can only have up to " + questionCount + " questions!"); //our current number of available questions...
             else if (t < 1) MessageBox.Show(this, "You can't have 0 seconds to answer!");
             else if (t > 99) MessageBox.Show(this, "You can only have up to 99 seconds!");
             else
@@ -120,6 +120,23 @@ namespace WPFclient
                 return true; //success
             }
             return false; //one of the input checkers went off
+        }
+        private int sendGetQuestionCount()
+        {
+            byte[] buffer = new ASCIIEncoding().GetBytes("240"), rcv = new byte[5];
+            cl._clientStream.Write(buffer, 0, buffer.Length);//send message code to server
+            cl._clientStream.Flush();
+            cl._clientStream.Read(rcv, 0, rcv.Length);
+            string answer = System.Text.Encoding.UTF8.GetString(rcv, 0, 3);
+            if (answer != "140"){
+                MessageBox.Show(this, "Error in requesting question count");
+                return 0;
+            }
+            else {
+                answer = System.Text.Encoding.UTF8.GetString(rcv, 3, 2);
+                if (answer == "-1") MessageBox.Show(this, "Error in finding question count (on server side)");
+                return Int32.Parse(answer);
+            }
         }
     }
 }
