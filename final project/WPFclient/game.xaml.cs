@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,16 +23,18 @@ namespace WPFclient
         int timeLeft, currQuestion, questionNum, timePerQuestion, corrects;
         List<string> answers = new List<string>();
         ClientBody cl; //shared class 
+        Mutex timeLock = new Mutex();
         public game(int _timePerQ, int _questionNum)
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/BG.png")));
+
             timePerQuestion = _timePerQ;
             questionNum = _questionNum;
             currQuestion = 0; corrects = 0;
             UserName.Content = cl._username;
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/WPFclient;component/BG.png")));
             rcvQuestion();
         }
         private async void rcvQuestion()
@@ -64,16 +67,31 @@ namespace WPFclient
                 timerLabel.Content = "Time left: " + timeLeft;
                 currQLabel.Content = ++currQuestion + " / " + questionNum;
             }
+            while (imageCorrect.Opacity > 0)
+            {
+                await Task.Delay(50);
+                imageCorrect.Opacity -= 0.05;
+                textCorrect.Opacity -= 0.05;
+            }
+            while (imageIncorrect.Opacity > 0)
+            {
+                await Task.Delay(50);
+                imageIncorrect.Opacity -= 0.05;
+                textIncorrect.Opacity -= 0.05;
+            }
+            imageCorrect.Visibility = Visibility.Hidden; textCorrect.Visibility = Visibility.Hidden;
+            imageIncorrect.Visibility = Visibility.Hidden; textIncorrect.Visibility = Visibility.Hidden;
             startTimer();
         }
         private async void startTimer()
         {
             while (timeLeft > 0)
             {
-                timerLabel.Content = "Time left: " + timeLeft;
+                timeLock.WaitOne();
                 timeLeft--;
-                await Task.Delay(1000);
                 timerLabel.Content = "Time left: " + timeLeft;
+                await Task.Delay(1000);
+                timeLock.ReleaseMutex();
             }
             if (timeLeft == 0)
             {
@@ -90,21 +108,20 @@ namespace WPFclient
                 corrects++;
                 imageCorrect.Visibility = Visibility.Visible;
                 textCorrect.Visibility = Visibility.Visible;
-                await Task.Delay(700);
-                imageCorrect.Visibility = Visibility.Hidden;
-                textCorrect.Visibility = Visibility.Hidden;
+                imageCorrect.Opacity = 1;
+                textCorrect.Opacity = 1;
             }
             else
             { // If incorrect shows the incorrect pic 
                 imageIncorrect.Visibility = Visibility.Visible;
                 textIncorrect.Visibility = Visibility.Visible;
-                await Task.Delay(700);
-                imageIncorrect.Visibility = Visibility.Hidden;
-                textIncorrect.Visibility = Visibility.Hidden;
+                imageIncorrect.Opacity = 1;
+                textIncorrect.Opacity = 1;
             }
         }
         private void click_mainMenu(object sender, RoutedEventArgs e)
         {//move back to main menu
+            sendLeaveGame();
             int i;
             for (i = 0; i < WPFclient.App.Current.Windows.Count; i++) if (WPFclient.App.Current.Windows[i].ToString() == "WPFclient.mainMenu") break;
             if (i == WPFclient.App.Current.Windows.Count) //if there is mainMenu open already
@@ -122,8 +139,14 @@ namespace WPFclient
             {
                 string name = ((Button)sender).Name;
                 sendAnswer("219" + name[6] + (timePerQuestion - timeLeft).ToString().PadLeft(2, '0')); //use sendAnswer to send to the server the answer from the button to 
-                timeLeft = -1;
             }
+        }
+        private void sendLeaveGame()
+        {
+            byte[] buffer = new ASCIIEncoding().GetBytes("222");
+            //219 == send answer, name[6] == answer number (ex: "button1"), last bit == time taken to answer;
+            cl._clientStream.Write(buffer, 0, buffer.Length); //send message code to server
+            cl._clientStream.Flush();
         }
         private async void sendAnswer(string answer)
         {
@@ -140,7 +163,8 @@ namespace WPFclient
             else
             {
                 isCorrectScreen();
-                await Task.Delay(300);
+                timeLeft = -1;
+                await Task.Delay(1000);
                 rcv = new byte[3]; // resize to recieve only one byte
                 cl._clientStream.Read(rcv, 0, 3);
                 rcvMsg = System.Text.Encoding.UTF8.GetString(rcv);

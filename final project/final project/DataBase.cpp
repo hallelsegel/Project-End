@@ -167,7 +167,7 @@ bool DataBase::insertQuestion(string question, string answer1, string answer2, s
 	int res;
 
 	sqlStatement = "INSERT INTO T_QUESTIONS (QUESTION, CORRECT_ANS, ANS2, ANS3, ANS4) VALUES ('" + question + "', '" + answer1 +
-		"', '" + answer2 + "', '" + answer3 + "', '" + answer4 + "'); SELECT * FROM T_QUESTIONS WHERE QUESTION='" + question + "';"; //to check if worked
+			"', '" + answer2 + "', '" + answer3 + "', '" + answer4 + "'); SELECT * FROM T_QUESTIONS WHERE QUESTION='" + question + "';"; //to check if worked
 
 	resetLastId();
 	res = sqlite3_exec(_sqldb, sqlStatement.c_str(), sqlExecCallbackID, this, &errMessage);

@@ -65,7 +65,7 @@ namespace WPFclient
         private void TextBox_LostFocus_Answer1(object sender, RoutedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
-            string defaultText = "Answer number 1";
+            string defaultText = "Answer number 1 (correct)";
             tb.Text = tb.Text == string.Empty ? defaultText : tb.Text;
         }
         private void TextBox_LostFocus_Answer2(object sender, RoutedEventArgs e)
@@ -89,7 +89,7 @@ namespace WPFclient
         public void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
-            if (tb.Text == "UserName" || tb.Text == "Password" || tb.Text == "Email")
+            if (tb.Text == "Question" || tb.Text == "Answer number 1 (correct)" || tb.Text == "Answer number 2" || tb.Text == "Answer number 3" || tb.Text == "Answer number 4")
             {
                 tb.Text = string.Empty;
             }

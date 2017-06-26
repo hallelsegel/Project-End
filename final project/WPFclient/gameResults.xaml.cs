@@ -70,6 +70,7 @@ namespace WPFclient
          //body of the program, mainMenu will reopen instead
             mainMenu m = new mainMenu();
             m.Show();
+            this.Close();
         }
 
     }

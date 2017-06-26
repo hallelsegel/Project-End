@@ -25,6 +25,7 @@ namespace WPFclient
         public mainMenu()
         {
             cl = (ClientBody)WPFclient.App.Current.Properties["client"];
+            cl._clientStream.Flush(); // when somthing is interrupted by pressing the menu button, flush the stream so it can be used
             InitializeComponent();
             if ((bool)WPFclient.App.Current.Properties["isAdmin"])
             {

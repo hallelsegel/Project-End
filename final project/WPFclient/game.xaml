@@ -21,9 +21,9 @@
         </Button>
 
         <!--hidden-->
-        <Label x:Name="textCorrect" Content="CORRECT!" FontSize="40" HorizontalAlignment="Center" Foreground="GreenYellow" Margin="0,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Visibility="Hidden"/>
-        <Label x:Name="textIncorrect" Content="INCORRECT!" FontSize="40" HorizontalAlignment="Center" Foreground="RosyBrown"  Margin="0,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Visibility="Hidden"/>
-        <Image x:Name="imageCorrect" HorizontalAlignment="Left" Height="700"  Source="BG_green.png" VerticalAlignment="Top" Width="416" Visibility="Hidden"/>
-        <Image x:Name="imageIncorrect" HorizontalAlignment="Left" Height="700"  Source="BG_red.png" VerticalAlignment="Top" Width="416" Visibility="Hidden"/>
+        <Image x:Name="imageCorrect" HorizontalAlignment="Left" Height="700"  Source="Resources/BG_green.png" VerticalAlignment="Top" Width="416" Visibility="Hidden" Opacity="0"/>
+        <Image x:Name="imageIncorrect" HorizontalAlignment="Left" Height="700"  Source="Resources/BG_red.png" VerticalAlignment="Top" Width="416" Visibility="Hidden" Opacity="0"/>
+        <Label x:Name="textCorrect" Content="CORRECT!" FontSize="40" HorizontalAlignment="Center" Foreground="GreenYellow" Margin="0,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Visibility="Hidden" Opacity="0"/>
+        <Label x:Name="textIncorrect" Content="INCORRECT!" FontSize="40" HorizontalAlignment="Center" Foreground="RosyBrown"  Margin="0,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Visibility="Hidden" Opacity="0"/>
     </Grid>
 </Window>
